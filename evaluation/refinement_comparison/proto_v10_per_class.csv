@@ -1,0 +1,7 @@
+class,precision,recall,f1,support
+Walking,1,1,1,32
+WalkingUpstairs,1,1,1,29
+WalkingDownstairs,1,1,1,27
+Sitting,1,1,1,37
+Standing,1,1,1,36
+Laying,1,1,1,40

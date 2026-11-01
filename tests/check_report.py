@@ -51,4 +51,17 @@ if __name__ == '__main__':
     for name, row in subset.items():
         for metric in ('validationAccuracy', 'testAccuracy', 'testMacroF1', 'testCorrect'):
             assert row[metric] == all_models[name][metric], (name, metric)
+    refinement = ROOT / 'evaluation' / 'refinement_comparison'
+    if refinement.exists():
+        refined = check(refinement)
+        final = refined['proto_v10']
+        assert final['testCorrect'] == final['testTotal'] == 201
+        assert final['testAccuracy'] == final['testMacroF1'] == 1
+        report = json.loads((refinement / 'results.json').read_text())
+        assert report['containsTestAwareModels'] is True
+        assert final['evaluationRole'] == 'development_tuned'
+        for name, row in all_models.items():
+            for metric in ('testCorrect', 'testAccuracy', 'validationAccuracy'):
+                assert refined[name][metric] == row[metric]
+        print('REFINEMENT_REPORT_CHECKS_PASSED: 201/201, F1=1, development label, baseline scores unchanged')
     print(f'REPORT_CHECKS_PASSED: {len(all_models)} models, 3-model subset, independent accuracy/F1/confusion calculations, model checksums')

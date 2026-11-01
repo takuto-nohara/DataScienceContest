@@ -19,6 +19,9 @@ No prototype is refitted on the validation or external test rows.
 | proto_v5 | Weighted 5-nearest neighbors | temporal32 | Stratified 80% |
 | proto_v6 | 24 k-means clusters + training-only majority class mapping | temporal32 | 100% |
 | proto_v7 | Gaussian/RBF SVM | accel20 | Stratified 60%; gyroscope excluded |
+| proto_v8 | Gaussian/RBF SVM, C=10, scale=8 | spectral32 | 100%; development-aware tuning |
+| proto_v9 | Gaussian/RBF SVM, C=1, scale=4 | spectral32 | 100%; amplitude gains 1/0.8/1.2, 6618 fitting observations |
+| proto_v10 | v9-style primary + static-candidate majority vote | spectral32 | Same augmentation; embeds original v1 tree and v2 linear SVM |
 
 100% here means 2206 fitting windows, not all 2941 organizer training windows.
 735 windows remain untouched for validation. Fractions are applied per class
@@ -42,6 +45,30 @@ Features have 12, 32, or 20 columns respectively. They are not padded into an
 official preprocessing function. The largest set respects the contest's
 32-feature budget, but the organizer verifier and official function contract
 still need a separate integration step.
+
+Refinement feature sets: `stable26` drops the six dominant-frequency bins;
+`spectral32` replaces them with per-axis 0.5-3 Hz power fractions;
+`gravity32`, `distribution32`, `window32`, and `shape32` test posture direction,
+within-window quantiles, temporal changes, and gravity-projected impact shape.
+All have at most 32 columns. Unsuccessful feature families remain implemented
+and logged to make the investigation reproducible.
+
+`proto_v10` uses one spectral32 vector; its first 12 columns are exactly stats12.
+The primary SVM sees all 32, while the embedded v1/v2 models use that 12-column
+subset with their original training-only scalers. When the primary predicts a
+static class, a strict majority across the three six-class predictions is used;
+ties retain the primary. Dynamic primary predictions are retained unchanged.
+This is a general inference rule, not a list of special test rows.
+
+The primary training augmentation preserves each window's estimated gravity
+vector and scales its motion component and gyroscope signal. All 6618 derived
+observations originate from the 2206 fitting windows, never the 735 validation
+or 201 development windows. `fitRows` records unique source rows;
+`augmentedRows`/`fittingObservations` record derived observations.
+
+Versions v8-v10 have `evaluationRole=development_tuned`. The old test labels
+guided their design. A new, independently collected subject/recording-held-out
+dataset is required before claiming improved real-world generalization.
 
 ## Add another version
 

@@ -4,10 +4,20 @@ Private development workspace for the human activity recognition contest.
 
 ## Prototype comparison
 
-Seven versioned prototypes have been trained and evaluated on the supplied
+Ten versioned prototypes have been trained and evaluated on the supplied
 prestudy dataset. See [the experiment report](evaluation/latest/README.md),
 the sortable [HTML comparison](evaluation/latest/report.html), and the
 [model registry](model/README.md).
+
+The original seven-model comparison remains frozen in `evaluation/latest/`.
+The subsequent user-requested, test-aware refinement is in
+[refinement_comparison](evaluation/refinement_comparison/README.md) and the
+[five-error investigation](evaluation/error_analysis/README.md).
+`proto_v10` reaches **201/201 on the development dataset**, with **712/735
+(96.87%) validation accuracy**. The former external test labels were used to
+guide the search; 100% is not an independent test result or a contest guarantee.
+The original five errors are all corrected, without row-number exceptions or
+fitting any of the 201 development windows.
 
 ```powershell
 # Train every model/proto_*/spec.json and compare every saved model
@@ -30,11 +40,12 @@ tracked; organizer data remain local under `data` with tracked provenance.
 
 The fixed protocol uses 2206 fitting windows and 735 validation windows from
 the organizer training file, plus all 201 windows from its separate test file.
-Predefined prototypes are selected by validation accuracy; external test scores
-are reported descriptively. There are no subject IDs, so this random window
+The evaluator ranks by validation accuracy and also records test/development
+scores. There are no subject IDs, so this random window
 split cannot establish performance on unseen people and may include related
-or overlapping windows. No test-driven hyperparameter tuning was performed.
-All configurations were fixed before the first external-test comparison.
+or overlapping windows. In the original seven-model round all configurations
+were fixed before the first external-test comparison. In the later refinement
+round, test-aware tuning was explicitly requested and is labeled accordingly.
 
 The evaluator writes CSV/JSON summaries, per-class precision/recall/F1, confusion
 matrices, every test prediction, a PNG chart, and a standalone sortable HTML

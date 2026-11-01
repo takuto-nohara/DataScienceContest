@@ -1,0 +1,361 @@
+{
+  "baseline": "proto_v3",
+  "cases": [
+    {
+      "testRow": 8,
+      "truth": "Standing",
+      "prediction": "Sitting",
+      "classOrder": [
+        "Laying",
+        "Sitting",
+        "Standing",
+        "Walking",
+        "WalkingDownstairs",
+        "WalkingUpstairs"
+      ],
+      "negativeLossScores": [
+        -0.59616649064714955,
+        -0.074734257508938862,
+        -0.12531299963460824,
+        -0.80019686222087427,
+        -0.76557416607655893,
+        -0.7768112539997325
+      ],
+      "trueMinusPredictedScore": -0.050578742125669374,
+      "nearestTrueTrainingRow": 1463,
+      "nearestWrongTrainingRow": 2519,
+      "topSensitiveFeatures": [
+        {
+          "feature": "acc_y_dominant_hz",
+          "observed": 5.078125,
+          "trueClassTrainingMedian": 0.5859375,
+          "predictedClassTrainingMedian": 0.78125,
+          "deviationInTrainingSD": 2.9924394311868245,
+          "gapChangeIfSetToTrueMedian": 0.14972674870121144,
+          "counterfactualPrediction": "Standing"
+        },
+        {
+          "feature": "gyro_y_gyro_z_correlation",
+          "observed": -0.018623162927634069,
+          "trueClassTrainingMedian": -0.44298184108328,
+          "predictedClassTrainingMedian": -0.4256231801469465,
+          "deviationInTrainingSD": 0.99916488292438566,
+          "gapChangeIfSetToTrueMedian": 0.046728772744514743,
+          "counterfactualPrediction": "Sitting"
+        },
+        {
+          "feature": "gyro_x_dominant_hz",
+          "observed": 1.5625,
+          "trueClassTrainingMedian": 0.78125,
+          "predictedClassTrainingMedian": 0.390625,
+          "deviationInTrainingSD": 0.67739120489424109,
+          "gapChangeIfSetToTrueMedian": 0.022337003338869219,
+          "counterfactualPrediction": "Sitting"
+        },
+        {
+          "feature": "acc_x_acc_y_correlation",
+          "observed": 0.083167773047334109,
+          "trueClassTrainingMedian": 0.0055513854530553994,
+          "predictedClassTrainingMedian": -0.14737995463441325,
+          "deviationInTrainingSD": 0.24592898867359136,
+          "gapChangeIfSetToTrueMedian": 0.00742477578847435,
+          "counterfactualPrediction": "Sitting"
+        },
+        {
+          "feature": "gyro_x_std",
+          "observed": 0.0038969029135274631,
+          "trueClassTrainingMedian": 0.019732736050041569,
+          "predictedClassTrainingMedian": 0.0071218878687710572,
+          "deviationInTrainingSD": -0.059100041564889225,
+          "gapChangeIfSetToTrueMedian": 0.0010211992959439919,
+          "counterfactualPrediction": "Sitting"
+        }
+      ]
+    },
+    {
+      "testRow": 10,
+      "truth": "Standing",
+      "prediction": "Sitting",
+      "classOrder": [
+        "Laying",
+        "Sitting",
+        "Standing",
+        "Walking",
+        "WalkingDownstairs",
+        "WalkingUpstairs"
+      ],
+      "negativeLossScores": [
+        -0.57475391372092433,
+        -0.091950597937860437,
+        -0.14368331497333403,
+        -0.77022317322672951,
+        -0.71201308063593272,
+        -0.72215307903995574
+      ],
+      "trueMinusPredictedScore": -0.051732717035473594,
+      "nearestTrueTrainingRow": 74,
+      "nearestWrongTrainingRow": 1188,
+      "topSensitiveFeatures": [
+        {
+          "feature": "acc_y_dominant_hz",
+          "observed": 7.03125,
+          "trueClassTrainingMedian": 0.5859375,
+          "predictedClassTrainingMedian": 0.78125,
+          "deviationInTrainingSD": 4.2935000534419654,
+          "gapChangeIfSetToTrueMedian": 0.30708222598149965,
+          "counterfactualPrediction": "Standing"
+        },
+        {
+          "feature": "gyro_y_gyro_z_correlation",
+          "observed": -0.142398470517455,
+          "trueClassTrainingMedian": -0.44298184108328,
+          "predictedClassTrainingMedian": -0.4256231801469465,
+          "deviationInTrainingSD": 0.70773231165138106,
+          "gapChangeIfSetToTrueMedian": 0.04592807780307788,
+          "counterfactualPrediction": "Sitting"
+        },
+        {
+          "feature": "acc_y_acc_z_correlation",
+          "observed": 0.12181548352122103,
+          "trueClassTrainingMedian": 0.22976959357714438,
+          "predictedClassTrainingMedian": 0.11861819860014804,
+          "deviationInTrainingSD": -0.31122229914363436,
+          "gapChangeIfSetToTrueMedian": 0.016758532193940884,
+          "counterfactualPrediction": "Sitting"
+        },
+        {
+          "feature": "acc_x_acc_y_correlation",
+          "observed": 0.084706365736423928,
+          "trueClassTrainingMedian": 0.0055513854530553994,
+          "predictedClassTrainingMedian": -0.14737995463441325,
+          "deviationInTrainingSD": 0.25080404864142131,
+          "gapChangeIfSetToTrueMedian": 0.01671273113757786,
+          "counterfactualPrediction": "Sitting"
+        },
+        {
+          "feature": "gyro_x_dominant_hz",
+          "observed": 0.390625,
+          "trueClassTrainingMedian": 0.78125,
+          "predictedClassTrainingMedian": 0.390625,
+          "deviationInTrainingSD": -0.33869560244712055,
+          "gapChangeIfSetToTrueMedian": 0.016296199792673785,
+          "counterfactualPrediction": "Sitting"
+        }
+      ]
+    },
+    {
+      "testRow": 105,
+      "truth": "Walking",
+      "prediction": "WalkingUpstairs",
+      "classOrder": [
+        "Laying",
+        "Sitting",
+        "Standing",
+        "Walking",
+        "WalkingDownstairs",
+        "WalkingUpstairs"
+      ],
+      "negativeLossScores": [
+        -0.89687403510782393,
+        -0.90131102736616775,
+        -0.95957143866228767,
+        -0.18881208244292327,
+        -0.43277153639978472,
+        -0.044974574254442644
+      ],
+      "trueMinusPredictedScore": -0.14383750818848062,
+      "nearestTrueTrainingRow": 97,
+      "nearestWrongTrainingRow": 1942,
+      "topSensitiveFeatures": [
+        {
+          "feature": "gyro_z_dominant_hz",
+          "observed": 0.78125,
+          "trueClassTrainingMedian": 2.734375,
+          "predictedClassTrainingMedian": 0.78125,
+          "deviationInTrainingSD": -1.3971948694286052,
+          "gapChangeIfSetToTrueMedian": 0.19040957153928312,
+          "counterfactualPrediction": "Walking"
+        },
+        {
+          "feature": "gyro_z_gyro_x_correlation",
+          "observed": -0.29852866903215675,
+          "trueClassTrainingMedian": -0.052915323937333572,
+          "predictedClassTrainingMedian": -0.218257299873799,
+          "deviationInTrainingSD": -0.63285443279267528,
+          "gapChangeIfSetToTrueMedian": 0.056720281513189807,
+          "counterfactualPrediction": "WalkingUpstairs"
+        },
+        {
+          "feature": "gyro_x_mean",
+          "observed": 0.22139394660156231,
+          "trueClassTrainingMedian": -0.0014308987578124893,
+          "predictedClassTrainingMedian": 0.072356576859765653,
+          "deviationInTrainingSD": 1.1849771400556435,
+          "gapChangeIfSetToTrueMedian": 0.045118737302604933,
+          "counterfactualPrediction": "WalkingUpstairs"
+        },
+        {
+          "feature": "gyro_x_gyro_y_correlation",
+          "observed": -0.02465390589360613,
+          "trueClassTrainingMedian": -0.24549684389249571,
+          "predictedClassTrainingMedian": -0.18742851730430315,
+          "deviationInTrainingSD": 0.58026124179515992,
+          "gapChangeIfSetToTrueMedian": 0.038260377509713492,
+          "counterfactualPrediction": "WalkingUpstairs"
+        },
+        {
+          "feature": "gyro_y_mean",
+          "observed": -0.071173840140624986,
+          "trueClassTrainingMedian": -0.00012751056406249696,
+          "predictedClassTrainingMedian": -0.014198733733203153,
+          "deviationInTrainingSD": -1.1766148602030646,
+          "gapChangeIfSetToTrueMedian": 0.0364611551078001,
+          "counterfactualPrediction": "WalkingUpstairs"
+        }
+      ]
+    },
+    {
+      "testRow": 176,
+      "truth": "WalkingDownstairs",
+      "prediction": "WalkingUpstairs",
+      "classOrder": [
+        "Laying",
+        "Sitting",
+        "Standing",
+        "Walking",
+        "WalkingDownstairs",
+        "WalkingUpstairs"
+      ],
+      "negativeLossScores": [
+        -0.84710585496458213,
+        -0.81289875620518315,
+        -0.87372866771239921,
+        -0.32195589885952669,
+        -0.26174205626269392,
+        -0.030042486577982797
+      ],
+      "trueMinusPredictedScore": -0.23169956968471112,
+      "nearestTrueTrainingRow": 2551,
+      "nearestWrongTrainingRow": 1526,
+      "topSensitiveFeatures": [
+        {
+          "feature": "acc_magnitude_std",
+          "observed": 0.24101053815281498,
+          "trueClassTrainingMedian": 0.40281373573401996,
+          "predictedClassTrainingMedian": 0.26772789588753021,
+          "deviationInTrainingSD": -1.0309616886884545,
+          "gapChangeIfSetToTrueMedian": 0.078991423505020752,
+          "counterfactualPrediction": "WalkingUpstairs"
+        },
+        {
+          "feature": "gyro_y_gyro_z_correlation",
+          "observed": 0.159076923516329,
+          "trueClassTrainingMedian": -0.15219662175742688,
+          "predictedClassTrainingMedian": 0.27515114585395645,
+          "deviationInTrainingSD": 0.732902639749569,
+          "gapChangeIfSetToTrueMedian": 0.0779759772051758,
+          "counterfactualPrediction": "WalkingUpstairs"
+        },
+        {
+          "feature": "acc_x_std",
+          "observed": 0.23302736865830617,
+          "trueClassTrainingMedian": 0.3758536972903509,
+          "predictedClassTrainingMedian": 0.24783520767031164,
+          "deviationInTrainingSD": -0.97149746635958945,
+          "gapChangeIfSetToTrueMedian": 0.072066141534206624,
+          "counterfactualPrediction": "WalkingUpstairs"
+        },
+        {
+          "feature": "acc_magnitude_jerk_rms",
+          "observed": 5.5893317523802386,
+          "trueClassTrainingMedian": 7.9040680446294909,
+          "predictedClassTrainingMedian": 5.1025736854098,
+          "deviationInTrainingSD": -0.70922381304862914,
+          "gapChangeIfSetToTrueMedian": 0.063237510137487019,
+          "counterfactualPrediction": "WalkingUpstairs"
+        },
+        {
+          "feature": "acc_magnitude_max",
+          "observed": 1.8171080525976655,
+          "trueClassTrainingMedian": 2.0477089924734067,
+          "predictedClassTrainingMedian": 1.716883100311841,
+          "deviationInTrainingSD": -0.56049770943262867,
+          "gapChangeIfSetToTrueMedian": 0.054864182278092921,
+          "counterfactualPrediction": "WalkingUpstairs"
+        }
+      ]
+    },
+    {
+      "testRow": 201,
+      "truth": "WalkingDownstairs",
+      "prediction": "Walking",
+      "classOrder": [
+        "Laying",
+        "Sitting",
+        "Standing",
+        "Walking",
+        "WalkingDownstairs",
+        "WalkingUpstairs"
+      ],
+      "negativeLossScores": [
+        -0.99354180410268467,
+        -0.84237985100014345,
+        -0.846163890982383,
+        -0.11999360099005282,
+        -0.23158323726562696,
+        -0.25345266683542383
+      ],
+      "trueMinusPredictedScore": -0.11158963627557414,
+      "nearestTrueTrainingRow": 241,
+      "nearestWrongTrainingRow": 171,
+      "topSensitiveFeatures": [
+        {
+          "feature": "acc_magnitude_std",
+          "observed": 0.27523060335940847,
+          "trueClassTrainingMedian": 0.40281373573401996,
+          "predictedClassTrainingMedian": 0.2315321104834519,
+          "deviationInTrainingSD": -0.81292164535301481,
+          "gapChangeIfSetToTrueMedian": 0.16718894242277296,
+          "counterfactualPrediction": "WalkingDownstairs"
+        },
+        {
+          "feature": "acc_x_std",
+          "observed": 0.26341971387721291,
+          "trueClassTrainingMedian": 0.3758536972903509,
+          "predictedClassTrainingMedian": 0.21928836738010585,
+          "deviationInTrainingSD": -0.76477027075295689,
+          "gapChangeIfSetToTrueMedian": 0.1582004376164946,
+          "counterfactualPrediction": "WalkingDownstairs"
+        },
+        {
+          "feature": "acc_x_acc_y_correlation",
+          "observed": -0.29448601881020225,
+          "trueClassTrainingMedian": -0.44392075168941192,
+          "predictedClassTrainingMedian": -0.12100488400171561,
+          "deviationInTrainingSD": 0.47348677088395263,
+          "gapChangeIfSetToTrueMedian": 0.1341702691318406,
+          "counterfactualPrediction": "WalkingDownstairs"
+        },
+        {
+          "feature": "acc_magnitude_max",
+          "observed": 1.8191367198674417,
+          "trueClassTrainingMedian": 2.0477089924734067,
+          "predictedClassTrainingMedian": 1.6491009361374744,
+          "deviationInTrainingSD": -0.55556683899245074,
+          "gapChangeIfSetToTrueMedian": 0.11017816995163371,
+          "counterfactualPrediction": "Walking"
+        },
+        {
+          "feature": "acc_magnitude_jerk_rms",
+          "observed": 5.5226088297533176,
+          "trueClassTrainingMedian": 7.9040680446294909,
+          "predictedClassTrainingMedian": 5.3880951070192911,
+          "deviationInTrainingSD": -0.72966738831103228,
+          "gapChangeIfSetToTrueMedian": 0.050596327345356781,
+          "counterfactualPrediction": "Walking"
+        }
+      ]
+    }
+  ],
+  "interpretation": "Negative-loss scores are not probabilities. Feature replacement is a sensitivity diagnostic, not a causal explanation or a physically realizable counterfactual. Nearest neighbors do not themselves determine the RBF SVM prediction."
+}

@@ -2,6 +2,8 @@
 
 Private development workspace for the human activity recognition contest.
 
+日本語レポート：[行動認識モデルは何を基準に分類しているか](reports/classification-criteria-ja.md)
+
 ## Prototype comparison
 
 Ten versioned prototypes have been trained and evaluated on the supplied

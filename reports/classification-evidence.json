@@ -1,0 +1,302 @@
+{
+  "model": "proto_v10",
+  "modelSHA256": "43db6baf58f8adcde1dbc09538ea9eedf34e0c2e52c8a0971a35fdd0e67ccd9e",
+  "featureNames": [
+    "acc_x_mean",
+    "acc_y_mean",
+    "acc_z_mean",
+    "gyro_x_mean",
+    "gyro_y_mean",
+    "gyro_z_mean",
+    "acc_x_std",
+    "acc_y_std",
+    "acc_z_std",
+    "gyro_x_std",
+    "gyro_y_std",
+    "gyro_z_std",
+    "acc_magnitude_mean",
+    "acc_magnitude_std",
+    "acc_magnitude_max",
+    "acc_magnitude_jerk_rms",
+    "gyro_magnitude_mean",
+    "gyro_magnitude_std",
+    "gyro_magnitude_max",
+    "gyro_magnitude_change_rms",
+    "acc_x_acc_y_correlation",
+    "acc_y_acc_z_correlation",
+    "acc_z_acc_x_correlation",
+    "gyro_x_gyro_y_correlation",
+    "gyro_y_gyro_z_correlation",
+    "gyro_z_gyro_x_correlation",
+    "acc_x_power_fraction_0p5_to_3_hz",
+    "acc_y_power_fraction_0p5_to_3_hz",
+    "acc_z_power_fraction_0p5_to_3_hz",
+    "gyro_x_power_fraction_0p5_to_3_hz",
+    "gyro_y_power_fraction_0p5_to_3_hz",
+    "gyro_z_power_fraction_0p5_to_3_hz"
+  ],
+  "primaryCenter": [
+    0.80685721463256022,
+    0.021947660904188985,
+    0.078569349875511549,
+    0.0040003597302150128,
+    -0.0021595251622730182,
+    0.0013471060830510674,
+    0.12892018093806226,
+    0.083825292597024578,
+    0.072650074054377414,
+    0.24640995846032956,
+    0.25544322093430666,
+    0.17389454157028714,
+    1.0329062888991782,
+    0.13609440155355457,
+    1.379319282188251,
+    2.8687732706508742,
+    0.39236143616255448,
+    0.18673647699330281,
+    0.94595309435123354,
+    5.3305426261378273,
+    -0.1313310126471903,
+    0.092172029507702855,
+    -0.18278842761585917,
+    -0.16898960344164882,
+    -0.12025322336104032,
+    -0.0021615448664675497,
+    0.45154706338628015,
+    0.41851957445571913,
+    0.43968463940256064,
+    0.46835633767900292,
+    0.45653239349950758,
+    0.49389598599860157
+  ],
+  "primaryScale": [
+    0.365420501561149,
+    0.36568899085011575,
+    0.34826368819476167,
+    0.19050451943744981,
+    0.061173541316469446,
+    0.060943272108332731,
+    0.15042222187839197,
+    0.08869321288738756,
+    0.07837351758205939,
+    0.27442428612728648,
+    0.29589666784124519,
+    0.19149070475922073,
+    0.0207748717539795,
+    0.16033347676681137,
+    0.42150021262939408,
+    3.3338738629647113,
+    0.41051103177488424,
+    0.19993621995846736,
+    1.0241154912743082,
+    6.5760211188485895,
+    0.31555717477989403,
+    0.34681896014272179,
+    0.28463166320270472,
+    0.38053473933289805,
+    0.42464917350287079,
+    0.38804535613518559,
+    0.254931184905608,
+    0.18483398098177997,
+    0.21092643881012479,
+    0.19997524043567358,
+    0.21895217376639864,
+    0.22119407455229498
+  ],
+  "classOrder": [
+    "Laying",
+    "Sitting",
+    "Standing",
+    "Walking",
+    "WalkingDownstairs",
+    "WalkingUpstairs"
+  ],
+  "binaryLearners": 15,
+  "binaryLoss": "hinge",
+  "parameters": {
+    "kernel": "gaussian",
+    "KernelScale": 4,
+    "BoxConstraint": 1,
+    "Coding": "onevsone",
+    "staticSources": [
+      "proto_v1",
+      "proto_v2"
+    ],
+    "sourceArtifactSHA256": [
+      "e71643e76e832c6b0cc83c0830dd96fe1b287224d3f2c8275fec355d74de6c97",
+      "685aed01a6a5b9d4a32b4f29ab5909f8bfd21baada212891cd4f03fd457c01ca"
+    ],
+    "rule": "If primary predicts Sitting/Standing/Laying, use strict majority across primary and static specialists; otherwise retain primary. Ties retain primary.",
+    "augmentationGains": [
+      1,
+      0.8,
+      1.2
+    ]
+  },
+  "testWindows": 201,
+  "primaryStaticCandidates": 113,
+  "voteChangedWindows": 1,
+  "primaryCorrect": 200,
+  "finalCorrect": 201,
+  "focus": [
+    {
+      "row": 8,
+      "truth": "Standing",
+      "primary": "Standing",
+      "tree": "Standing",
+      "linearSVM": "Standing",
+      "final": "Standing",
+      "primaryNegativeLoss": [
+        -0.69466085954034129,
+        -0.36265056870387818,
+        -0,
+        -0.84552598258222211,
+        -0.88801602218282538,
+        -0.87188816060422991
+      ]
+    },
+    {
+      "row": 10,
+      "truth": "Standing",
+      "primary": "Standing",
+      "tree": "Standing",
+      "linearSVM": "Standing",
+      "final": "Standing",
+      "primaryNegativeLoss": [
+        -0.72341750585475229,
+        -0.32163845187297835,
+        -0,
+        -0.84653166512219369,
+        -0.90521639957058275,
+        -0.8769318091353544
+      ]
+    },
+    {
+      "row": 105,
+      "truth": "Walking",
+      "primary": "Walking",
+      "tree": "WalkingUpstairs",
+      "linearSVM": "Walking",
+      "final": "Walking",
+      "primaryNegativeLoss": [
+        -0.81142874144406607,
+        -0.870733095229253,
+        -0.87160480435925258,
+        -2.2376129561463286E-7,
+        -0.3936503895738947,
+        -0.22242711050578859
+      ]
+    },
+    {
+      "row": 155,
+      "truth": "Sitting",
+      "primary": "Standing",
+      "tree": "Sitting",
+      "linearSVM": "Sitting",
+      "final": "Sitting",
+      "primaryNegativeLoss": [
+        -0.61742173960626068,
+        -0.13650125511495087,
+        -0.063897598151490181,
+        -0.81633918900732461,
+        -0.72170735688276322,
+        -0.72128048891147023
+      ]
+    },
+    {
+      "row": 176,
+      "truth": "WalkingDownstairs",
+      "primary": "WalkingDownstairs",
+      "tree": "Walking",
+      "linearSVM": "Walking",
+      "final": "WalkingDownstairs",
+      "primaryNegativeLoss": [
+        -0.6967380828544818,
+        -0.76885325236245661,
+        -0.78794065657556034,
+        -0.28161465595580504,
+        -0.214704005397728,
+        -0.25014934685396839
+      ]
+    },
+    {
+      "row": 201,
+      "truth": "WalkingDownstairs",
+      "primary": "WalkingDownstairs",
+      "tree": "Walking",
+      "linearSVM": "Walking",
+      "final": "WalkingDownstairs",
+      "primaryNegativeLoss": [
+        -0.92555609632915414,
+        -0.89703269419436094,
+        -0.77847935488627606,
+        -0.18570042875666917,
+        -0.0288881407453196,
+        -0.47961775046189015
+      ]
+    }
+  ],
+  "disclaimer": "Labels guided prior development. Negative-loss values and gaps are not calibrated probabilities or causal feature attributions.",
+  "primaryValidationGroupSensitivity": [
+    {
+      "group": "axis_means",
+      "firstColumn": 1,
+      "lastColumn": 6,
+      "repeats": 5,
+      "baselineAccuracy": 0.97414965986394553,
+      "meanPermutedAccuracy": 0.66639455782312917,
+      "meanAccuracyDropPercentagePoints": 30.775510204081634,
+      "stdAccuracyPercentagePoints": 1.3413613653187735
+    },
+    {
+      "group": "band_power_fractions",
+      "firstColumn": 27,
+      "lastColumn": 32,
+      "repeats": 5,
+      "baselineAccuracy": 0.97414965986394553,
+      "meanPermutedAccuracy": 0.83782312925170077,
+      "meanAccuracyDropPercentagePoints": 13.632653061224476,
+      "stdAccuracyPercentagePoints": 0.49431026189346816
+    },
+    {
+      "group": "axis_standard_deviations",
+      "firstColumn": 7,
+      "lastColumn": 12,
+      "repeats": 5,
+      "baselineAccuracy": 0.97414965986394553,
+      "meanPermutedAccuracy": 0.86204081632653062,
+      "meanAccuracyDropPercentagePoints": 11.210884353741491,
+      "stdAccuracyPercentagePoints": 1.3693591989209393
+    },
+    {
+      "group": "axis_correlations",
+      "firstColumn": 21,
+      "lastColumn": 26,
+      "repeats": 5,
+      "baselineAccuracy": 0.97414965986394553,
+      "meanPermutedAccuracy": 0.87346938775510208,
+      "meanAccuracyDropPercentagePoints": 10.068027210884345,
+      "stdAccuracyPercentagePoints": 0.89734054137910868
+    },
+    {
+      "group": "acceleration_magnitude",
+      "firstColumn": 13,
+      "lastColumn": 16,
+      "repeats": 5,
+      "baselineAccuracy": 0.97414965986394553,
+      "meanPermutedAccuracy": 0.88244897959183677,
+      "meanAccuracyDropPercentagePoints": 9.1700680272108759,
+      "stdAccuracyPercentagePoints": 1.2000586161197264
+    },
+    {
+      "group": "gyroscope_magnitude",
+      "firstColumn": 17,
+      "lastColumn": 20,
+      "repeats": 5,
+      "baselineAccuracy": 0.97414965986394553,
+      "meanPermutedAccuracy": 0.92272108843537415,
+      "meanAccuracyDropPercentagePoints": 5.1428571428571379,
+      "stdAccuracyPercentagePoints": 0.44504563901485944
+    }
+  ]
+}

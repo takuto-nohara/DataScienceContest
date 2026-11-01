@@ -1,0 +1,32 @@
+{
+  "id": "proto_v2",
+  "stage": "prototype",
+  "algorithm": "linear_svm",
+  "featureSet": "stats12",
+  "featureCount": 12,
+  "featureNames": [
+    "acc_x_mean",
+    "acc_y_mean",
+    "acc_z_mean",
+    "gyro_x_mean",
+    "gyro_y_mean",
+    "gyro_z_mean",
+    "acc_x_std",
+    "acc_y_std",
+    "acc_z_std",
+    "gyro_x_std",
+    "gyro_y_std",
+    "gyro_z_std"
+  ],
+  "uniqueTrainingRows": 2206,
+  "parameters": {
+    "kernel": "linear",
+    "KernelScale": "auto",
+    "BoxConstraint": 1,
+    "Coding": "onevsone"
+  },
+  "matlabVersion": "26.1.0.3346908 (R2026a) Update 5",
+  "artifactSHA256": "685aed01a6a5b9d4a32b4f29ab5909f8bfd21baada212891cd4f03fd457c01ca",
+  "fittingObservations": 2206,
+  "evaluationRole": "baseline_pre_tuning"
+}

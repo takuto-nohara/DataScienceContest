@@ -1,0 +1,40 @@
+{
+  "id": "proto_v7",
+  "stage": "prototype",
+  "algorithm": "rbf_svm",
+  "featureSet": "accel20",
+  "featureCount": 20,
+  "featureNames": [
+    "acc_x_mean",
+    "acc_y_mean",
+    "acc_z_mean",
+    "acc_x_std",
+    "acc_y_std",
+    "acc_z_std",
+    "acc_magnitude_mean",
+    "acc_magnitude_std",
+    "acc_magnitude_max",
+    "acc_magnitude_jerk_rms",
+    "acc_x_dominant_hz",
+    "acc_y_dominant_hz",
+    "acc_z_dominant_hz",
+    "acc_x_acc_y_correlation",
+    "acc_y_acc_z_correlation",
+    "acc_z_acc_x_correlation",
+    "acc_x_max",
+    "acc_y_max",
+    "acc_z_max",
+    "acc_magnitude_spectral_entropy"
+  ],
+  "uniqueTrainingRows": 1320,
+  "parameters": {
+    "kernel": "gaussian",
+    "KernelScale": "auto",
+    "BoxConstraint": 1,
+    "Coding": "onevsone"
+  },
+  "matlabVersion": "26.1.0.3346908 (R2026a) Update 5",
+  "artifactSHA256": "9be2899a93acbec7673fa324297d634babe23a9e1d0477e0b4579ce02a8fc694",
+  "fittingObservations": 1320,
+  "evaluationRole": "baseline_pre_tuning"
+}

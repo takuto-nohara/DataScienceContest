@@ -4,6 +4,10 @@ Private development workspace for the human activity recognition contest.
 
 日本語レポート：[行動認識モデルは何を基準に分類しているか](reports/classification-criteria-ja.md)
 
+文字化けが気になる場合は[ファイル形式と文字コード](reports/file-encoding-ja.md)を参照してください。
+テキストはUTF-8、学習済みモデルの `.mat` はバイナリ形式です。各モデルの
+`model-info.json` と `README.md` は、VSCodeでも内容を確認できるUTF-8の補助ファイルです。
+
 ## Prototype comparison
 
 Ten versioned prototypes have been trained and evaluated on the supplied

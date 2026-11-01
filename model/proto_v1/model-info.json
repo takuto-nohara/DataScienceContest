@@ -1,0 +1,30 @@
+{
+  "id": "proto_v1",
+  "stage": "prototype",
+  "algorithm": "tree",
+  "featureSet": "stats12",
+  "featureCount": 12,
+  "featureNames": [
+    "acc_x_mean",
+    "acc_y_mean",
+    "acc_z_mean",
+    "gyro_x_mean",
+    "gyro_y_mean",
+    "gyro_z_mean",
+    "acc_x_std",
+    "acc_y_std",
+    "acc_z_std",
+    "gyro_x_std",
+    "gyro_y_std",
+    "gyro_z_std"
+  ],
+  "uniqueTrainingRows": 2206,
+  "parameters": {
+    "MaxNumSplits": 100,
+    "MinLeafSize": 5
+  },
+  "matlabVersion": "26.1.0.3346908 (R2026a) Update 5",
+  "artifactSHA256": "e71643e76e832c6b0cc83c0830dd96fe1b287224d3f2c8275fec355d74de6c97",
+  "fittingObservations": 2206,
+  "evaluationRole": "baseline_pre_tuning"
+}

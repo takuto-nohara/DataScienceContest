@@ -1,0 +1,1 @@
+{"id":"proto_v9","stage":"prototype","algorithm":"rbf_svm","featureSet":"spectral32","trainFraction":1,"seed":103,"boxConstraint":1,"kernelScale":4,"augmentationGains":[1,0.8,1.2],"evaluationRole":"development_tuned","description":"Motion-amplitude augmentation of fitting trials only, preserving per-trial gravity estimate; test-aware development"}

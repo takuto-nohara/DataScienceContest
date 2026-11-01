@@ -59,6 +59,8 @@ if __name__ == '__main__':
         assert final['testAccuracy'] == final['testMacroF1'] == 1
         report = json.loads((refinement / 'results.json').read_text())
         assert report['containsTestAwareModels'] is True
+        html = (refinement / 'report.html').read_text(encoding='utf-8')
+        assert html.index('<caption') < html.index('<thead'), 'Caption must precede table sections to avoid breaking sortable rows'
         assert final['evaluationRole'] == 'development_tuned'
         for name, row in all_models.items():
             for metric in ('testCorrect', 'testAccuracy', 'validationAccuracy'):

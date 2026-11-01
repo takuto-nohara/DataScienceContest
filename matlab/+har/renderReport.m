@@ -12,7 +12,7 @@ html=[html '<p>Primary selection: <b>' escape(report.selectedModel) '</b> by val
     '<p><a href="leaderboard.csv">Leaderboard CSV</a> · <a href="results.json">Complete JSON</a> · <a href="comparison.png">Chart PNG</a></p>' ...
     '<div class="scroll"><table id="leaderboard"><thead><tr><th>Prototype</th><th>Method</th><th>Features</th><th>Fit rows</th><th>Validation accuracy</th><th>Test/development accuracy</th><th>Macro F1</th><th>Train seconds</th><th>Predict ms/window</th></tr></thead><tbody>'];
 if isfield(report,'containsTestAwareModels') && report.containsTestAwareModels
-    html=[html '<caption style="background:#fff1cc;padding:16px;text-align:left">TEST-AWARE DEVELOPMENT: the former external test labels guided refinement. A 100% score here is not an independent generalization estimate. Validation was also inspected.</caption>'];
+    html=strrep(html,'<table id="leaderboard">','<table id="leaderboard"><caption style="background:#fff1cc;padding:16px;text-align:left">TEST-AWARE DEVELOPMENT: the former external test labels guided refinement. A 100% score here is not an independent generalization estimate. Validation was also inspected.</caption>');
 end
 for k=1:numel(rows)
     r=rows(k);

@@ -1,0 +1,32 @@
+{
+  "sourceFolder": "https://drive.google.com/drive/folders/1-RZWVPlhsY_WEvZakkYgf5T6YoOQt7Pl",
+  "sourceFileId": "1c3ptMRJ0tF6x15PKGKyxU0jpoxNpeRaM",
+  "archive": "DScontest_Advanced_PreStudy.zip",
+  "archiveSHA256": "10991604664bcb5014d243c2da256567de2fdb46a4c50c8487f9ed34d8c36556",
+  "downloadedAt": "2026-11-01T16:42:40.2232065+09:00",
+  "files": [
+    {
+      "path": "data/prestudy/Rawdata Files/rawSensorData_test.mat",
+      "bytes": 1199220,
+      "sha256": "4fdf14a8994bc290c3b6921406b889fc347676cfb7f15739d54de20038f2d94e"
+    },
+    {
+      "path": "data/prestudy/Rawdata Files/rawSensorData_train.mat",
+      "bytes": 17271832,
+      "sha256": "573caebab324e3baf63578c69948e2a109b8444ef515eef8ff119a2c0ed67ca8"
+    }
+  ],
+  "trainingWindows": 2941,
+  "testWindows": 201,
+  "samplesPerWindow": 128,
+  "sampleRateHz": 50,
+  "sensors": [
+    "total_acc_x",
+    "total_acc_y",
+    "total_acc_z",
+    "body_gyro_x",
+    "body_gyro_y",
+    "body_gyro_z"
+  ],
+  "subjectIdentifiersAvailable": false
+}

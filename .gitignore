@@ -1,11 +1,16 @@
 # Local datasets, organizer distributions, models, and execution logs
 data/**
 !data/README.md
+!data/manifest.json
 official/**
 !official/README.md
 artifacts/**
 !artifacts/.gitkeep
 *.mat
+!model/proto_*/trained.mat
+.venv/
+__pycache__/
+*.log
 *.asv
 *.m~
 *.mexw64
@@ -16,3 +21,4 @@ license*.dat
 .yomiyasu/
 .DS_Store
 Thumbs.db
+evaluation/subset_check/

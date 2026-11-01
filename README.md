@@ -2,6 +2,50 @@
 
 Private development workspace for the human activity recognition contest.
 
+## Prototype comparison
+
+Seven versioned prototypes have been trained and evaluated on the supplied
+prestudy dataset. See [the experiment report](evaluation/latest/README.md),
+the sortable [HTML comparison](evaluation/latest/report.html), and the
+[model registry](model/README.md).
+
+```powershell
+# Train every model/proto_*/spec.json and compare every saved model
+.\scripts\run_prototypes.ps1
+
+# Evaluate saved models without retraining
+.\scripts\run_prototypes.ps1 -Action evaluate
+
+# Compare any chosen number of versions (example: three)
+.\scripts\run_prototypes.ps1 -Action evaluate -Models proto_v1,proto_v3,proto_v6 -OutputName subset_check
+
+# MATLAB checks; Python stdlib independently verifies report calculations
+.\scripts\run_prototypes.ps1 -Action test
+python -I -B tests\check_report.py
+```
+
+Models live in `model/proto_vN/`. All read the same `data/prestudy` directory.
+Actual trained models, specifications, manifests, and evaluation reports are
+tracked; organizer data remain local under `data` with tracked provenance.
+
+The fixed protocol uses 2206 fitting windows and 735 validation windows from
+the organizer training file, plus all 201 windows from its separate test file.
+Predefined prototypes are selected by validation accuracy; external test scores
+are reported descriptively. There are no subject IDs, so this random window
+split cannot establish performance on unseen people and may include related
+or overlapping windows. No test-driven hyperparameter tuning was performed.
+All configurations were fixed before the first external-test comparison.
+
+The evaluator writes CSV/JSON summaries, per-class precision/recall/F1, confusion
+matrices, every test prediction, a PNG chart, and a standalone sortable HTML
+report. `har.evaluate` never trains or tunes models, and checks model artifact
+hashes, spec consistency, dataset hashes, class order, and split compatibility.
+Models trained on different datasets or protocols cannot silently be compared.
+
+MATLAB R2026a Update 5 with Statistics and Machine Learning Toolbox is required
+for these prototypes; Python 3 is optional and used only for the independent
+report checks. No third-party Python dependencies are required.
+
 ## Environment
 
 - MATLAB **R2026a Update 5**
@@ -46,9 +90,10 @@ does not train a contest model or submit anything.
 
 ## Organizer materials
 
-See `official/README.md` and `data/README.md`. This repository does not contain
-the organizer's datasets, live scripts, submission verifier, or a completed
-registration. Only the environment can be verified before receiving those files.
+See `official/README.md` and `data/README.md`. The supplied prestudy ZIP and MAT
+files are available locally in `data/prestudy` and are excluded from Git.
+The official Advanced live script, preprocessing template, and submission
+verifier have not been supplied. No registration or submission forms were sent.
 
 ## Development constraints
 

@@ -1,0 +1,18 @@
+# Local datasets, organizer distributions, models, and execution logs
+data/**
+!data/README.md
+official/**
+!official/README.md
+artifacts/**
+!artifacts/.gitkeep
+*.mat
+*.asv
+*.m~
+*.mexw64
+.env
+.env.*
+*.lic
+license*.dat
+.yomiyasu/
+.DS_Store
+Thumbs.db

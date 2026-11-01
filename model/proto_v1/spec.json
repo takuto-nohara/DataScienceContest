@@ -1,0 +1,1 @@
+{"id":"proto_v1","stage":"prototype","algorithm":"tree","featureSet":"stats12","trainFraction":1,"seed":101,"description":"Decision tree baseline; means and standard deviations, all six sensors"}

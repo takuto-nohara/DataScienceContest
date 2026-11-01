@@ -1,0 +1,1 @@
+{"id":"proto_v6","stage":"prototype","algorithm":"kmeans","featureSet":"temporal32","trainFraction":1,"seed":106,"description":"24 k-means clusters; class mapping fitted only from training labels"}

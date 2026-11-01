@@ -1,0 +1,1 @@
+{"id":"proto_v4","stage":"prototype","algorithm":"bagged_trees","featureSet":"temporal32","trainFraction":1,"seed":104,"description":"100 bagged decision trees; 32 features"}

@@ -1,0 +1,1 @@
+{"id":"proto_v5","stage":"prototype","algorithm":"knn","featureSet":"temporal32","trainFraction":0.8,"seed":105,"description":"Distance-weighted 5-NN; stratified 80% of fitting partition"}

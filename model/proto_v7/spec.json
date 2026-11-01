@@ -1,0 +1,1 @@
+{"id":"proto_v7","stage":"prototype","algorithm":"rbf_svm","featureSet":"accel20","trainFraction":0.6,"seed":107,"description":"Gaussian ECOC SVM; accelerometer only, stratified 60% of fitting partition"}

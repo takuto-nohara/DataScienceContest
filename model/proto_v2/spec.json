@@ -1,0 +1,1 @@
+{"id":"proto_v2","stage":"prototype","algorithm":"linear_svm","featureSet":"stats12","trainFraction":1,"seed":102,"description":"Linear ECOC SVM; same 12 features as baseline"}

@@ -16,7 +16,7 @@ for family={'spectral32','shape32','temporal32'}
                 correct=sum(pt==d.testLabels);accuracy=mean(pv==d.trainLabels(p.validationRows));
                 record=struct('attempt',attempt,'featureSet',string(featureSet),'gainSet',g,'augmentedRows',numel(y),'boxConstraint',box,'kernelScale',width,'validationAccuracy',accuracy,'developmentCorrect',correct);
                 if attempt==1,records=record;else,records(attempt)=record;end %#ok<AGROW>
-                writetable(struct2table(records),fullfile(out,'augmentation_search.csv'));
+                writetable(struct2table(records),fullfile(out,'augmentation_search.csv'),'Encoding','UTF-8');
                 if correct>best
                     gains=gainSets{g};save(fullfile(out,'best_augmented.mat'),'estimator','record','center','scale','gains');best=correct;
                 end

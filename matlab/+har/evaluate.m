@@ -45,16 +45,16 @@ for k=1:numel(folders)
     else
         records(k)=record; details(k)=detail; %#ok<AGROW>
     end
-    writetable(table((1:numel(predicted))',data.testLabels,predicted,'VariableNames',{'row','truth','prediction'}),fullfile(out,[bundle.spec.id '_predictions.csv']));
-    writematrix(t.confusion,fullfile(out,[bundle.spec.id '_confusion.csv']));
-    writetable(table(data.classes,t.precision,t.recall,t.f1,t.support,'VariableNames',{'class','precision','recall','f1','support'}),fullfile(out,[bundle.spec.id '_per_class.csv']));
+    writetable(table((1:numel(predicted))',data.testLabels,predicted,'VariableNames',{'row','truth','prediction'}),fullfile(out,[bundle.spec.id '_predictions.csv']),'Encoding','UTF-8');
+    writematrix(t.confusion,fullfile(out,[bundle.spec.id '_confusion.csv']),'Encoding','UTF-8');
+    writetable(table(data.classes,t.precision,t.recall,t.f1,t.support,'VariableNames',{'class','precision','recall','f1','support'}),fullfile(out,[bundle.spec.id '_per_class.csv']),'Encoding','UTF-8');
     fprintf('%s: validation %.2f%%, external test %.2f%% (%d/%d)\n',bundle.spec.id,100*v.accuracy,100*t.accuracy,t.correct,t.total);
 end
 leaderboard=sortrows(struct2table(records),{'validationAccuracy','validationMacroF1','model'},{'descend','descend','ascend'});
 leaderboard.validationRank=(1:height(leaderboard))';
 [~,order]=sort(leaderboard.testAccuracy,'descend'); ranks=zeros(height(leaderboard),1); ranks(order)=1:height(leaderboard);
 leaderboard.testRank=ranks;
-writetable(leaderboard,fullfile(out,'leaderboard.csv'));
+writetable(leaderboard,fullfile(out,'leaderboard.csv'),'Encoding','UTF-8');
 report=struct('schemaVersion',1,'protocolVersion',protocol.version,'fingerprint',data.fingerprint, ...
     'testWindows',numel(data.testLabels),'validationWindows',numel(protocol.validationRows), ...
     'containsTestAwareModels',any(leaderboard.evaluationRole=="development_tuned"), ...

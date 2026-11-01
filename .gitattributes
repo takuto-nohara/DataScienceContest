@@ -1,0 +1,15 @@
+* text=auto
+.editorconfig text eol=lf
+.gitattributes text eol=lf
+*.m text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.csv text eol=lf
+*.html text eol=lf
+*.py text eol=lf
+*.ps1 text eol=lf
+*.mat binary
+*.mlx binary
+*.png binary
+*.mp4 binary
+*.zip binary

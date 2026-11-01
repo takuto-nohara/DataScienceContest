@@ -1,5 +1,6 @@
 # Download only from MathWorks and verify the executable before running it.
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'native_utf8.ps1')
 $principal = [Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()
 if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
     throw 'Run this installation script in an administrator PowerShell. MathWorks OS registration requires elevation.'
@@ -13,5 +14,6 @@ if ($signature.Status -ne 'Valid' -or $signature.SignerCertificate.Subject -notl
     throw 'The MathWorks signature could not be verified.'
 }
 $destination = Join-Path $env:USERPROFILE 'MATLAB\R2026a'
-& $mpmExe install --release=R2026aU5 "--destination=$destination" --products=MATLAB Deep_Learning_Toolbox Parallel_Computing_Toolbox Statistics_and_Machine_Learning_Toolbox Signal_Processing_Toolbox
-if ($LASTEXITCODE -ne 0) { throw "MATLAB installation failed ($LASTEXITCODE)." }
+$nativeExitCode = Invoke-Utf8NativeProcess -FilePath $mpmExe -ArgumentList @('install','--release=R2026aU5',"--destination=$destination",'--products=MATLAB','Deep_Learning_Toolbox','Parallel_Computing_Toolbox','Statistics_and_Machine_Learning_Toolbox','Signal_Processing_Toolbox') -NativeTextEncoding ([System.Text.Encoding]::UTF8) -LogPath (Join-Path $setupDir 'installation-utf8.log')
+if ($nativeExitCode -ne 0) { throw "MATLAB installation failed ($nativeExitCode)." }
+exit $nativeExitCode

@@ -35,7 +35,7 @@ for box=[0.3 1 3 10 30 100]
             correct=sum(pt==data.testLabels);accuracy=mean(pv==data.trainLabels(p.validationRows));
             record=struct('attempt',attempt,'staticMethod',s,'boxConstraint',box,'kernelScale',width,'validationAccuracy',accuracy,'developmentCorrect',correct);
             if attempt==1,records=record;else,records(attempt)=record;end %#ok<AGROW>
-            writetable(struct2table(records),fullfile(out,'hierarchy_search.csv'));
+            writetable(struct2table(records),fullfile(out,'hierarchy_search.csv'),'Encoding','UTF-8');
             if correct>best
                 estimator=struct('gate',gate,'static',staticModels{s},'dynamic',dynamic);
                 save(fullfile(out,'best_hierarchy.mat'),'estimator','record','center','scale','names');best=correct;

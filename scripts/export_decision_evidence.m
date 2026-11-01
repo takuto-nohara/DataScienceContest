@@ -10,7 +10,7 @@ sorted=sort(negLoss,2,'descend');gap=sorted(:,1)-sorted(:,2);
 trace=table((1:numel(primary))',d.testLabels,primary,tree,linear,final, ...
     ismember(primary,{'Sitting','Standing','Laying'}),primary~=final,gap, ...
     'VariableNames',{'row','truth','primarySVM','tree','linearSVM','final','voteApplied','voteChangedPrediction','primaryTopTwoNegLossGap'});
-writetable(trace,fullfile(out,'classification-trace.csv'));
+writetable(trace,fullfile(out,'classification-trace.csv'),'Encoding','UTF-8');
 specialist=b.estimator.specialists{1};tr=specialist.estimator;nodes=find(tr.IsBranchNode);cuts=struct([]);
 for k=1:numel(nodes)
     node=nodes(k);j=find(string(tr.PredictorNames)==string(tr.CutPredictor{node}));
@@ -19,7 +19,7 @@ for k=1:numel(nodes)
         'leftChild',tr.Children(node,1),'rightChild',tr.Children(node,2));
     if k==1,cuts=record;else,cuts(k)=record;end %#ok<AGROW>
 end
-writetable(struct2table(cuts),fullfile(out,'tree-branch-criteria.csv'));
+writetable(struct2table(cuts),fullfile(out,'tree-branch-criteria.csv'),'Encoding','UTF-8');
 focus=[8;10;105;155;176;201];
 focusRecords=struct([]);
 for k=1:numel(focus)
@@ -53,7 +53,7 @@ for k=1:numel(groups)
     if k==1,sensitivity=record;else,sensitivity(k)=record;end %#ok<AGROW>
 end
 sensitivityTable=sortrows(struct2table(sensitivity),'meanAccuracyDropPercentagePoints','descend');
-writetable(sensitivityTable,fullfile(out,'primary-feature-group-sensitivity.csv'));
+writetable(sensitivityTable,fullfile(out,'primary-feature-group-sensitivity.csv'),'Encoding','UTF-8');
 evidence.primaryValidationGroupSensitivity=table2struct(sensitivityTable);
 har.writeJson(fullfile(out,'classification-evidence.json'),evidence);
 assert(evidence.finalCorrect==201 && evidence.primaryCorrect==200 && evidence.voteChangedWindows==1);

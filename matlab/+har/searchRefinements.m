@@ -25,7 +25,7 @@ for box=[0.3 1 3 10 30 100]
         record=struct('attempt',attempt,'featureSet',string(featureSet),'boxConstraint',box,'kernelScale',kernelScale, ...
             'validationAccuracy',vm.accuracy,'developmentCorrect',tm.correct,'developmentTotal',tm.total,'developmentAccuracy',tm.accuracy,'seconds',toc(timer));
         if attempt==1,records=record;else,records(attempt)=record;end %#ok<AGROW>
-        writetable(struct2table(records),fullfile(out,'search.csv'));
+        writetable(struct2table(records),fullfile(out,'search.csv'),'Encoding','UTF-8');
         fprintf('Attempt %d (%s): C=%g scale=%g val=%.2f%% dev=%d/201\n',attempt,featureSet,box,kernelScale,100*vm.accuracy,tm.correct);
         if tm.correct>best
             best=tm.correct;

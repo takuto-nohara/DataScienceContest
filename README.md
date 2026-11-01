@@ -22,6 +22,9 @@ a two-worker process pool, and an NVIDIA RTX 4070 GPU computation all passed.
 The launch scripts explicitly use online licensing for the university account.
 An initial post-installation failure was resolved by running MathWorks'
 `registerWithOS.exe` with administrator privileges.
+The toolbox lookup cache was then rebuilt using
+`restoredefaultpath; rehash toolboxcache; savepath`, followed by a fresh-session
+verification.
 
 Launch from this directory:
 

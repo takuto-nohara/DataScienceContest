@@ -1,9 +1,10 @@
-function figures = decisionMap(root, row, outputFolder)
+function figures = decisionMap(root, row, outputFolder, modelId)
 % 32次元で働くSVMの判定を、2次元の図に切り出して見せる。
 %
 %   root         : リポジトリのフォルダ (省略時はこのファイルから求める)
 %   row          : 説明するテスト窓の番号 (既定は 155)
 %   outputFolder : 指定すると、図を PNG として書き出す
+%   modelId      : 'proto_v10' (既定) か 'single_svm_v1' (多数決なしの単一SVM)
 %   figures      : 3つの図のハンドル (overview, duel, growth)
 %
 % 作る図:
@@ -15,6 +16,9 @@ function figures = decisionMap(root, row, outputFolder)
 %
 % overview と duel は保存済みのモデルをそのまま使う。growth だけは説明用に
 % 別のモデルを学習しており、提出するモデルの性能を示す図ではない。
+%
+% 点として描くデータは、モデルの学習に使っていないものにする。proto_v10 では
+% 検証用の735件、学習用データをすべて使った single_svm_v1 ではテスト用の201件。
 
 if nargin < 1 || isempty(root)
     root = fileparts(fileparts(fileparts(mfilename('fullpath'))));
@@ -22,39 +26,102 @@ end
 if nargin < 2 || isempty(row)
     row = 155;
 end
+if nargin < 4 || isempty(modelId)
+    modelId = 'proto_v10';
+end
 
 data = har.loadData(root);
-protocol = har.protocol(root, data);
-bundle = har.inspectModel('proto_v10', false);
-assert(isequal(data.fingerprint, bundle.protocol.fingerprint), ...
-    'Dataset does not match the saved model.');
+switch modelId
+    case 'proto_v10'
+        scene = votingModelScene(root, data);
+    case 'single_svm_v1'
+        scene = singleModelScene(root, data);
+    otherwise
+        error('Unknown model for the decision map: %s', modelId);
+end
 
-% 図に使う3種類の点を、モデルが実際に見ている標準化後の値で用意する。
-scene.bundle = bundle;
+% 説明する窓を、図と同じ標準化後の座標で用意する。
 scene.classes = data.classes;
-scene.fitZ = standardize(bundle, data.trainRaw(protocol.fitRows, :, :));
-scene.fitLabels = data.trainLabels(protocol.fitRows);
-scene.validationZ = standardize(bundle, data.trainRaw(protocol.validationRows, :, :));
-scene.validationLabels = data.trainLabels(protocol.validationRows);
-scene.windowZ = standardize(bundle, data.testRaw(row, :, :));
+scene.windowZ = scene.toZ(data.testRaw(row, :, :));
 scene.windowRow = row;
 scene.windowTruth = data.testLabels(row);
-scene.windowPrediction = har.predict(bundle, data.testRaw(row, :, :));
+scene.windowPrediction = scene.finalPrediction(data.testRaw(row, :, :));
 
 figures.overview = drawOverview(scene);
 figures.duel = drawDuel(scene);
 figures.growth = drawGrowth(scene);
 
 if nargin >= 3 && ~isempty(outputFolder)
-    exportFigures(figures, outputFolder, row);
+    exportFigures(figures, outputFolder, row, modelId);
 end
 end
 
 
-function z = standardize(bundle, raw)
-% 波形を特徴量にし、モデルが学習時に決めた平均と標準偏差で標準化する。
-x = har.features(raw, bundle.spec.featureSet);
-z = (x - bundle.center) ./ bundle.scale;
+function scene = votingModelScene(root, data)
+% proto_v10: 主SVMは標準化後の値を受け取る。最終判定は多数決のあと。
+protocol = har.protocol(root, data);
+bundle = har.inspectModel('proto_v10', false);
+assert(isequal(data.fingerprint, bundle.protocol.fingerprint), ...
+    'Dataset does not match the saved model.');
+primary = bundle.estimator.primary;
+
+scene.primary = primary;
+scene.center = bundle.center;
+scene.scale = bundle.scale;
+scene.featureNames = string(bundle.featureNames);
+scene.toZ = @(raw) (har.features(raw, bundle.spec.featureSet) - bundle.center) ...
+    ./ bundle.scale;
+scene.predictZ = @(z) string(predict(primary, z));
+scene.negativeLossZ = @(z) negativeLoss(primary, z);
+scene.binaryScoreZ = @(learner, z) positiveScore(learner, z);
+scene.finalPrediction = @(raw) har.predict(bundle, raw);
+scene.finalName = '多数決後の最終判定';
+
+scene.fitZ = scene.toZ(data.trainRaw(protocol.fitRows, :, :));
+scene.fitLabels = data.trainLabels(protocol.fitRows);
+scene.pointsZ = scene.toZ(data.trainRaw(protocol.validationRows, :, :));
+scene.pointsLabels = data.trainLabels(protocol.validationRows);
+scene.pointsName = '学習に使っていない検証データ735件';
+scene.accuracyName = '検証';
+end
+
+
+function scene = singleModelScene(root, data)
+% single_svm_v1: 分類学習器と同じく、SVMが特徴量をそのまま受け取り、中で
+% 標準化する。図の座標には学習用2941試行の平均と標準偏差で標準化した値を
+% 使い、モデルに渡すときに元の単位へ戻す。
+saved = load(fullfile(root, 'model', 'single_svm_v1', 'trainedModel.mat'));
+model = saved.trainedModel.ClassificationSVM;
+featureSet = 'gravity32';
+[trainX, names] = har.features(data.trainRaw, featureSet);
+center = mean(trainX, 1);
+scale = std(trainX, 0, 1);
+scale(scale < 1e-12) = 1;
+toX = @(z) z .* scale + center;
+
+scene.primary = model;
+scene.center = center;
+scene.scale = scale;
+scene.featureNames = string(names);
+scene.toZ = @(raw) (har.features(raw, featureSet) - center) ./ scale;
+scene.predictZ = @(z) string(predict(model, toX(z)));
+scene.negativeLossZ = @(z) negativeLoss(model, toX(z));
+scene.binaryScoreZ = @(learner, z) positiveScore(learner, toX(z));
+scene.finalPrediction = @(raw) string(predict(model, har.features(raw, featureSet)));
+scene.finalName = '最終判定';
+
+scene.fitZ = (trainX - center) ./ scale;
+scene.fitLabels = data.trainLabels;
+scene.pointsZ = scene.toZ(data.testRaw);
+scene.pointsLabels = data.testLabels;
+scene.pointsName = 'テストデータ201件';
+scene.accuracyName = 'テスト';
+end
+
+
+function values = negativeLoss(model, x)
+% 多クラスSVMの各行動に対するスコア (大きいほどその行動らしい)。
+[~, values] = predict(model, x);
 end
 
 
@@ -81,7 +148,6 @@ end
 function figureHandle = drawOverview(scene)
 % 主SVMの判定を、学習データが最も広がる平面の上で塗り分ける。
 style = classStyle();
-primary = scene.bundle.estimator.primary;
 
 % 平面は主成分分析で決める。第1・第2主成分が横軸と縦軸になる。
 [coefficients, ~, ~, ~, explained, center] = pca(scene.fitZ);
@@ -89,25 +155,25 @@ basis = coefficients(:, 1:2);
 toPlane = @(z) (z - center) * basis;
 fromPlane = @(points) points * basis' + center;
 
-validationPoints = toPlane(scene.validationZ);
+points = toPlane(scene.pointsZ);
 windowPoint = toPlane(scene.windowZ);
 
 % 平面上の各点を32次元へ戻し、保存済みのSVMにそのまま判定させる。
-[gridX, gridY, gridPoints] = makeGrid(validationPoints, 220);
-regionLabels = string(predict(primary, fromPlane(gridPoints)));
+[gridX, gridY, gridPoints] = makeGrid(points, 220);
+regionLabels = scene.predictZ(fromPlane(gridPoints));
 regionIndex = labelsToIndex(regionLabels, scene.classes);
 
 % 点は平面へ投影しているので、背景の色と本来の判定が食い違うことがある。
 % 図がどの程度モデルを表しているかを、一致率として示す。
-actualPrediction = string(predict(primary, scene.validationZ));
-planePrediction = string(predict(primary, fromPlane(validationPoints)));
+actualPrediction = scene.predictZ(scene.pointsZ);
+planePrediction = scene.predictZ(fromPlane(points));
 agreement = mean(actualPrediction == planePrediction);
 
 figureHandle = newSlideFigure('SVMの判定領域 (断面)');
 ax = axes(figureHandle);
 hold(ax, 'on');
 drawRegions(ax, gridX, gridY, regionIndex, style);
-handles = scatterByClass(ax, validationPoints, scene.validationLabels, ...
+handles = scatterByClass(ax, points, scene.pointsLabels, ...
     scene.classes, style, 22);
 windowHandle = plot(ax, windowPoint(1), windowPoint(2), 'p', ...
     'MarkerSize', 22, 'MarkerFaceColor', 'yellow', ...
@@ -116,9 +182,10 @@ windowHandle = plot(ax, windowPoint(1), windowPoint(2), 'p', ...
 xlabel(ax, sprintf('第1主成分 (ばらつきの %.0f%%)', explained(1)));
 ylabel(ax, sprintf('第2主成分 (ばらつきの %.0f%%)', explained(2)));
 title(ax, '32次元のSVMを、データが最も広がる平面で切った断面', 'FontSize', 20);
-subtitle(ax, sprintf(['背景の色 = この平面上でのSVMの判定 / 点 = 学習に使っていない' ...
-    '検証データ735件 (色は正解)\n投影した点の判定が背景と一致する割合: %.0f%% ' ...
-    '(残りは平面から離れた方向の違いで決まる)'], 100 * agreement), 'FontSize', 13);
+subtitle(ax, sprintf(['背景の色 = この平面上でのSVMの判定 / 点 = %s (色は正解)\n' ...
+    '投影した点の判定が背景と一致する割合: %.0f%% ' ...
+    '(残りは平面から離れた方向の違いで決まる)'], scene.pointsName, 100 * agreement), ...
+    'FontSize', 13);
 legend(ax, [handles; windowHandle], ...
     [style.japanese; sprintf("説明する窓 %d", scene.windowRow)], ...
     'Location', 'eastoutside', 'FontSize', 13);
@@ -129,17 +196,16 @@ end
 function figureHandle = drawDuel(scene)
 % 選んだ窓で最後まで競った2行動について、境界と余白を描く。
 style = classStyle();
-primary = scene.bundle.estimator.primary;
+primary = scene.primary;
 classNames = string(primary.ClassNames);
 
 % 主SVMのスコアが高い順に2つの行動を選ぶ。
-[~, negativeLoss] = predict(primary, scene.windowZ);
-[~, ranking] = sort(negativeLoss, 'descend');
+[~, ranking] = sort(scene.negativeLossZ(scene.windowZ), 'descend');
 contenders = classNames(ranking(1:2));
 
 % その2行動を見分ける二者択一のSVMを、15個の中から探す。
 [learner, positive, negative] = findBinaryLearner(primary, contenders);
-score = @(z) positiveScore(learner, z);
+score = @(z) scene.binaryScoreZ(learner, z);
 
 % 判定に最も効く2つの特徴量を、スコアの傾きの大きさで選ぶ。
 featureCount = numel(scene.windowZ);
@@ -165,7 +231,7 @@ sliceZ(:, chosen) = gridPoints;
 sliceScore = reshape(score(sliceZ), size(gridX));
 
 % 軸は標準化前の、元の単位で表示する。
-toRaw = @(z, feature) z * scene.bundle.scale(feature) + scene.bundle.center(feature);
+toRaw = @(z, feature) z * scene.scale(feature) + scene.center(feature);
 rawX = toRaw(gridX, chosen(1));
 rawY = toRaw(gridY, chosen(2));
 
@@ -200,7 +266,7 @@ windowHandle = plot(ax, toRaw(scene.windowZ(chosen(1)), chosen(1)), ...
     toRaw(scene.windowZ(chosen(2)), chosen(2)), 'p', 'MarkerSize', 24, ...
     'MarkerFaceColor', 'yellow', 'MarkerEdgeColor', 'black', 'LineWidth', 1.5);
 
-featureNames = string(scene.bundle.featureNames);
+featureNames = scene.featureNames;
 xlabel(ax, featureNames(chosen(1)), 'Interpreter', 'none');
 ylabel(ax, featureNames(chosen(2)), 'Interpreter', 'none');
 title(ax, sprintf('窓 %d で最後まで競った2行動: %s 対 %s', scene.windowRow, ...
@@ -208,8 +274,8 @@ title(ax, sprintf('窓 %d で最後まで競った2行動: %s 対 %s', scene.win
     japaneseName(contenders(2), scene.classes, style)), 'FontSize', 20);
 subtitle(ax, sprintf(['太線 = 境界 (スコア0) / 破線 = 余白の端 (スコア±1) / ' ...
     '点 = 学習データ (この2特徴量へ投影)\nほかの30個の特徴量は窓 %d の値に固定。' ...
-    '主SVMの判定: %s、多数決後の最終判定: %s、正解: %s'], scene.windowRow, ...
-    japaneseName(contenders(1), scene.classes, style), ...
+    '主SVMの判定: %s、%s: %s、正解: %s'], scene.windowRow, ...
+    japaneseName(contenders(1), scene.classes, style), scene.finalName, ...
     japaneseName(scene.windowPrediction, scene.classes, style), ...
     japaneseName(scene.windowTruth, scene.classes, style)), 'FontSize', 13);
 legend(ax, [handles; windowHandle], ...
@@ -232,8 +298,8 @@ sampleCounts = [60, 300, 1200, numel(scene.fitLabels)];
 [coefficients, ~, ~, ~, ~, center] = pca(scene.fitZ);
 basis = coefficients(:, 1:2);
 fitPoints = (scene.fitZ - center) * basis;
-validationPoints = (scene.validationZ - center) * basis;
-[gridX, gridY, gridPoints] = makeGrid(validationPoints, 160);
+points = (scene.pointsZ - center) * basis;
+[gridX, gridY, gridPoints] = makeGrid(points, 160);
 
 % 少ない件数の組が、多い件数の組に必ず含まれるよう、並べ替えを1度だけ決める。
 rng(20261111, 'twister');
@@ -249,8 +315,7 @@ for k = 1:numel(sampleCounts)
         'Learners', learner, 'Coding', 'onevsone', 'ClassNames', scene.classes);
 
     regionIndex = labelsToIndex(string(predict(model, gridPoints)), scene.classes);
-    accuracy = mean(string(predict(model, validationPoints)) ...
-        == scene.validationLabels);
+    accuracy = mean(string(predict(model, points)) == scene.pointsLabels);
     supportVectors = collectSupportVectors(model);
 
     ax = nexttile(layout);
@@ -260,8 +325,8 @@ for k = 1:numel(sampleCounts)
         scene.classes, style, 12);
     plot(ax, supportVectors(:, 1), supportVectors(:, 2), 'o', ...
         'MarkerSize', 5, 'MarkerEdgeColor', 'black', 'LineWidth', 0.6);
-    title(ax, sprintf('学習データ %d件 → 検証の正解率 %.1f%%', ...
-        sampleCounts(k), 100 * accuracy), 'FontSize', 15);
+    title(ax, sprintf('学習データ %d件 → %sの正解率 %.1f%%', ...
+        sampleCounts(k), scene.accuracyName, 100 * accuracy), 'FontSize', 15);
     finishAxes(ax, gridX, gridY);
 end
 title(layout, 'SVMが境界を作る様子: 2次元に落として学習し直した説明用のモデル', ...
@@ -371,14 +436,20 @@ name = style.japanese(classes == label);
 end
 
 
-function exportFigures(figures, outputFolder, row)
+function exportFigures(figures, outputFolder, row, modelId)
 % 3つの図を、スライドに貼れる解像度の PNG として書き出す。
+% proto_v10 の図は以前からの名前のまま、ほかのモデルは名前の頭にIDを付ける。
 if ~isfolder(outputFolder)
     mkdir(outputFolder);
 end
+prefix = '';
+if ~strcmp(modelId, 'proto_v10')
+    prefix = [modelId '_'];
+end
 names = fieldnames(figures);
 for k = 1:numel(names)
-    file = fullfile(outputFolder, sprintf('row%03d_map_%s.png', row, names{k}));
+    file = fullfile(outputFolder, sprintf('%srow%03d_map_%s.png', ...
+        prefix, row, names{k}));
     exportgraphics(figures.(names{k}), file, 'Resolution', 150);
     fprintf('DECISION_MAP_EXPORTED: %s\n', file);
 end

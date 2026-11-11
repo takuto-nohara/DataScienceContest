@@ -7,6 +7,9 @@ Private development workspace for the human activity recognition contest.
 MATLABで図と実データを見せる場合は、[画面デモと発表手順](presentation/README.md)を参照してください。
 `run('presentation/demo_walkthrough.m')` で、波形・32特徴量・SVM・多数決・木の分岐・評価を表示できます。
 
+結果の検証、数字の読み方、コンテスト規則との適合は[レビュー](reports/review-ja.md)にまとめています。
+提出用の前処理関数の下書きは `submission/` にあります。
+
 文字化けが気になる場合は[ファイル形式と文字コード](reports/file-encoding-ja.md)を参照してください。
 テキストはUTF-8、学習済みモデルの `.mat` はバイナリ形式です。各モデルの
 `model-info.json` と `README.md` は、VSCodeでも内容を確認できるUTF-8の補助ファイルです。

@@ -42,5 +42,13 @@ demoApp = har.demo(demoRoot, demoRow);
 % 画面上部の番号で1〜201件を切り替えられます。
 % 6つのタブを順に開き、必要な箇所で実コードを表示してください。
 
-%% 5. 発表に使う画面をPNGへ保存する（必要な場合に実行）
+%% 5. SVMの判定を2次元の図で見る
+% 3つの図が開きます。
+%   overview : 保存済みのSVMを、データが最も広がる平面で切った断面
+%   duel     : この窓で最後まで競った2行動の境界と余白
+%   growth   : 学習データが増えるにつれて境界が整う様子（説明用のモデル）
+demoMaps = har.decisionMap(demoRoot, demoRow);
+
+%% 6. 発表に使う画面をPNGへ保存する（必要な場合に実行）
 % demoApp.Export(fullfile(demoRoot,'artifacts','demo'));
+% har.decisionMap(demoRoot, demoRow, fullfile(demoRoot,'presentation','images'));

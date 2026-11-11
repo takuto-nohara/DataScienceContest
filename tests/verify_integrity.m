@@ -228,50 +228,50 @@ fprintf('INTEGRITY_CHECK_DONE\n');
 
 function prediction = fitAndPredict(spec, trainRaw, trainLabels, heldOutRaw)
 % spec の設定で学習し、未使用の窓を予測する。proto_v10 は補助モデルも作り直す。
-    plainFeatures = har.features(trainRaw, 'stats12');
-    plainHeldOut = har.features(heldOutRaw, 'stats12');
-    plainLabels = trainLabels;
+plainFeatures = har.features(trainRaw, 'stats12');
+plainHeldOut = har.features(heldOutRaw, 'stats12');
+plainLabels = trainLabels;
 
-    if isfield(spec, 'augmentationGains')
-        [trainRaw, trainLabels] = har.augment( ...
-            trainRaw, trainLabels, spec.augmentationGains);
-    end
+if isfield(spec, 'augmentationGains')
+    [trainRaw, trainLabels] = har.augment( ...
+        trainRaw, trainLabels, spec.augmentationGains);
+end
 
-    features = har.features(trainRaw, spec.featureSet);
-    heldOut = har.features(heldOutRaw, spec.featureSet);
-    [z, zHeldOut] = standardize(features, heldOut);
+features = har.features(trainRaw, spec.featureSet);
+heldOut = har.features(heldOutRaw, spec.featureSet);
+[z, zHeldOut] = standardize(features, heldOut);
 
-    width = 'auto';
-    box = 1;
-    if isfield(spec, 'kernelScale'), width = spec.kernelScale; end
-    if isfield(spec, 'boxConstraint'), box = spec.boxConstraint; end
+width = 'auto';
+box = 1;
+if isfield(spec, 'kernelScale'), width = spec.kernelScale; end
+if isfield(spec, 'boxConstraint'), box = spec.boxConstraint; end
 
-    rng(spec.seed, 'twister');
-    learner = templateSVM('KernelFunction', 'gaussian', ...
-        'KernelScale', width, 'BoxConstraint', box, 'Standardize', false);
-    primary = fitcecoc(z, trainLabels, 'Learners', learner, 'Coding', 'onevsone');
-    prediction = string(predict(primary, zHeldOut));
+rng(spec.seed, 'twister');
+learner = templateSVM('KernelFunction', 'gaussian', ...
+    'KernelScale', width, 'BoxConstraint', box, 'Standardize', false);
+primary = fitcecoc(z, trainLabels, 'Learners', learner, 'Coding', 'onevsone');
+prediction = string(predict(primary, zHeldOut));
 
-    if ~strcmp(spec.algorithm, 'static_vote_svm'), return; end
+if ~strcmp(spec.algorithm, 'static_vote_svm'), return; end
 
-    [zPlain, zPlainHeldOut] = standardize(plainFeatures, plainHeldOut);
-    tree = fitctree(zPlain, plainLabels, 'MaxNumSplits', 100, 'MinLeafSize', 5);
-    linearLearner = templateSVM('KernelFunction', 'linear', ...
-        'KernelScale', 'auto', 'BoxConstraint', 1, 'Standardize', false);
-    linear = fitcecoc(zPlain, plainLabels, ...
-        'Learners', linearLearner, 'Coding', 'onevsone');
+[zPlain, zPlainHeldOut] = standardize(plainFeatures, plainHeldOut);
+tree = fitctree(zPlain, plainLabels, 'MaxNumSplits', 100, 'MinLeafSize', 5);
+linearLearner = templateSVM('KernelFunction', 'linear', ...
+    'KernelScale', 'auto', 'BoxConstraint', 1, 'Standardize', false);
+linear = fitcecoc(zPlain, plainLabels, ...
+    'Learners', linearLearner, 'Coding', 'onevsone');
 
-    votes = [prediction, string(predict(tree, zPlainHeldOut)), ...
-        string(predict(linear, zPlainHeldOut))];
-    prediction = har.staticVote(prediction, votes);
+votes = [prediction, string(predict(tree, zPlainHeldOut)), ...
+    string(predict(linear, zPlainHeldOut))];
+prediction = har.staticVote(prediction, votes);
 end
 
 
 function [z, zOther] = standardize(features, other)
 % 学習側の平均と標準偏差だけで両方を標準化する。
-    center = mean(features, 1);
-    scale = std(features, 0, 1);
-    scale(scale < 1e-12) = 1;
-    z = (features - center) ./ scale;
-    zOther = (other - center) ./ scale;
+center = mean(features, 1);
+scale = std(features, 0, 1);
+scale(scale < 1e-12) = 1;
+z = (features - center) ./ scale;
+zOther = (other - center) ./ scale;
 end

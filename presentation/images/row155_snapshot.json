@@ -1,0 +1,24 @@
+{
+  "model": "proto_v10",
+  "modelSHA256": "43db6baf58f8adcde1dbc09538ea9eedf34e0c2e52c8a0971a35fdd0e67ccd9e",
+  "datasetFingerprint": {
+    "train": "573caebab324e3baf63578c69948e2a109b8444ef515eef8ff119a2c0ed67ca8",
+    "test": "4fdf14a8994bc290c3b6921406b889fc347676cfb7f15739d54de20038f2d94e"
+  },
+  "row": 155,
+  "truth": "Sitting",
+  "primary": "Standing",
+  "votes": [
+    "Standing",
+    "Sitting",
+    "Sitting"
+  ],
+  "final": "Sitting",
+  "voteApplied": true,
+  "developmentCorrect": 201,
+  "developmentTotal": 201,
+  "validationCorrect": 712,
+  "validationTotal": 735,
+  "evaluationRole": "development_tuned",
+  "images": "MATLAB exportapp; no model retraining"
+}

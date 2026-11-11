@@ -10,6 +10,8 @@ MATLABで図と実データを見せる場合は、[画面デモと発表手順]
 結果の検証、数字の読み方、コンテスト規則との適合は[レビュー](reports/review-ja.md)にまとめています。
 提出用の前処理関数の下書きは `submission/` にあります。
 
+多数決なしの単一ガウスSVM（`model/single_svm_v1/`）を、予習の練習2と同じ分類学習器の手順で作って評価する方法は、[分類学習器の手順書](presentation/classification_learner.md)にあります。
+
 文字化けが気になる場合は[ファイル形式と文字コード](reports/file-encoding-ja.md)を参照してください。
 テキストはUTF-8、学習済みモデルの `.mat` はバイナリ形式です。各モデルの
 `model-info.json` と `README.md` は、VSCodeでも内容を確認できるUTF-8の補助ファイルです。

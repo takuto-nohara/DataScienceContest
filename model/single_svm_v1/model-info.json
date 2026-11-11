@@ -1,0 +1,84 @@
+{
+  "id": "single_svm_v1",
+  "settings": {
+    "featureSet": "gravity32",
+    "augmentationGains": [
+      1,
+      0.8,
+      1.2
+    ],
+    "kernelFunction": "gaussian",
+    "kernelScale": 8,
+    "boxConstraint": 50,
+    "standardize": true,
+    "coding": "onevsone",
+    "crossValidationFolds": 5,
+    "crossValidationSeed": 1
+  },
+  "trainingTrials": 2941,
+  "trainingRowsAfterAugmentation": 8823,
+  "validationAccuracy": 0.98061883713022779,
+  "testCorrect": 201,
+  "testTotal": 201,
+  "testMissedRows": [],
+  "testConfusion": [
+    [
+      32,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      29,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      27,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      37,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      36,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      40
+    ]
+  ],
+  "classOrder": [
+    "Walking",
+    "WalkingUpstairs",
+    "WalkingDownstairs",
+    "Sitting",
+    "Standing",
+    "Laying"
+  ],
+  "selection": "Chosen after 858 settings were scored on the 201 development labels (scripts/search_single_model*.m). 201/201 is a selected result, not an independent test.",
+  "matlabVersion": "26.1.0.3346908 (R2026a) Update 5"
+}

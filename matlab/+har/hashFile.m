@@ -1,10 +1,18 @@
 function digest = hashFile(file)
-fid = fopen(file, 'rb');
-assert(fid ~= -1, 'Cannot read %s', file);
-cleanup = onCleanup(@() fclose(fid));
+% ファイルの SHA-256 を、小文字の16進数の文字列で返す。
+% データやモデルが差し替わっていないことを確かめるために使う。
+
+chunkBytes = 1024 * 1024;
+
+fileId = fopen(file, 'rb');
+assert(fileId ~= -1, 'Cannot read %s', file);
+closeFile = onCleanup(@() fclose(fileId));
+
 engine = java.security.MessageDigest.getInstance('SHA-256');
-while ~feof(fid)
-    engine.update(fread(fid, 1024*1024, '*uint8'));
+while ~feof(fileId)
+    engine.update(fread(fileId, chunkBytes, '*uint8'));
 end
-digest = lower(reshape(dec2hex(typecast(engine.digest(), 'uint8'), 2)', 1, []));
+
+hashBytes = typecast(engine.digest(), 'uint8');
+digest = lower(reshape(dec2hex(hashBytes, 2)', 1, []));
 end

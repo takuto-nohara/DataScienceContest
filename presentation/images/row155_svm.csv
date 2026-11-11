@@ -1,0 +1,16 @@
+pair,positive,negative,margin,selected,support
+Laying / Sitting,Laying,Sitting,-1.18616839039012,Sitting,194
+Laying / Standing,Laying,Standing,-1.08419571952695,Standing,158
+Laying / Walking,Laying,Walking,0.437618054334944,Laying,143
+Laying / WalkingDownstairs,Laying,WalkingDownstairs,0.327115676056049,Laying,203
+Laying / WalkingUpstairs,Laying,WalkingUpstairs,0.331412983463452,Laying,210
+Sitting / Standing,Sitting,Standing,-0.361024018485125,Standing,713
+Sitting / Walking,Sitting,Walking,1.00381359269004,Sitting,112
+Sitting / WalkingDownstairs,Sitting,WalkingDownstairs,0.997260730335746,Sitting,175
+Sitting / WalkingUpstairs,Sitting,WalkingUpstairs,0.998750736999842,Sitting,172
+Standing / Walking,Standing,Walking,1.13659025267752,Standing,110
+Standing / WalkingDownstairs,Standing,WalkingDownstairs,1.16397524204019,Standing,149
+Standing / WalkingUpstairs,Standing,WalkingUpstairs,1.19673307941779,Standing,155
+Walking / WalkingDownstairs,Walking,WalkingDownstairs,-0.264757387932114,WalkingDownstairs,275
+Walking / WalkingUpstairs,Walking,WalkingUpstairs,-0.320612602438619,WalkingUpstairs,312
+WalkingDownstairs / WalkingUpstairs,WalkingDownstairs,WalkingUpstairs,0.00652069167223381,WalkingDownstairs,375

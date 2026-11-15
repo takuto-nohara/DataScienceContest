@@ -9,7 +9,7 @@ if nargin < 1 || isempty(root)
 end
 if nargin < 2 || isempty(mode), mode = 'round1'; end
 here = fileparts(mfilename('fullpath'));
-addpath(fullfile(root, 'matlab'), here, fullfile(root, 'submission', 'ergonomic32_svm'));
+addpath(fullfile(root, 'matlab'), here);
 out = fullfile(root, 'evaluation', 'feature_study');
 if isempty(gcp('nocreate')), parpool('Processes', 8); end
 pctRunOnAll(sprintf('addpath(''%s'', ''%s'')', strrep(fullfile(root, 'matlab'), '\', '/'), strrep(here, '\', '/')));
@@ -20,10 +20,10 @@ C.Y = categorical(data.trainLabels, data.classes);
 C.Yte = categorical(data.testLabels, data.classes);
 groups = recordingGroups(cat(1, raw, data.testRaw));
 C.g = groups(1:numel(C.Y));
-pre = @(w) Pretreatment_MATLABcontest_Advanced(w(:, :, 1), w(:, :, 2), w(:, :, 3), ...
-    w(:, :, 4), w(:, :, 5), w(:, :, 6));
+% 比較の基準は提出用の前処理関数ではなく featurePool から作る（回転の揺れは生の標準偏差）。
+% 前処理関数は検証の結果を取り込んで変わるため、通すと基準が変わってしまう。
 [~, staticNames] = staticPool(raw(1:2, :, :));
-feat = @(w) [subsref(pre(w), substruct('()', {':', 1:30})), staticPool(w)];
+feat = @(w) [ergonomicFeatures(w, false), staticPool(w)];
 names = ["erg" + (1:30), staticNames];
 C.X = feat(raw);
 C.Xte = feat(data.testRaw);

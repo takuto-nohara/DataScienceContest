@@ -12,7 +12,7 @@ if nargin < 1 || isempty(root)
 end
 if nargin < 2 || isempty(mode), mode = 'sets'; end
 here = fileparts(mfilename('fullpath'));
-addpath(fullfile(root, 'matlab'), here, fullfile(root, 'submission', 'ergonomic32_svm'));
+addpath(fullfile(root, 'matlab'), here);
 out = fullfile(root, 'evaluation', 'feature_study');
 cacheFile = fullfile(out, 'stage6_cache.mat');
 if isfile(cacheFile)
@@ -80,10 +80,9 @@ C.Yte = categorical(data.testLabels, data.classes);
 C.classes = categorical(data.classes);
 groups = recordingGroups(cat(1, raw, data.testRaw));
 C.g = groups(1:numel(C.Y));
-pre = @(w) Pretreatment_MATLABcontest_Advanced(w(:, :, 1), w(:, :, 2), w(:, :, 3), ...
-    w(:, :, 4), w(:, :, 5), w(:, :, 6));
+% 30列は featurePool から作る（回転の揺れは対数、標準化前）。提出用の前処理関数には依存しない。
 [~, staticNames] = staticPool(raw(1:2, :, :));
-feat = @(w) [subsref(pre(w), substruct('()', {':', 1:30})), staticPool(w)];
+feat = @(w) [ergonomicFeatures(w, true), staticPool(w)];
 C.names = ["erg" + (1:30), staticNames];
 C.X = feat(raw);
 C.Xte = feat(data.testRaw);

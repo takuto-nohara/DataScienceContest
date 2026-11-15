@@ -1,46 +1,40 @@
 {
-  "id": "final_ergonomic32_svm",
-  "features": 32,
-  "informativeFeatures": 32,
+  "id": "final_ergonomic34_svm",
+  "features": 34,
+  "informativeFeatures": 34,
   "method": "Gaussian SVM, one-vs-one ECOC, Standardize off (fixed constants in Pretreatment)",
-  "kernelScale": 7.9,
+  "kernelScale": 8.2,
   "boxConstraint": 10,
   "trainingRows": 26469,
   "augmentation": "gain 0.8/1.2, rotate 10deg x2, tempo 0.9/1.1, noise 0.005 x2",
-  "groupedCvMean": 0.98259095545732755,
-  "groupedCvSd": 0.00060824698469903629,
-  "groupedCvWorst": 0.98197891873512411,
+  "groupedCvMean": 0.98531111866712,
+  "groupedCvSd": 0.00037247368752473919,
+  "groupedCvWorst": 0.98503910234614078,
   "groupedCvRepeats": [
-    0.98197891873512411,
-    0.98333900034002042,
-    0.98265895953757221,
-    0.98197891873512411,
-    0.98299897993879637
+    0.98503910234614078,
+    0.98503910234614078,
+    0.98571914314858888,
+    0.98571914314858888,
+    0.98503910234614078
   ],
-  "test201Accuracy": 0.98009950248756217,
-  "test201Correct": 197,
+  "test201Accuracy": 0.99004975124378114,
+  "test201Correct": 199,
   "augmentationSeedAgreement": [
-    1,
-    1,
-    1
+    0.99502487562189057,
+    0.99502487562189057,
+    0.99502487562189057
   ],
   "test201Missed": [
-    150,
     176,
-    177,
-    194
+    177
   ],
   "test201MissedTrue": [
-    "Sitting",
     "WalkingDownstairs",
-    "WalkingDownstairs",
-    "Sitting"
+    "WalkingDownstairs"
   ],
   "test201MissedPredicted": [
-    "Standing",
     "Walking",
-    "Walking",
-    "Standing"
+    "Walking"
   ],
   "note": "test201 was never used for feature or hyperparameter selection in this study. Grouped CV here uses the fixed scaling constants computed from all training windows."
 }

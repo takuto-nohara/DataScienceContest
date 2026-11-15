@@ -1,0 +1,7 @@
+method,step,added,groupedCv3
+gauss_svm,0,posture,0.88647114474929
+gauss_svm,1,std_log,0.936613055818354
+gauss_svm,2,tilt_sway,0.938820561337118
+bagged_tree,0,posture,0.936613055818354
+bagged_tree,1,gyro_jerk_log,0.944497004099653
+bagged_tree,2,posture_norm,0.947335225480921

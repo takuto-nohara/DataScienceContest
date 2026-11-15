@@ -1,0 +1,6 @@
+step,added,groupedCv3
+0,posture(3),0.88647114474929
+1,log_gyro_std_x,0.890255439924314
+2,log_gyro_jerk_rms_z,0.931567328918322
+3,log_gyro_std_y,0.943550930305897
+4,tilt_z_deg,0.946073793755913

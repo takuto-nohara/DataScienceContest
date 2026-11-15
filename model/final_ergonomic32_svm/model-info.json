@@ -1,0 +1,44 @@
+{
+  "id": "final_ergonomic32_svm",
+  "features": 32,
+  "informativeFeatures": 30,
+  "method": "Gaussian SVM, one-vs-one ECOC, Standardize off (fixed constants in Pretreatment)",
+  "kernelScale": 7.7,
+  "boxConstraint": 10,
+  "trainingRows": 26469,
+  "augmentation": "gain 0.8/1.2, rotate 10deg x2, tempo 0.9/1.1, noise 0.005 x2",
+  "groupedCvMean": 0.98184291057463435,
+  "groupedCvSd": 0.00078278574860395772,
+  "groupedCvWorst": 0.98061883713022779,
+  "groupedCvRepeats": [
+    0.98061883713022779,
+    0.98197891873512411,
+    0.98231893913634816,
+    0.98163889833390006,
+    0.98265895953757221
+  ],
+  "test201Accuracy": 0.9850746268656716,
+  "test201Correct": 198,
+  "paddingNeutral": true,
+  "augmentationSeedAgreement": [
+    0.99502487562189057,
+    1,
+    0.99502487562189057
+  ],
+  "test201Missed": [
+    176,
+    177,
+    194
+  ],
+  "test201MissedTrue": [
+    "WalkingDownstairs",
+    "WalkingDownstairs",
+    "Sitting"
+  ],
+  "test201MissedPredicted": [
+    "Walking",
+    "Walking",
+    "Standing"
+  ],
+  "note": "test201 was never used for feature or hyperparameter selection in this study. Grouped CV here uses the fixed scaling constants computed from all training windows."
+}

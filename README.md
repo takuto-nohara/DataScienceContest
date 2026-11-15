@@ -7,6 +7,8 @@ Private development workspace for the human activity recognition contest.
 MATLABで図と実データを見せる場合は、[画面デモと発表手順](presentation/README.md)を参照してください。
 `run('presentation/demo_walkthrough.m')` で、波形・32特徴量・SVM・多数決・木の分岐・評価を表示できます。
 
+特徴量の要不要、最小構成、人体工学的な根拠、本番候補のモデル（`model/final_ergonomic32_svm/`）は[特徴量とモデルの検証](reports/feature-study-ja.md)にまとめています。
+
 結果の検証、数字の読み方、コンテスト規則との適合は[レビュー](reports/review-ja.md)にまとめています。
 提出用の前処理関数の下書きは `submission/` にあります。
 

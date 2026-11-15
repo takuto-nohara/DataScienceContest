@@ -1,0 +1,149 @@
+[
+ {
+  "name": "svm_spectral32_current",
+  "method": "gauss_svm",
+  "features": [
+   "acc_mean_x",
+   "acc_mean_y",
+   "acc_mean_z",
+   "gyro_mean_x",
+   "gyro_mean_y",
+   "gyro_mean_z",
+   "acc_std_x",
+   "acc_std_y",
+   "acc_std_z",
+   "gyro_std_x",
+   "gyro_std_y",
+   "gyro_std_z",
+   "acc_mag_mean",
+   "acc_mag_std",
+   "acc_mag_max",
+   "acc_mag_jerk_rms",
+   "gyro_mag_mean",
+   "gyro_mag_std",
+   "gyro_mag_max",
+   "gyro_mag_change_rms",
+   "acc_corr_xy",
+   "acc_corr_yz",
+   "acc_corr_zx",
+   "gyro_corr_xy",
+   "gyro_corr_yz",
+   "gyro_corr_zx",
+   "acc_x_band_0p5_3hz",
+   "acc_y_band_0p5_3hz",
+   "acc_z_band_0p5_3hz",
+   "gyro_x_band_0p5_3hz",
+   "gyro_y_band_0p5_3hz",
+   "gyro_z_band_0p5_3hz"
+  ]
+ },
+ {
+  "name": "svm_fwd10",
+  "method": "gauss_svm",
+  "features": [
+   "acc_max_x",
+   "gravity_dir_y",
+   "acc_jerk_rms_y",
+   "acc_xy_motion_std",
+   "gyro_corr_yz",
+   "horizontal_mean",
+   "gyro_mag_change_rms",
+   "gyro_x_band_0p5_3hz",
+   "acc_rms_z",
+   "vertical_jerk_max"
+  ]
+ },
+ {
+  "name": "svm_fwd20",
+  "method": "gauss_svm",
+  "features": [
+   "acc_max_x",
+   "gravity_dir_y",
+   "acc_jerk_rms_y",
+   "acc_xy_motion_std",
+   "gyro_corr_yz",
+   "horizontal_mean",
+   "gyro_mag_change_rms",
+   "gyro_x_band_0p5_3hz",
+   "acc_rms_z",
+   "vertical_jerk_max",
+   "acc_min_z",
+   "acc_diff2_rms_x",
+   "gyro_mag_mean",
+   "horizontal_std",
+   "gyro_std_x",
+   "acc_mean_z",
+   "acc_max_z",
+   "acc_mean_x",
+   "acc_x_band_0p5_3hz",
+   "gyro_corr_zx"
+  ]
+ },
+ {
+  "name": "knn_fwd5",
+  "method": "knn",
+  "features": [
+   "acc_max_x",
+   "acc_mean_y",
+   "gravity_dir_z",
+   "acc_diff2_rms_z",
+   "acc_xy_motion_std"
+  ]
+ },
+ {
+  "name": "knn_fwd9",
+  "method": "knn",
+  "features": [
+   "acc_max_x",
+   "acc_mean_y",
+   "gravity_dir_z",
+   "acc_diff2_rms_z",
+   "acc_xy_motion_std",
+   "gyro_absmean_z",
+   "acc_max_y",
+   "gyro_absmean_y",
+   "gyro_std_x"
+  ]
+ },
+ {
+  "name": "knn_fwd14",
+  "method": "knn",
+  "features": [
+   "acc_max_x",
+   "acc_mean_y",
+   "gravity_dir_z",
+   "acc_diff2_rms_z",
+   "acc_xy_motion_std",
+   "gyro_absmean_z",
+   "acc_max_y",
+   "gyro_absmean_y",
+   "gyro_std_x",
+   "acc_mag_std",
+   "acc_mean_z",
+   "acc_jerk_rms_y",
+   "acc_rms_y",
+   "horizontal_mean"
+  ]
+ },
+ {
+  "name": "bagged_fwd15",
+  "method": "bagged_tree",
+  "features": [
+   "acc_max_x",
+   "acc_mean_y",
+   "gravity_dir_z",
+   "acc_jerk_rms_y",
+   "acc_xy_motion_std",
+   "acc_z_mean_abs_change",
+   "acc_mean_z",
+   "acc_mag_mean",
+   "acc_rms_y",
+   "gyro_mag_max",
+   "gyro_std_z",
+   "acc_min_x",
+   "gyro_std_x",
+   "horizontal_mean",
+   "acc_std_x"
+  ]
+ }
+]

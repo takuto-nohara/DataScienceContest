@@ -1,11 +1,10 @@
 % 本番候補の前処理関数 submission/ergonomic32_svm を検査する。
 %   1. 出力が 試行数×32 の実数行列で、すべて有限
-%   2. 列 1-30 が、実験で使った featurePool の同名の列と一致する
+%   2. 32列が、実験用の productionFeatures（featurePool の30列＋ジャイロxの差分2列）と一致する
 %      （列 14-16 の回転の揺れは gyro_std の常用対数。どの列も、学習データ＋拡張8通りで
 %       計算し直した平均と標準偏差で標準化してから比べる。定数が正しいことも同時に確かめる）
 %   3. 1試行ずつ渡しても、まとめて渡しても同じ値になる（試行ごとに独立）
-%   4. 列 31-32 はゼロ
-%   5. 値が変化しない試行（全点同じ値）でも有限の値を返す
+%   4. 値が変化しない試行（全点同じ値）でも有限の値を返す
 root = fileparts(fileparts(mfilename('fullpath')));
 addpath(fullfile(root, 'matlab'), fullfile(root, 'scripts', 'feature_study'));
 addpath(fullfile(root, 'submission', 'ergonomic32_svm'));
@@ -25,13 +24,13 @@ finalNames = ["gravity_dir_" + ["x" "y" "z"], "acc_mag_mean", ...
     "acc_corr_xy", "gyro_corr_yz", "gyro_corr_zx", "vertical_skewness"];
 [P, names] = featurePool(raw);
 cols = arrayfun(@(s) find(names == s), finalNames);
-expected = P(:, cols);
-expected(:, 14:16) = log10(max(expected(:, 14:16), 1e-9));
+expected = productionFeatures(raw);
+assert(isequal(expected(:, 1:30), [P(:, cols(1:13)), log10(max(P(:, cols(14:16)), 1e-9)), P(:, cols(17:30))]), 'pool');
 [featureMean, featureStd] = scalingConstants(data.trainRaw);
 expected = (expected - featureMean) ./ featureStd;
-difference = max(abs(X(:, 1:30) - expected), [], 1) ./ max(1, max(abs(expected), [], 1));
-assert(all(difference < 1e-9), 'mismatch in %s', strjoin(finalNames(difference >= 1e-9), ', '));
-assert(all(X(:, 31:32) == 0, 'all'), 'padding');
+difference = max(abs(X - expected), [], 1) ./ max(1, max(abs(expected), [], 1));
+columnNames = [finalNames, "gyro_x_diff_std", "gyro_x_diff2_std"];
+assert(all(difference < 1e-9), 'mismatch in %s', strjoin(columnNames(difference >= 1e-9), ', '));
 
 rows = [1, 7, 500, 2941, 3000, size(raw, 1)];
 for r = rows

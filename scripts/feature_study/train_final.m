@@ -1,8 +1,8 @@
 function train_final(root)
 % 本番候補のモデルを、提出用の前処理関数そのものを通して学習・検証する。
-%   特徴量 : submission/ergonomic34_svm の前処理関数（34列。回転の揺れ3列は対数、31-32列はジャイロxの差分のばらつき、
-%            33-34列は骨盤の回転の支点までの距離と前後の揺れの平均周波数）
-%   手法   : ガウスSVM、1対1、カーネルスケール 8.2（1.4×√34）、ボックス制約 10。標準化は前処理関数の
+%   特徴量 : submission/ergonomic32_svm の前処理関数（32列。回転の揺れ3列は対数、29-30列はジャイロxの差分のばらつき、
+%            31-32列は骨盤の回転の支点までの距離と前後の揺れの平均周波数）
+%   手法   : ガウスSVM、1対1、カーネルスケール 7.9（1.4×√32）、ボックス制約 10。標準化は前処理関数の
 %            固定の定数で済ませるので、学習器の標準化（2クラスの組ごと）は切る
 %   学習   : 学習用2941窓＋拡張8通り（動きの強さ0.8/1.2倍、装着角度10°×2、
 %            歩調0.9/1.1倍、雑音0.005×2）＝26469行
@@ -11,12 +11,12 @@ if nargin < 1 || isempty(root)
     root = fileparts(fileparts(fileparts(mfilename('fullpath'))));
 end
 here = fileparts(mfilename('fullpath'));
-addpath(fullfile(root, 'matlab'), here, fullfile(root, 'submission', 'ergonomic34_svm'));
-outModel = fullfile(root, 'model', 'final_ergonomic34_svm');
+addpath(fullfile(root, 'matlab'), here, fullfile(root, 'submission', 'ergonomic32_svm'));
+outModel = fullfile(root, 'model', 'final_ergonomic32_svm');
 outEval = fullfile(root, 'evaluation', 'feature_study');
 if ~isfolder(outModel), mkdir(outModel); end
 
-kernelScale = 8.2;
+kernelScale = 7.9;
 boxConstraint = 10;
 data = har.loadData(root);
 raw = data.trainRaw;
@@ -86,13 +86,13 @@ end
 
 trainedModel = struct('ClassificationSVM', finalModel, ...
     'predictFcn', @(X) predict(finalModel, X), ...
-    'About', 'Gaussian SVM (one-vs-one, no learner standardization), KernelScale 8.2, BoxConstraint 10, ergonomic34 features (gyro std as log10, gyro-x diff std x2, pelvic pivot height, AP sway mean frequency, standardized in Pretreatment with fixed constants)');
+    'About', 'Gaussian SVM (one-vs-one, no learner standardization), KernelScale 7.9, BoxConstraint 10, ergonomic32 features (gyro std as log10, gyro-x diff std x2, pelvic pivot height, AP sway mean frequency, standardized in Pretreatment with fixed constants)');
 save(fullfile(outModel, 'trained.mat'), 'trainedModel', '-v7.3');
 
 C = array2table(confusionSum / repeats, 'VariableNames', cellstr(data.classes), ...
     'RowNames', cellstr(data.classes));
 writetable(C, fullfile(outEval, 'final_cv_confusion_mean.csv'), 'WriteRowNames', true);
-info = struct('id', 'final_ergonomic34_svm', 'features', 34, 'informativeFeatures', 34, ...
+info = struct('id', 'final_ergonomic32_svm', 'features', 32, 'informativeFeatures', 32, ...
     'method', 'Gaussian SVM, one-vs-one ECOC, Standardize off (fixed constants in Pretreatment)', 'kernelScale', kernelScale, ...
     'boxConstraint', boxConstraint, 'trainingRows', size(ActivityDataTrain, 1), ...
     'augmentation', 'gain 0.8/1.2, rotate 10deg x2, tempo 0.9/1.1, noise 0.005 x2', ...

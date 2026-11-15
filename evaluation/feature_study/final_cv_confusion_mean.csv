@@ -1,7 +1,7 @@
 Row,Walking,WalkingUpstairs,WalkingDownstairs,Sitting,Standing,Laying
-Walking,502.2,0.8,1,0,0,0
-WalkingUpstairs,1.2,433.8,0,0,0,0
+Walking,502,1,1,0,0,0
+WalkingUpstairs,0.6,434.4,0,0,0,0
 WalkingDownstairs,1,0,383,0,0,0
-Sitting,0,0,0,478.6,18.4,0
-Standing,0,0,0,20.8,539.2,0
+Sitting,0,0,0,479.6,17.4,0
+Standing,0,0,0,20.6,539.4,0
 Laying,0,0,0,0,0,561

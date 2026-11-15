@@ -1,22 +1,22 @@
-% 本番候補の前処理関数 submission/ergonomic34_svm を検査する。
-%   1. 出力が 試行数×34 の実数行列で、すべて有限
-%   2. 34列が、実験用の productionFeatures（featurePool の30列＋ジャイロxの差分2列＋bioPool の2列）と一致する
+% 本番候補の前処理関数 submission/ergonomic32_svm を検査する。
+%   1. 出力が 試行数×32 の実数行列で、すべて有限
+%   2. 32列が、実験用の productionFeatures（featurePool の28列＋ジャイロxの差分2列＋bioPool の2列）と一致する
 %      （列 14-16 の回転の揺れは gyro_std の常用対数。どの列も、学習データ＋拡張8通りで
 %       計算し直した平均と標準偏差で標準化してから比べる。定数が正しいことも同時に確かめる）
 %   3. 1試行ずつ渡しても、まとめて渡しても同じ値になる（試行ごとに独立）
 %   4. 値が変化しない試行（全点同じ値）でも有限の値を返す
 root = fileparts(fileparts(mfilename('fullpath')));
 addpath(fullfile(root, 'matlab'), fullfile(root, 'scripts', 'feature_study'));
-addpath(fullfile(root, 'submission', 'ergonomic34_svm'));
+addpath(fullfile(root, 'submission', 'ergonomic32_svm'));
 
 data = har.loadData(root);
 raw = cat(1, data.trainRaw, data.testRaw);
 args = arrayfun(@(c) raw(:, :, c), 1:6, 'UniformOutput', false);
 X = Pretreatment_MATLABcontest_Advanced(args{:});
-assert(isequal(size(X), [size(raw, 1), 34]) && isreal(X) && all(isfinite(X(:))), 'shape');
+assert(isequal(size(X), [size(raw, 1), 32]) && isreal(X) && all(isfinite(X(:))), 'shape');
 
 finalNames = ["gravity_dir_" + ["x" "y" "z"], "acc_mag_mean", ...
-    "acc_std_" + ["x" "y" "z"], "acc_mag_std", "vertical_std", ...
+    "acc_std_" + ["x" "y" "z"], ...
     "horizontal_mean", "horizontal_std", "acc_xy_motion_std", "acc_max_x", ...
     "gyro_std_" + ["x" "y" "z"], "gyro_mag_mean", ...
     "acc_jerk_rms_" + ["x" "y" "z"], "vertical_jerk_max", "vertical_jerk_min", ...
@@ -25,7 +25,7 @@ finalNames = ["gravity_dir_" + ["x" "y" "z"], "acc_mag_mean", ...
 [P, names] = featurePool(raw);
 cols = arrayfun(@(s) find(names == s), finalNames);
 expected = productionFeatures(raw);
-assert(isequal(expected(:, 1:30), [P(:, cols(1:13)), log10(max(P(:, cols(14:16)), 1e-9)), P(:, cols(17:30))]), 'pool');
+assert(isequal(expected(:, 1:28), [P(:, cols(1:11)), log10(max(P(:, cols(12:14)), 1e-9)), P(:, cols(15:28))]), 'pool');
 [featureMean, featureStd] = scalingConstants(data.trainRaw);
 expected = (expected - featureMean) ./ featureStd;
 difference = max(abs(X - expected), [], 1) ./ max(1, max(abs(expected), [], 1));

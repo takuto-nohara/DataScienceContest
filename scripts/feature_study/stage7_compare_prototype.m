@@ -32,8 +32,8 @@ P(1).folder = fullfile(root, 'submission', 'gravity32_single_svm');
 P(1).augment = oldAug;
 P(1).kernelScale = 8; P(1).box = 50; P(1).standardize = true;
 % 本番候補：ergonomic32、拡張8通り、KS 7.7、C 10、標準化は前処理関数の固定の定数
-P(2).name = "final_ergonomic34_svm";
-P(2).folder = fullfile(root, 'submission', 'ergonomic34_svm');
+P(2).name = "final_ergonomic32_svm";
+P(2).folder = fullfile(root, 'submission', 'ergonomic32_svm');
 P(2).augment = {@(w) perturb(w, 'gain', 0.8), @(w) perturb(w, 'gain', 1.2), ...
     @(w) perturb(w, 'rotate', 10, 11), @(w) perturb(w, 'rotate', 10, 12), ...
     @(w) perturb(w, 'tempo', 0.9), @(w) perturb(w, 'tempo', 1.1), ...

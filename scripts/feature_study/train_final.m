@@ -1,7 +1,8 @@
 function train_final(root)
 % 本番候補のモデルを、提出用の前処理関数そのものを通して学習・検証する。
 %   特徴量 : submission/ergonomic32_svm の前処理関数（30列＋ゼロ埋め2列。回転の揺れ3列は対数）
-%   手法   : ガウスSVM、1対1、標準化あり、カーネルスケール 5.5、ボックス制約 10
+%   手法   : ガウスSVM、1対1、カーネルスケール 7.7、ボックス制約 10。標準化は前処理関数の
+%            固定の定数で済ませるので、学習器の標準化（2クラスの組ごと）は切る
 %   学習   : 学習用2941窓＋拡張8通り（動きの強さ0.8/1.2倍、装着角度10°×2、
 %            歩調0.9/1.1倍、雑音0.005×2）＝26469行
 % 検証は記録単位の5分割交差検証を5回。拡張した窓は学習側だけに入れる。
@@ -14,7 +15,7 @@ outModel = fullfile(root, 'model', 'final_ergonomic32_svm');
 outEval = fullfile(root, 'evaluation', 'feature_study');
 if ~isfolder(outModel), mkdir(outModel); end
 
-kernelScale = 5.5;
+kernelScale = 7.7;
 boxConstraint = 10;
 data = har.loadData(root);
 raw = data.trainRaw;
@@ -34,7 +35,7 @@ Xaug = cellfun(@(f) pre(f(raw)), augmentations, 'UniformOutput', false);
 Xte = pre(data.testRaw);
 fit = @(X, Y) fitcecoc(X, Y, 'Coding', 'onevsone', 'Learners', templateSVM( ...
     'KernelFunction', 'gaussian', 'KernelScale', kernelScale, ...
-    'BoxConstraint', boxConstraint, 'Standardize', true), 'ClassNames', categorical(data.classes));
+    'BoxConstraint', boxConstraint, 'Standardize', false), 'ClassNames', categorical(data.classes));
 
 %% 記録単位の交差検証（5回）
 ids = unique(g);
@@ -71,7 +72,7 @@ fprintf('test201 %.4f (%d/%d)\n', testAcc, sum(testPred == Yte), numel(Yte));
 % ゼロ埋めの2列が結果に影響しないことの確認（30列だけで学習したモデルと比べる）
 m30 = fitcecoc(ActivityDataTrain(:, 1:30), trainActivity, 'Coding', 'onevsone', ...
     'Learners', templateSVM('KernelFunction', 'gaussian', 'KernelScale', kernelScale, ...
-    'BoxConstraint', boxConstraint, 'Standardize', true), 'ClassNames', categorical(data.classes));
+    'BoxConstraint', boxConstraint, 'Standardize', false), 'ClassNames', categorical(data.classes));
 samePrediction = isequal(predict(m30, Xte(:, 1:30)), testPred);
 fprintf('padding columns change nothing: %d\n', samePrediction);
 
@@ -91,14 +92,14 @@ end
 
 trainedModel = struct('ClassificationSVM', finalModel, ...
     'predictFcn', @(X) predict(finalModel, X), ...
-    'About', 'Gaussian SVM (one-vs-one, standardized), KernelScale 5.5, BoxConstraint 10, ergonomic32 features (gyro std as log10)');
+    'About', 'Gaussian SVM (one-vs-one, no learner standardization), KernelScale 7.7, BoxConstraint 10, ergonomic32 features (gyro std as log10, standardized in Pretreatment with fixed constants)');
 save(fullfile(outModel, 'trained.mat'), 'trainedModel', '-v7.3');
 
 C = array2table(confusionSum / repeats, 'VariableNames', cellstr(data.classes), ...
     'RowNames', cellstr(data.classes));
 writetable(C, fullfile(outEval, 'final_cv_confusion_mean.csv'), 'WriteRowNames', true);
 info = struct('id', 'final_ergonomic32_svm', 'features', 32, 'informativeFeatures', 30, ...
-    'method', 'Gaussian SVM, one-vs-one ECOC, standardize', 'kernelScale', kernelScale, ...
+    'method', 'Gaussian SVM, one-vs-one ECOC, Standardize off (fixed constants in Pretreatment)', 'kernelScale', kernelScale, ...
     'boxConstraint', boxConstraint, 'trainingRows', size(ActivityDataTrain, 1), ...
     'augmentation', 'gain 0.8/1.2, rotate 10deg x2, tempo 0.9/1.1, noise 0.005 x2', ...
     'groupedCvMean', mean(acc), 'groupedCvSd', std(acc), 'groupedCvWorst', min(acc), ...
@@ -108,7 +109,8 @@ info = struct('id', 'final_ergonomic32_svm', 'features', 32, 'informativeFeature
     'test201Missed', find(testPred ~= Yte)', ...
     'test201MissedTrue', string(Yte(testPred ~= Yte))', ...
     'test201MissedPredicted', string(testPred(testPred ~= Yte))', ...
-    'note', 'test201 was never used for feature or hyperparameter selection in this study.');
+    'note', ['test201 was never used for feature or hyperparameter selection in this study. ', ...
+    'Grouped CV here uses the fixed scaling constants computed from all training windows.']);
 har.writeJson(fullfile(outModel, 'model-info.json'), info);
 fprintf('FINAL_DONE\n');
 end

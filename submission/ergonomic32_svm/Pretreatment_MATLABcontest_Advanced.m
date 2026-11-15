@@ -63,7 +63,7 @@ verticalJerk = diff(vertical, 1, 2) * fs;
 impact = [flat(rmsOf(jerk)), max(verticalJerk, [], 2), min(verticalJerk, [], 2)];
 
 % --- リズム：歩調（列 21-24）----------------------------------------------
-% 歩行の周期は 0.5〜3 Hz に入る。上り階段は歩調が遅い。
+% 歩行の周期は 0.5〜3 Hz に入る。下り階段は歩調が速い（中央値 1.95 Hz、平地と上りは 1.56 Hz）。
 bins = 1:floor(L / 2);
 hz = bins * fs / L;
 inBand = hz >= 0.5 & hz <= 3;

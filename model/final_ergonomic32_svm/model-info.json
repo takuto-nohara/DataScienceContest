@@ -1,0 +1,44 @@
+{
+  "id": "final_ergonomic32_svm",
+  "features": 32,
+  "informativeFeatures": 30,
+  "method": "Gaussian SVM, one-vs-one ECOC, standardize",
+  "kernelScale": 5.5,
+  "boxConstraint": 10,
+  "trainingRows": 26469,
+  "augmentation": "gain 0.8/1.2, rotate 10deg x2, tempo 0.9/1.1, noise 0.005 x2",
+  "groupedCvMean": 0.97585855151309064,
+  "groupedCvSd": 0.00093118421881193921,
+  "groupedCvWorst": 0.97449846990819444,
+  "groupedCvRepeats": [
+    0.97585855151309076,
+    0.9755185311118667,
+    0.97449846990819444,
+    0.976878612716763,
+    0.976538592315539
+  ],
+  "test201Accuracy": 0.9850746268656716,
+  "test201Correct": 198,
+  "paddingNeutral": true,
+  "augmentationSeedAgreement": [
+    1,
+    0.99502487562189057,
+    0.99502487562189057
+  ],
+  "test201Missed": [
+    150,
+    177,
+    194
+  ],
+  "test201MissedTrue": [
+    "Sitting",
+    "WalkingDownstairs",
+    "Sitting"
+  ],
+  "test201MissedPredicted": [
+    "Standing",
+    "Walking",
+    "Standing"
+  ],
+  "note": "test201 was never used for feature or hyperparameter selection in this study."
+}

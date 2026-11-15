@@ -2,6 +2,8 @@ function make_figures(root)
 % レポート用の図を2枚作る。数値の元は evaluation/feature_study の CSV。
 %   forward_selection.png : 列を1つずつ足したときの記録単位交差検証の正解率（3手法）
 %   sit_stand_tilt.png    : 座位と立位の、端末の傾き（重力方向の角度）の分布
+%   sit_stand_gyro_sway.png : 座位と立位の、鉛直軸まわりのねじれ（対数）の分布
+%   sit_stand_pivot.png   : 座位と立位の、骨盤の回転の支点までの距離（bioPool）の分布
 if nargin < 1 || isempty(root)
     root = fileparts(fileparts(fileparts(mfilename('fullpath'))));
 end
@@ -76,6 +78,28 @@ title(ax, '立っていると骨盤のねじれが約3倍になる。差は比�
     'FontWeight', 'normal');
 legend(ax, {'立位', '座位'}, 'Box', 'off', 'TextColor', ink, 'Location', 'northeast');
 exportgraphics(f, fullfile(out, 'sit_stand_gyro_sway.png'), 'Resolution', 150);
+close(f);
+
+%% 座位と立位の、骨盤の回転の支点までの距離（第9段）
+addpath(fullfile(root, 'matlab'), fileparts(mfilename('fullpath')));
+data = har.loadData(root);
+[B, bn] = bioPool(data.trainRaw);
+pv = B(:, bn == "pivot_height_mean") * 100;   % cm
+lab = string(data.trainLabels);
+f = figure('Visible', 'off', 'Color', hex('#fcfcfb'), 'Position', [0 0 900 480]);
+ax = axes(f); hold(ax, 'on');
+edges = -20:1:35;
+histogram(ax, pv(lab == "Standing"), edges, 'DisplayStyle', 'stairs', 'EdgeColor', blue, 'LineWidth', 2);
+histogram(ax, pv(lab == "Sitting"), edges, 'DisplayStyle', 'stairs', 'EdgeColor', orange, 'LineWidth', 2);
+ms = median(pv(lab == "Standing")); mi = median(pv(lab == "Sitting"));
+xline(ax, ms, '-', sprintf('立位の中央値 %.1f cm', ms), 'Color', ink, 'FontName', font, 'FontSize', 9, ...
+    'LabelHorizontalAlignment', 'left');
+xline(ax, mi, '-', sprintf('座位の中央値 %.1f cm', mi), 'Color', ink, 'FontName', font, 'FontSize', 9);
+styleAxes(ax, font, ink, muted, grid);
+xlabel(ax, '骨盤の回転の支点から腰の端末までの距離（cm、窓ごとの推定）'); ylabel(ax, '窓の数');
+title(ax, '座位では座面の坐骨が支点になり、端末は支点の約9 cm上で揺れる', 'FontWeight', 'normal');
+legend(ax, {'立位', '座位'}, 'Box', 'off', 'TextColor', ink, 'Location', 'northeast');
+exportgraphics(f, fullfile(out, 'sit_stand_pivot.png'), 'Resolution', 150);
 close(f);
 fprintf('FIGURES_DONE\n');
 end

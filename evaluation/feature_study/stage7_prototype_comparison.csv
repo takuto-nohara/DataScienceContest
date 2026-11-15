@@ -1,0 +1,9 @@
+model,metric,accuracy,sitStandErrors,shift_rotate10,shift_rotate20,shift_gain0p7,shift_gain1p3,shift_tempo0p85,shift_tempo1p15,shift_noise0p01
+prototype_single_svm_v1,clRandomAug,0.992292870905588,66,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+prototype_single_svm_v1,randomWindow,0.980618837130228,50,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+prototype_single_svm_v1,grouped,0.975745211379349,59,0.92825569534172,0.83134988099286,0.971438286297178,0.968378102686161,0.958517511050663,0.967698061883713,0.844270656239374
+prototype_single_svm_v1,test201,1,0,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+final_ergonomic32_svm,clRandomAug,0.989459367562054,247,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+final_ergonomic32_svm,randomWindow,0.982318939136348,44,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+final_ergonomic32_svm,grouped,0.9816388983339,43,0.97245834750085,0.945256715402924,0.976538592315539,0.977218633117987,0.965317919075145,0.975178510710643,0.971438286297178
+final_ergonomic32_svm,test201,0.985074626865672,1,NaN,NaN,NaN,NaN,NaN,NaN,NaN

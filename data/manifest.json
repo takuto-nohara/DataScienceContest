@@ -28,5 +28,30 @@
     "body_gyro_y",
     "body_gyro_z"
   ],
-  "subjectIdentifiersAvailable": false
+  "subjectIdentifiersAvailable": false,
+  "production": {
+    "sourceFolder": "https://drive.google.com/drive/folders/1seWA8DcHJgIIuyr_13He_QgBxi1SrCQ8",
+    "sourceFileId": "1B1cfSJenlyE0RmRTJsUT7M8EZExL7O0H",
+    "archive": "DScontest_Advanced_Playground.zip",
+    "archiveSHA256": "310ea05e7bd274abf5ff9739b58de3ac31d6b334915d8c510688a65c162c4434",
+    "downloadedAt": "2026-11-18T10:59:00+09:00",
+    "note": "rawSensorData_train.mat and rawSensorData_test.mat are byte-identical to the prestudy files. The new labeled data is rawSensorData_verification.mat, bundled inside DScontest_submitModelVerifier.mltbx (fsroot/).",
+    "files": [
+      {
+        "path": "data/production/Verification/rawSensorData_verification.mat",
+        "bytes": 2390043,
+        "sha256": "c8dbd0ff9eefcc0de78b4b53b2d6b0cbae61dc1c4aebe6b1f29d22e4217446b1"
+      }
+    ],
+    "verificationWindows": 407,
+    "verificationClassCounts": {
+      "Walking": 65,
+      "WalkingUpstairs": 59,
+      "WalkingDownstairs": 55,
+      "Sitting": 75,
+      "Standing": 73,
+      "Laying": 80
+    },
+    "verificationWindowsLinkedToTrainOrTestRecordings": 345
+  }
 }

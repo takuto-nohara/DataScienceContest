@@ -31,3 +31,29 @@ videos, and organizer live scripts remain local. To restore on another PC,
 download the same ZIP through the authorized Drive folder, verify its SHA-256
 against manifest.json, and extract it into data/prestudy. The manifest hashes
 also pin each MAT file; the evaluator rejects changed datasets.
+
+## Production distribution (2026-11-18)
+
+Downloaded from the production folder
+https://drive.google.com/drive/folders/1seWA8DcHJgIIuyr_13He_QgBxi1SrCQ8
+(`DScontest_Advanced_Playground.zip`, hashes in `manifest.json` under `production`).
+
+```text
+data/
+  DScontest_Advanced_Playground.zip       # local only
+  production/
+    DScontest_submitModelVerifier.mltbx    # pre-submission check app
+    Official_MATLABcontest_Advanced_workplace.mlx
+    Pretreatment_MATLABcontest_Advanced.m  # same template as the prestudy
+    Rawdata Files/                         # train/test MAT files identical to prestudy
+    Verification/
+      rawSensorData_verification.mat      # 407 x 128 per channel, labeled (testActivity)
+```
+
+The train and test MAT files are byte-identical to the prestudy ones. The only
+new labeled data is `rawSensorData_verification.mat`, which is bundled inside
+the `.mltbx` (under `fsroot/`). The check app runs the submitted Pretreatment
+function and model on it and reports whether accuracy is at least 0.5. Copy it
+out of the toolbox into `data/production/Verification`; `har.readVerification`
+reads it. 345 of the 407 windows belong to recordings that share 64 samples
+with train or test windows, so it is not fully independent of them.

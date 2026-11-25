@@ -1,0 +1,41 @@
+<section id="result">
+<p class="eyebrow">本番データの投入結果と試行錯誤</p>
+<h2>本番配布の検証用407窓のうち、400窓を正しく分類した</h2>
+<div class="cards">
+<div class="card">
+<p class="label">検証用407窓（98.3%）</p>
+<p class="num">400/407</p>
+</div>
+<div class="card">
+<p class="label">学習・テスト用と記録がつながらない62窓</p>
+<p class="num">59/62</p>
+</div>
+<div class="card">
+<p class="label">誤り7窓のうち座位→立位</p>
+<p class="num warn">6窓</p>
+</div>
+<div class="card">
+<p class="label">端末の向きを20°回しても</p>
+<p class="num">95.8%</p>
+</div>
+</div>
+<div class="row" style="align-items: flex-start;">
+<div class="col" style="width: 812px; flex-shrink: 0;">
+<table>
+<colgroup><col style="width: 560px;"><col style="width: 252px;"></colgroup>
+<tr class="head"><th>試行錯誤（学習用2941窓）</th><th>交差検証</th></tr>
+<tr><td>主催者の12列（各軸の平均・標準偏差）</td><td>91.9%</td></tr>
+<tr><td>体の動きの意味で30列を設計</td><td>97.2%</td></tr>
+<tr><td>ジャイロを対数に、標準化を固定値に</td><td>98.2%</td></tr>
+<tr><td>座位と立位のための4列を追加</td><td>98.6%</td></tr>
+<tr class="hl"><td>重なる2列を外して上限の32列（本番）</td><td>98.6%</td></tr>
+</table>
+<p class="figcap">交差検証は、同じ記録の窓を学習と評価に分けて測った</p>
+</div>
+<div class="col" style="flex: 1;">
+<img src="/_blob/97c7ca472058dfea0861a328a3d05b48" alt="本番モデルの混同行列。左は学習用の交差検証の平均、右は検証用407窓" style="width: 820px; height: 378px;">
+<p class="figcap">行が正解、列が予測。右が検証用407窓で、橙が誤り</p>
+</div>
+</div>
+<aside>本番で配布された検証用データ407窓に、提出する前処理関数とモデルをチェックアプリと同じ手順で通しました。400窓が正解で、98.3%です。学習用のデータと記録がつながらない62窓でも59窓が正解でした。誤り7窓のうち6窓は、座位を立位とした取り違えです。端末の向きを20度回したデータでも95.8%を保ちました。表は、そこまでの試行錯誤です。主催者の12列の91.9%から、体の動きの意味で列を作り直し、ジャイロの扱いと座位・立位のための列を足して98.6%まで上げました。</aside>
+</section>

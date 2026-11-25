@@ -1,0 +1,35 @@
+<section id="count">
+<p class="eyebrow">3. 特徴量を選んだ理由③　列の数</p>
+<h2>20列でも精度は同じ。それでも上限の32列を使う</h2>
+<div class="row" style="align-items: flex-start;">
+<div class="col" style="width: 760px; flex-shrink: 0;">
+<table>
+<colgroup><col style="width: 400px;"><col style="width: 180px;"><col style="width: 180px;"></colgroup>
+<tr class="head"><th>3549窓・記録単位の交差検証</th><th>32列</th><th>20列</th></tr>
+<tr><td>正解率（5回の平均）</td><td>98.51%</td><td>98.44%</td></tr>
+<tr class="hl"><td>座位↔立位の誤り（1回あたり）</td><td>45.8</td><td>48.4</td></tr>
+<tr class="hl"><td>装着角度を20°ずらしたとき</td><td>96.1%</td><td>95.2%</td></tr>
+</table>
+<p class="figcap">3549窓は学習用・テスト用・本番配布の検証用を合わせたもの。正解率の差0.07ポイントは、分割による揺れ（標準偏差0.13）より小さい</p>
+<div class="box">
+<p>差が出たのは、座位と立位、付け方のずれの2つ。審査は別の人なので、ずれへの強さを優先して32列にした</p>
+</div>
+</div>
+<div class="col" style="flex: 1;">
+<h3>外した列と、その理由</h3>
+<div class="card">
+<p class="label">主催者の列から外した</p>
+<p class="text">ジャイロの平均3列：体はその場で回り続けないので、どの行動でもほぼ0</p>
+</div>
+<div class="card">
+<p class="label">34列から上限の32列へ</p>
+<p class="text">加速度の大きさと上下方向の標準偏差：x軸がほぼ鉛直なので、x軸の標準偏差と同じ情報</p>
+</div>
+<div class="card">
+<p class="label">20列にすると外れる12列</p>
+<p class="text">10列は残る20列から R² 0.94〜0.99 で再現できる。歩調など2列は、再現できない部分に行動の差が残らない</p>
+</div>
+</div>
+</div>
+<aside>列の数の理由です。後ろ向きに列を減らすと、20列まで精度は下がりませんでした。本番配布の分も含めた3549窓で測ると、32列が98.51%、20列が98.44%で、差は分割による揺れより小さい値です。一方で、座位と立位の誤りと、端末の付け方を20度ずらしたときの正解率は、32列のほうが良くなりました。審査は別の人のデータなので、ずれへの強さを優先して上限の32列にしました。外した列は、ほかの列と同じ情報を持つことを確かめています。</aside>
+</section>

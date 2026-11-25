@@ -25,3 +25,4 @@ evaluation/subset_check/
 !model/single_svm_v1/trainedModel.mat
 !model/final_ergonomic32_svm/trained.mat
 evaluation/feature_study/stage5_static.mat
+!submission/seitailab/trainedModel_seitailab.mat

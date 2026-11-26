@@ -1,4 +1,4 @@
-function stage16_industrial(root, repeats)
+function stage16_industrial(root, repeats, setNames, sets, outName)
 % 第16段：産業の観点（列の数・センサの数・計算の重さ）で、32列より軽い組を比べる。
 %   組は2系統。
 %   ・後ろ向き選択（stage13_backward.csv）で残った 20・12・8・6 列
@@ -8,10 +8,12 @@ function stage16_industrial(root, repeats)
 %     座位↔立位の誤り、装着角度20°のずれを加えた正解率
 %   ・学習用2941窓（＋拡張8通り）だけで学習したモデルの、検証用407窓・テスト201窓の正解数
 %   ・そのモデルのサポートベクターの数（推論の重さとメモリの目安）と、1窓あたりの推論時間
+%   setNames・sets・outName を渡すと、その組で同じ測定をする（例：stage17_six）
 if nargin < 1 || isempty(root)
     root = fileparts(fileparts(fileparts(mfilename('fullpath'))));
 end
 if nargin < 2, repeats = 3; end
+if nargin < 5, outName = 'stage16_industrial.csv'; end
 here = fileparts(mfilename('fullpath'));
 addpath(fullfile(root, 'matlab'), here);
 out = fullfile(root, 'evaluation', 'feature_study');
@@ -31,12 +33,14 @@ pick = @(n) str2double(split(B.columns(B.nFeatures == n)))';
 gyroCols = [12:15, 23, 26, 27, 29, 30, 31];   % ジャイロを使う列（31 は角加速度を使う）
 fftCols = [21:24, 32];                        % FFT を使う列
 accOnly = setdiff(1:32, gyroCols, 'stable');
-setNames = ["32列（本番）", "20列", "12列", "8列", "6列", ...
-    "加速度のみ22列", "加速度のみ・FFTなし18列", "20列から加速度のみ14列", "12列から加速度のみ8列", ...
-    "加速度のみ・FFTなし7列"];
-sets = {1:32, pick(20), pick(12), pick(8), pick(6), ...
-    accOnly, setdiff(accOnly, fftCols, 'stable'), intersect(pick(20), accOnly, 'stable'), ...
-    intersect(pick(12), accOnly, 'stable'), setdiff(intersect(pick(12), accOnly, 'stable'), fftCols, 'stable')};
+if nargin < 4
+    setNames = ["32列（本番）", "20列", "12列", "8列", "6列", ...
+        "加速度のみ22列", "加速度のみ・FFTなし18列", "20列から加速度のみ14列", "12列から加速度のみ8列", ...
+        "加速度のみ・FFTなし7列"];
+    sets = {1:32, pick(20), pick(12), pick(8), pick(6), ...
+        accOnly, setdiff(accOnly, fftCols, 'stable'), intersect(pick(20), accOnly, 'stable'), ...
+        intersect(pick(12), accOnly, 'stable'), setdiff(intersect(pick(12), accOnly, 'stable'), fftCols, 'stable')};
+end
 
 augFns = {@(w) perturb(w, 'gain', 0.8), @(w) perturb(w, 'gain', 1.2), ...
     @(w) perturb(w, 'rotate', 10, 11), @(w) perturb(w, 'rotate', 10, 12), ...
@@ -86,7 +90,7 @@ end
 T = cell2table(rows, 'VariableNames', {'set', 'nFeatures', 'usesGyro', 'nFftCols', 'groupedCv', 'groupedCvSd', ...
     'sitStandErrors', 'rotate20', 'verCorrect', 'verSitStandErrors', 'testCorrect', 'supportVectors', ...
     'msPerWindow', 'columns'});
-writetable(T, fullfile(out, 'stage16_industrial.csv'), 'Encoding', 'UTF-8');
+writetable(T, fullfile(out, outName), 'Encoding', 'UTF-8');
 fprintf('STAGE16_DONE\n');
 end
 

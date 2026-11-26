@@ -1,20 +1,20 @@
 <section id="rate">
 <h2><span class="no">1　</span>分類割合</h2>
-<p class="lead">本番の検証用データで <span class="hl">400/407窓（98.3%）</span> を正しく分類</p>
+<p class="lead">本番の検証用データで <span class="hl">400/407試行（98.3%）</span> を正しく分類</p>
 <p class="brand">生体情報処理研究室</p>
-<div class="row grow">
-<div class="col" style="width: 600px; flex-shrink: 0; gap: 18px;">
-<div class="tile grow"><p class="tl">交差検証<br>学習用 2941窓</p><p class="tn">98.6<span class="u">%</span></p></div>
-<div class="tile grow"><p class="tl">テスト<br>201窓</p><p class="tn">200<span class="u">/201</span></p></div>
-<div class="tile grow"><p class="tl">本番の検証用<br>407窓</p><p class="tn">400<span class="u">/407</span></p></div>
-<p class="cap">最終モデル：ガウスSVM（32列）<br>交差検証は、同じ記録の窓を学習と評価に分けて測った</p>
+<div class="row grow" style="gap: 72px;">
+<div class="col" style="width: 500px; flex-shrink: 0; gap: 48px; justify-content: center;">
+<div class="kpi"><p class="kl">交差検証（学習用 2941試行）</p><p class="kn">98.6<span class="u">%</span></p></div>
+<div class="kpi"><p class="kl">テスト（201試行）</p><p class="kn">200<span class="u">/201</span></p></div>
+<div class="kpi"><p class="kl">本番の検証用（407試行）</p><p class="kn">400<span class="u">/407</span></p></div>
 </div>
-<div class="card grow" style="padding: 24px 28px; justify-content: center; gap: 20px;">
-<img src="/_blob/242861f90dc085b2b7058bb28630161d" alt="本番モデルの混同行列。左は学習用の交差検証の平均、右は検証用407窓" style="width: 1000px; height: 461px;">
-<p class="cap" style="padding: 0 12px;">左：交差検証（5回の平均）　右：検証用407窓　／　行が正解・列が予測、橙が誤り</p>
-<div class="note warnnote"><p>誤り7窓のうち <b>6窓が 座位→立位</b>。残りは上り→歩行の1窓</p></div>
+<div class="col grow" style="justify-content: center; gap: 16px;">
+<img src="/_blob/78dab5fa64483b857ac1e0e125f00739" alt="本番モデルの混同行列。左は学習用の交差検証の平均、右は検証用407試行" style="width: 1124px; height: 518px;">
+<p class="cap">左：交差検証（5回の平均）　右：検証用407試行　／　行が正解・列が予測、橙が誤り</p>
+<p class="msg warn">誤り7試行のうち <b>6試行が座位→立位</b>。残りは上り→歩行の1試行</p>
 </div>
 </div>
+<p class="foot">最終モデル：ガウスSVM（特徴量32列）。交差検証は同じ記録の試行を学習と評価に分けて測定</p>
 <p class="pageno">2</p>
-<aside>分類割合です。学習用の2941窓では、同じ記録の窓が学習と評価の両方に入らないように分けて交差検証し、98.6%でした。テスト用201窓では200窓が正解です。本番で配布された検証用407窓では400窓が正解で、98.3%でした。誤りの7窓のうち6窓は、座位を立位とした取り違えです。審査データは別の人の記録と考えられるので、98%前後を見込みます。ただし、これより下がることもありえます。</aside>
+<aside>分類割合です。学習用の2941試行では、同じ記録の試行が学習と評価の両方に入らないように分けて交差検証し、98.6%でした。テスト用201試行では200試行が正解です。本番で配布された検証用407試行では400試行が正解で、98.3%でした。誤りの7試行のうち6試行は、座位を立位とした取り違えです。審査データは別の人の記録と考えられるので、98%前後を見込みます。ただし、これより下がることもありえます。</aside>
 </section>

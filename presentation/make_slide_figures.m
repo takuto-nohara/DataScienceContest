@@ -1,7 +1,7 @@
 function make_slide_figures(root)
 % 本番発表スライド用の図を書き出す（presentation/images/final_*.png）。
-%   final_confusion_compare.png : 検証用407窓での混同行列を4つのモデルで並べる
-%   final_confusion_model.png   : 本番モデルの混同行列（記録単位の交差検証の平均と、検証用407窓）
+%   final_confusion_compare.png : 検証用407試行での混同行列を4つのモデルで並べる
+%   final_confusion_model.png   : 本番モデルの混同行列（記録単位の交差検証の平均と、検証用407試行）
 % 行が正解、列が予測（図には軸の名前を書かず、スライドの本文で説明する）。対角（正解）は青、対角の外（誤り）は橙で、色の濃さは行ごとの割合。
 if nargin < 1 || isempty(root)
     root = fileparts(fileparts(mfilename('fullpath')));
@@ -28,8 +28,8 @@ if size(cv, 2) > 6, cv = cv(:, end - 5:end); end
 vf = table2array(readtable(fullfile(ev, 'stage15_confusion_ergonomic32_gauss_svm.csv'), 'ReadRowNames', true));
 f = figure('Visible', 'off', 'Color', [0.984 0.984 0.976], 'Units', 'pixels', 'Position', [0 0 1800 800]);
 t = tiledlayout(f, 1, 2, 'TileSpacing', 'loose', 'Padding', 'compact');
-drawMatrix(nexttile(t), cv, names, sprintf('学習用2941窓：記録単位の交差検証（5回の平均）%.1f%%', 100 * trace(cv) / sum(cv(:))));
-drawMatrix(nexttile(t), vf, names, sprintf('本番配布の検証用407窓：%d/407（%.1f%%）', trace(vf), 100 * trace(vf) / sum(vf(:))));
+drawMatrix(nexttile(t), cv, names, sprintf('学習用2941試行：記録単位の交差検証（5回の平均）%.1f%%', 100 * trace(cv) / sum(cv(:))));
+drawMatrix(nexttile(t), vf, names, sprintf('本番配布の検証用407試行：%d/407（%.1f%%）', trace(vf), 100 * trace(vf) / sum(vf(:))));
 exportgraphics(f, fullfile(out, 'final_confusion_model.png'), 'Resolution', 150);
 close(f);
 fprintf('FIGURES_DONE\n');

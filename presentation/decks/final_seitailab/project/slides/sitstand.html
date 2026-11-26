@@ -1,13 +1,13 @@
 <section id="sitstand">
-<h2><span class="no">3　</span>特徴量を選んだ理由②　座位と立位</h2>
-<p class="lead">骨盤の <span class="hl">傾き・ねじれ・支点</span> の3つで分ける</p>
+<h2><span class="no">3　</span>特徴量を選んだ理由<span class="pg">（2/3）</span></h2>
+<p class="lead">座位と立位は、骨盤の <span class="hl">傾き・ねじれ・支点</span> で分ける</p>
 <p class="brand">生体情報処理研究室</p>
-<div class="row grow" style="gap: 24px;">
-<div class="card grow center"><img src="/_blob/08afd5e5d6ac05b163ce7e3e08d121be" alt="座位と立位の端末の傾きの分布" style="width: 516px; height: 320px;"><p class="ct">① 骨盤の傾き</p><div class="vs"><div class="v"><p class="vk">立位</p><p class="vn">−9<span class="u">°</span></p></div><div class="v w"><p class="vk">座位</p><p class="vn">+6<span class="u">°</span></p></div></div><p class="cx">座ると骨盤が後ろへ約15°傾く</p></div>
-<div class="card grow center"><img src="/_blob/10ba6831cedda58d92418eb08bbaf43a" alt="座位と立位のジャイロxの標準偏差の分布" style="width: 516px; height: 320px;"><p class="ct">② 骨盤のねじれ</p><div class="vs"><div class="v"><p class="vk">立位</p><p class="vn">0.022</p></div><div class="v w"><p class="vk">座位</p><p class="vn">0.007</p></div></div><p class="cx">立つと左右の脚へ体重を移しかえる</p></div>
-<div class="card grow center"><img src="/_blob/388d499385e388c3642abb5413eca94e" alt="座位と立位の骨盤の回転の支点までの距離の分布" style="width: 516px; height: 320px;"><p class="ct">③ 回転の支点までの距離</p><div class="vs"><div class="v"><p class="vk">立位</p><p class="vn">1.7<span class="u">cm</span></p></div><div class="v w"><p class="vk">座位</p><p class="vn">9.3<span class="u">cm</span></p></div></div><p class="cx">支点は 立位が股関節、座位が坐骨</p></div>
+<div class="row grow" style="gap: 56px; align-items: center;">
+<div class="grp grow"><img src="/_blob/5b68a987761924bfe94269727de995f1" alt="座位と立位の端末の傾きの分布" style="width: 528px; height: 311px;"><p class="gt">① 骨盤の傾き</p><p class="vals">立位 <span class="vn">−9°</span>　座位 <span class="vn w">+6°</span></p><p class="gx">座ると骨盤が後ろへ約15°傾く</p></div>
+<div class="grp grow"><img src="/_blob/176e286089bdcd366e9b71316b653103" alt="座位と立位のジャイロxの標準偏差の分布" style="width: 528px; height: 311px;"><p class="gt">② 骨盤のねじれ</p><p class="vals">立位 <span class="vn">0.022</span>　座位 <span class="vn w">0.007</span></p><p class="gx">立つと左右の脚へ体重を移しかえる</p></div>
+<div class="grp grow"><img src="/_blob/b6449cedac2c662c69b07842a94fc25c" alt="座位と立位の骨盤の回転の支点までの距離の分布" style="width: 528px; height: 311px;"><p class="gt">③ 回転の支点までの距離</p><p class="vals">立位 <span class="vn">1.7cm</span>　座位 <span class="vn w">9.3cm</span></p><p class="gx">支点は立位が股関節、座位が坐骨</p></div>
 </div>
-<div class="note"><p>背筋を伸ばして座ると傾きは立位と重なる → <b>傾き以外の手がかり</b>（ねじれ・支点）を足した</p></div>
+<p class="msg">背筋を伸ばして座ると傾きは立位と重なる → <b>傾き以外の手がかり</b>（ねじれ・支点）を足した</p>
 <p class="foot">ねじれはジャイロx の標準偏差（rad/s）。約3倍の差なので対数で扱う</p>
 <p class="pageno">5</p>
 <aside>最も難しいのは座位と立位です。2つの姿勢の本当の違いは股関節と膝の曲がりですが、腰の端末には映りません。そこで骨盤の動きの違いを列にしました。1つ目は傾きで、座ると骨盤が約15度後ろに傾きます。この列を抜くと座位と立位の正解率は96.8%から86.6%に下がります。2つ目はねじれで、立っていると左右の脚に体重を移しかえるので骨盤が回ります。座面があると抑えられ、約3倍の差になります。3つ目は回転の支点で、立位は股関節、座位は坐骨が支点です。背筋を伸ばして座る人は傾きが立位と同じになるので、傾き以外の手がかりが必要でした。</aside>

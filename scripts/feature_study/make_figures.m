@@ -50,7 +50,7 @@ mi = median(A.pitch_deg(A.label == "Sitting"));
 xline(ax, ms, '-', sprintf('立位の中央値 %.0f°', ms), 'Color', ink, 'FontName', font, 'FontSize', 9);
 xline(ax, mi, '-', sprintf('座位の中央値 %.0f°', mi), 'Color', ink, 'FontName', font, 'FontSize', 9);
 styleAxes(ax, font, ink, muted, grid);
-xlabel(ax, '端末の傾き atan2(重力y, 重力x)（度）'); ylabel(ax, '窓の数');
+xlabel(ax, '端末の傾き atan2(重力y, 重力x)（度）'); ylabel(ax, '試行の数');
 title(ax, '座ると端末が約15°傾く。ただし座位の傾きは人や座り方で大きくばらつく', ...
     'FontWeight', 'normal');
 legend(ax, {'立位', '座位'}, 'Box', 'off', 'TextColor', ink, 'Location', 'northeast');
@@ -73,7 +73,7 @@ xline(ax, log10(mi), '-', sprintf('座位の中央値 %.3f rad/s', mi), 'Color',
 styleAxes(ax, font, ink, muted, grid);
 xticks(ax, -3:1:0);
 xticklabels(ax, {'0.001', '0.01', '0.1', '1'});
-xlabel(ax, 'ジャイロxの標準偏差（鉛直軸まわりのねじれ、rad/s、対数の目盛り）'); ylabel(ax, '窓の数');
+xlabel(ax, 'ジャイロxの標準偏差（鉛直軸まわりのねじれ、rad/s、対数の目盛り）'); ylabel(ax, '試行の数');
 title(ax, '立っていると骨盤のねじれが約3倍になる。差は比で現れるので対数で扱う', ...
     'FontWeight', 'normal');
 legend(ax, {'立位', '座位'}, 'Box', 'off', 'TextColor', ink, 'Location', 'northeast');
@@ -96,7 +96,7 @@ xline(ax, ms, '-', sprintf('立位の中央値 %.1f cm', ms), 'Color', ink, 'Fon
     'LabelHorizontalAlignment', 'left');
 xline(ax, mi, '-', sprintf('座位の中央値 %.1f cm', mi), 'Color', ink, 'FontName', font, 'FontSize', 9);
 styleAxes(ax, font, ink, muted, grid);
-xlabel(ax, '骨盤の回転の支点から腰の端末までの距離（cm、窓ごとの推定）'); ylabel(ax, '窓の数');
+xlabel(ax, '骨盤の回転の支点から腰の端末までの距離（cm、試行ごとの推定）'); ylabel(ax, '試行の数');
 title(ax, '座位では座面の坐骨が支点になり、端末は支点の約9 cm上で揺れる', 'FontWeight', 'normal');
 legend(ax, {'立位', '座位'}, 'Box', 'off', 'TextColor', ink, 'Location', 'northeast');
 exportgraphics(f, fullfile(out, 'sit_stand_pivot.png'), 'Resolution', 150);

@@ -2,6 +2,7 @@ function make_slide_figures(root)
 % 本番発表スライド用の図を書き出す（presentation/images/final_*.png）。
 %   final_confusion_compare.png : 検証用407試行での混同行列を4つのモデルで並べる
 %   final_confusion_model.png   : 本番モデルの混同行列（記録単位の交差検証の平均と、検証用407試行）
+%   final_confusion_cv.png / final_confusion_verification.png : 上の2つを見出しなしで1枚ずつ
 % 行が正解、列が予測（図には軸の名前を書かず、スライドの本文で説明する）。対角（正解）は青、対角の外（誤り）は橙で、色の濃さは行ごとの割合。
 if nargin < 1 || isempty(root)
     root = fileparts(fileparts(mfilename('fullpath')));
@@ -32,6 +33,16 @@ drawMatrix(nexttile(t), cv, names, '学習用の交差検証');
 drawMatrix(nexttile(t), vf, names, sprintf('本番の検証用　%d/407', trace(vf)));
 exportgraphics(f, fullfile(out, 'final_confusion_model.png'), 'Resolution', 150);
 close(f);
+
+% 分類割合のスライド用に1枚ずつ（見出しはスライドの本文に書くので、図には付けない）
+single = {cv, 'final_confusion_cv.png'; vf, 'final_confusion_verification.png'};
+for k = 1:2
+    f = figure('Visible', 'off', 'Color', [0.984 0.984 0.976], 'Units', 'pixels', 'Position', [0 0 800 800]);
+    t = tiledlayout(f, 1, 1, 'Padding', 'compact');
+    drawMatrix(nexttile(t), single{k, 1}, names, '');
+    exportgraphics(f, fullfile(out, single{k, 2}), 'Resolution', 150);
+    close(f);
+end
 fprintf('FIGURES_DONE\n');
 end
 

@@ -144,3 +144,9 @@ table.tall3 td { padding-top: 56px; padding-bottom: 56px; }
 /* 行の多い表 */
 table.sm td { font-size: 26px; padding-top: 24px; padding-bottom: 24px; }
 .gx.sm { font-size: 26px; }
+
+/* 計算の根拠などの小さなラベル */
+.lbl { color: var(--muted); font-weight: 700; font-size: 24px; margin-right: 16px; }
+.grid3.roomy .gt { font-size: 38px; white-space: nowrap; }
+.grid3.roomy .gx { font-size: 30px; }
+.grid3.roomy .grp { gap: 18px; }

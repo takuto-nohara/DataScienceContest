@@ -140,3 +140,7 @@ table.wide th { padding: 14px 18px; }
 table.tall td { padding-top: 30px; padding-bottom: 30px; }
 table.tall2 td { padding-top: 27px; padding-bottom: 27px; }
 table.tall3 td { padding-top: 56px; padding-bottom: 56px; }
+
+/* 行の多い表 */
+table.sm td { font-size: 26px; padding-top: 24px; padding-bottom: 24px; }
+.gx.sm { font-size: 26px; }

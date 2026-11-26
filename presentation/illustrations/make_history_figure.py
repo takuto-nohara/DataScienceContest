@@ -1,42 +1,45 @@
-"""試行錯誤のスライド用の図（誤りの棒グラフ＋各段階の根拠の小図）。出力: illus/history.svg"""
+"""試行錯誤のスライド用の図（正解率の階段グラフ＋各段階の根拠の小図）。出力: illus/history.svg"""
 import math, os, sys
 src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'make_feature_illustrations.py'), encoding='utf-8').read().split('os.makedirs(OUT')[0]
 exec(src)
 GRAY = '#C9D2DE'
 W, H = 1800, 760
 
-stages = [  # 名前, 正解率, 動作の間, 座位↔立位, その他
-    ('主催者の12列', '91.9%', 141, 93, 3),
-    ('観点で30列', '96.8%', 13, 80, 1),
-    ('揺れを対数に', '98.1%', 13, 43, 1),
-    ('ねじれの細かさ', '98.2%', 7, 45, 1),
-    ('回転の支点', '98.6%', 3, 39, 0),
+stages = [  # 名前, 正解率, 伸びの色（何の取り違えが減ったか）
+    ('主催者の12列', 91.94, None),
+    ('観点で30列', 96.80, ACC),
+    ('揺れを対数に', 98.06, WARN),
+    ('ねじれの細かさ', 98.20, ACC),
+    ('回転の支点', 98.57, WARN),
 ]
 cx = [180 + 360 * k for k in range(5)]
-base, sc, bw = 318, 0.95, 128
+base, bw = 318, 150
+y100 = 84
+sc = (base - y100) / 10.0          # 90%〜100%
+Y = lambda acc: base - (acc - 90) * sc
+STEP = '#AEBBCD'
 b = []
 # 凡例
-b += [f'<rect x="1100" y="6" width="22" height="22" rx="4" fill="{ACC}"/>', text(1132, 26, '歩行・上り・下りの取り違え', 22, INK, 'start', False),
-      f'<rect x="1100" y="40" width="22" height="22" rx="4" fill="{WARN}"/>', text(1132, 60, '座位と立位の取り違え', 22, INK, 'start', False)]
-b.append(text(0, 26, '残った誤り　試行数', 22, MUTED, 'start'))
-for k, (nm, acc, dyn, ss, oth) in enumerate(stages):
+b += [f'<rect x="0" y="6" width="22" height="22" rx="4" fill="{ACC}"/>', text(32, 26, '歩行と階段の取り違えが減った分', 22, INK, 'start', False),
+      f'<rect x="420" y="6" width="22" height="22" rx="4" fill="{WARN}"/>', text(452, 26, '座位と立位の取り違えが減った分', 22, INK, 'start', False)]
+# 目盛り：90%と100%
+b.append(f'<line x1="10" y1="{base}" x2="{W - 10}" y2="{base}" stroke="{LINE}" stroke-width="2"/>')
+b.append(text(W - 10, base - 10, '90%', 22, MUTED, 'end'))
+prev = None
+for k, (nm, acc, col) in enumerate(stages):
     x = cx[k] - bw / 2
-    y = base
-    for v, col in ((ss, WARN), (dyn, ACC), (oth, GRAY)):
-        if v == 0:
-            continue
-        h = v * sc
-        b.append(f'<rect x="{x}" y="{y - h:.1f}" width="{bw}" height="{h:.1f}" fill="{col}"/>')
-        y -= h + 2  # 区切りの隙間
-    b.append(text(cx[k], y - 12, str(dyn + ss + oth), 30, INK))
-    b.append(f'<line x1="{cx[k] - 170}" y1="{base}" x2="{cx[k] + 170}" y2="{base}" stroke="{LINE}" stroke-width="2"/>')
+    top_prev = Y(prev) if prev is not None else Y(acc)
+    # これまでに積み上げた分
+    b.append(f'<rect x="{x}" y="{top_prev:.1f}" width="{bw}" height="{base - top_prev:.1f}" fill="{STEP}"/>')
+    if prev is not None:
+        h = Y(prev) - Y(acc)
+        b.append(f'<rect x="{x}" y="{Y(acc):.1f}" width="{bw}" height="{max(h, 3):.1f}" fill="{col}"/>')
+        b.append(text(cx[k], Y(acc) - 12, f'+{acc - prev:.1f}', 30, col))
+        # 前の段からの段差を点線でつなぐ
+        b.append(f'<line x1="{cx[k - 1] + bw / 2}" y1="{Y(prev):.1f}" x2="{x}" y2="{Y(prev):.1f}" stroke="{MUTED}" stroke-width="2" stroke-dasharray="4 5"/>')
     b.append(text(cx[k], base + 44, nm, 28, INK))
-    b.append(text(cx[k], base + 92, acc, 40, ACC))
-# 段階のあいだ：減った誤り
-moves = [(141, 13, ACC), (80, 43, WARN), (13, 7, ACC), (45, 39, WARN)]
-for k, (a, c, col) in enumerate(moves):
-    mx = (cx[k] + cx[k + 1]) / 2
-    b.append(text(mx, 236, f'{a} → {c}', 26, col))
+    b.append(text(cx[k], base + 92, f'{acc:.1f}%', 40, ACC))
+    prev = acc
 
 # 下段：各段階の根拠の小図
 top = 472

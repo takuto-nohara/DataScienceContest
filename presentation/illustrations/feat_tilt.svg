@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="400" viewBox="0 0 480 200"><g stroke="#1C2B4A" stroke-width="6.3" stroke-linecap="round" fill="none">
+<line x1="70.0" y1="48.2" x2="70.0" y2="104.0"/>
+<line x1="70.0" y1="59.0" x2="57.4" y2="96.8"/>
+<line x1="70.0" y1="59.0" x2="82.6" y2="96.8"/>
+<line x1="70.0" y1="104.0" x2="65.5" y2="137.3"/>
+<line x1="65.5" y1="137.3" x2="62.8" y2="168.8"/>
+<line x1="70.0" y1="104.0" x2="74.5" y2="137.3"/>
+<line x1="74.5" y1="137.3" x2="77.2" y2="168.8"/>
+</g>
+<circle cx="70.0" cy="35.6" r="10.8" fill="#1C2B4A"/>
+<rect x="-4.0" y="-7.2" width="8.1" height="14.4" rx="2" fill="#2B5EA7" transform="translate(78.1 98.6) rotate(0)"/><line x1="96.0" y1="100.0" x2="96.0" y2="64.8" stroke="#2B5EA7" stroke-width="4" stroke-linecap="round"/><polygon points="96.0,56.0 100.8,65.9 91.2,65.9" fill="#2B5EA7"/><line x1="96.0" y1="100.0" x2="96.0" y2="137.2" stroke="#B8501A" stroke-width="4" stroke-linecap="round"/><polygon points="96.0,146.0 91.2,136.1 100.8,136.1" fill="#B8501A"/><polyline points="196.0,70.0 202.0,123.0 276.0,123.0" fill="none" stroke="#B9C6D8" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/><polyline points="206.0,123.0 206.0,182.0" fill="none" stroke="#B9C6D8" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/><polyline points="270.0,123.0 270.0,182.0" fill="none" stroke="#B9C6D8" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/><g stroke="#1C2B4A" stroke-width="6.3" stroke-linecap="round" fill="none">
+<line x1="220.6" y1="58.4" x2="226.0" y2="116.0"/>
+<line x1="221.5" y1="69.2" x2="249.4" y2="107.0"/>
+<line x1="221.5" y1="69.2" x2="249.4" y2="107.0"/>
+<line x1="226.0" y1="116.0" x2="267.4" y2="116.0"/>
+<line x1="267.4" y1="116.0" x2="269.2" y2="168.2"/>
+<line x1="226.0" y1="116.0" x2="267.4" y2="116.0"/>
+<line x1="267.4" y1="116.0" x2="269.2" y2="168.2"/>
+</g>
+<circle cx="218.8" cy="45.8" r="10.8" fill="#1C2B4A"/>
+<rect x="-4.0" y="-7.2" width="8.1" height="14.4" rx="2" fill="#2B5EA7" transform="translate(234.1 110.6) rotate(0)"/><line x1="262.0" y1="100.0" x2="258.7" y2="65.0" stroke="#2B5EA7" stroke-width="4" stroke-linecap="round"/><polygon points="257.9,56.2 263.6,65.6 254.1,66.5" fill="#2B5EA7"/><line x1="262.0" y1="100.0" x2="262.0" y2="137.2" stroke="#B8501A" stroke-width="4" stroke-linecap="round"/><polygon points="262.0,146.0 257.2,136.1 266.8,136.1" fill="#B8501A"/><polyline points="312.0,156.0 476.0,156.0" fill="none" stroke="#B9C6D8" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/><g stroke="#1C2B4A" stroke-width="6.3" stroke-linecap="round" fill="none">
+<line x1="348.2" y1="140.0" x2="404.0" y2="140.0"/>
+<line x1="359.0" y1="140.0" x2="396.8" y2="152.6"/>
+<line x1="359.0" y1="140.0" x2="396.8" y2="127.4"/>
+<line x1="404.0" y1="140.0" x2="437.3" y2="144.5"/>
+<line x1="437.3" y1="144.5" x2="468.8" y2="147.2"/>
+<line x1="404.0" y1="140.0" x2="437.3" y2="135.5"/>
+<line x1="437.3" y1="135.5" x2="468.8" y2="132.8"/>
+</g>
+<circle cx="335.6" cy="140.0" r="10.8" fill="#1C2B4A"/>
+<rect x="-4.0" y="-7.2" width="8.1" height="14.4" rx="2" fill="#2B5EA7" transform="translate(398.6 131.9) rotate(-90)"/><line x1="420.0" y1="112.0" x2="386.8" y2="112.0" stroke="#2B5EA7" stroke-width="4" stroke-linecap="round"/><polygon points="378.0,112.0 387.9,107.2 387.9,116.8" fill="#2B5EA7"/><line x1="420.0" y1="112.0" x2="420.0" y2="137.2" stroke="#B8501A" stroke-width="4" stroke-linecap="round"/><polygon points="420.0,146.0 415.2,136.1 424.8,136.1" fill="#B8501A"/><text x="70" y="196" font-size="20" fill="#6A7890" text-anchor="middle" font-weight="700" font-family="'BIZ UDPGothic', sans-serif">立位</text><text x="238" y="196" font-size="20" fill="#6A7890" text-anchor="middle" font-weight="700" font-family="'BIZ UDPGothic', sans-serif">座位</text><text x="400" y="196" font-size="20" fill="#6A7890" text-anchor="middle" font-weight="700" font-family="'BIZ UDPGothic', sans-serif">臥位</text><line x1="330.0" y1="22.0" x2="351.2" y2="22.0" stroke="#2B5EA7" stroke-width="3" stroke-linecap="round"/><polygon points="360.0,22.0 350.1,26.8 350.1,17.2" fill="#2B5EA7"/><text x="366" y="29" font-size="17" fill="#6A7890" text-anchor="start" font-weight="700" font-family="'BIZ UDPGothic', sans-serif">体幹の軸</text><line x1="330.0" y1="50.0" x2="351.2" y2="50.0" stroke="#B8501A" stroke-width="3" stroke-linecap="round"/><polygon points="360.0,50.0 350.1,54.8 350.1,45.2" fill="#B8501A"/><text x="366" y="57" font-size="17" fill="#6A7890" text-anchor="start" font-weight="700" font-family="'BIZ UDPGothic', sans-serif">重力</text></svg>

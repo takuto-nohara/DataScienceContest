@@ -1,19 +1,15 @@
 <section id="roles">
-<h2><span class="no">3　</span>特徴量を選んだ理由</h2>
-<p class="lead">32列の統計量を <span class="hl">体の動き</span> として読み、見分けられる行動につなげた</p>
+<h2><span class="no">2　</span>特徴量を選んだ理由</h2>
+<p class="lead">32列を <span class="hl">体の動きの6つの観点</span> で作った</p>
 <p class="brand">生体情報処理研究室</p>
-<div class="col grow" style="justify-content: flex-start;">
-<table class="wide">
-<colgroup><col style="width: 580px;"><col style="width: 520px;"><col style="width: 440px;"><col style="width: 140px;"></colgroup>
-<tr><th>計算した特徴量</th><th>体の動きとしての意味</th><th>見分けられる行動</th><th>列の数</th></tr>
-<tr><td class="k">加速度の平均</td><td class="a">体幹の傾き</td><td>座位・立位・臥位</td><td>4</td></tr>
-<tr><td class="k">加速度と角速度の標準偏差</td><td class="a">体の揺れと骨盤の回転の大きさ</td><td>静止と動作</td><td>11</td></tr>
-<tr><td class="k">加速度の変化率</td><td class="a">着地の衝撃</td><td>上りと下り</td><td>5</td></tr>
-<tr><td class="k">0.5〜3Hzの周波数成分の割合</td><td class="a">歩行のリズム</td><td>歩行と階段</td><td>4</td></tr>
-<tr><td class="k">軸どうしの相関と歪度</td><td class="a">上下と前進の連動</td><td>歩行と上り</td><td>4</td></tr>
-<tr class="hl"><td class="k">角速度の差分、回転の支点までの距離</td><td class="a">骨盤のねじれと回る支点</td><td>座位と立位</td><td>4</td></tr>
-</table>
+<div class="grid3 roomy grow" style="align-content: start; padding-top: 40px; row-gap: 110px;">
+<div class="grp"><p class="gt">体幹の傾き　<span class="n">4列</span></p><p class="gx"><span class="lbl">計算　</span>加速度の平均＝重力の向き</p><p class="gx"><span class="lbl">分ける　</span><b>座位・立位・臥位</b></p></div>
+<div class="grp"><p class="gt">揺れとねじれの大きさ　<span class="n">11列</span></p><p class="gx"><span class="lbl">計算　</span>加速度と角速度の標準偏差</p><p class="gx"><span class="lbl">分ける　</span><b>静止と動作</b></p></div>
+<div class="grp"><p class="gt">着地の衝撃　<span class="n">5列</span></p><p class="gx"><span class="lbl">計算　</span>加速度の変化率</p><p class="gx"><span class="lbl">分ける　</span><b>上りと下り</b></p></div>
+<div class="grp"><p class="gt">歩行のリズム　<span class="n">4列</span></p><p class="gx"><span class="lbl">計算　</span>FFTで0.5〜3Hzの割合</p><p class="gx"><span class="lbl">分ける　</span><b>歩行と階段</b></p></div>
+<div class="grp"><p class="gt">上下と水平の連動　<span class="n">4列</span></p><p class="gx"><span class="lbl">計算　</span>軸どうしの相関・歪度</p><p class="gx"><span class="lbl">分ける　</span><b>歩行と上り</b></p></div>
+<div class="grp"><p class="gt">骨盤の支点とねじれ方　<span class="n">4列</span></p><p class="gx"><span class="lbl">計算　</span>支点までの距離・差分</p><p class="gx"><span class="lbl">分ける　</span><b>座位と立位</b></p></div>
 </div>
-<p class="pageno">4</p>
-<aside>特徴量を選んだ理由です。使ったのは、加速度と角速度の平均、標準偏差、変化率、周波数成分、相関といった統計量です。ただし統計量を並べるのではなく、それぞれが体のどの動きを表すかを先に決めました。加速度の平均は重力の向きで、体幹の傾きを表します。座ると骨盤が後ろへ傾き、寝ると体幹が水平になるので、座位・立位・臥位を見分けられます。加速度と角速度の標準偏差は、体の揺れと骨盤の回転の大きさです。歩くと上下に揺れて骨盤が回り、静止中はほぼ0なので、静止と動作を分けます。加速度の変化率は躍度で、着地の衝撃を表します。下りは踵が着く瞬間が鋭く、上りと下りを分けます。0.5から3ヘルツの周波数成分の割合は歩行のリズムで、歩行と階段を分けます。軸どうしの相関と歪度は、上下と前進の連動です。階段では体を持ち上げる動きが前進と連動するので、歩行と上りを分けます。最後の4列は、角速度の差分と、骨盤が回る支点までの距離です。いちばん難しい座位と立位のための列で、次のページで説明します。合わせて32列です。</aside>
+<p class="pageno">3</p>
+<aside>特徴量を選んだ理由です。32列を、体の動きの6つの観点で作りました。どれも、先に見分けたい行動の組を決めてから計算方法を選んでいます。たとえば加速度の平均は、2.56秒の中で動きの成分が打ち消し合うので重力の向き、つまり体幹の傾きになります。着地の衝撃は、隣の点との差を時間で割った変化率で、下りで鋭くなります。右下の4列は、いちばん難しい座位と立位のための列で、5ページで説明します。</aside>
 </section>

@@ -74,7 +74,7 @@ ul.list li b { color: var(--ink); font-size: 30px; }
 
 /* 比べる2つの値 */
 .vals { font-size: 28px; color: var(--body); font-weight: 700; line-height: 1.3; }
-.vals .vn { font-size: 44px; color: var(--accent); }
+.vals .vn { font-size: 40px; color: var(--accent); }
 .vals .vn.w { color: var(--warn); }
 
 /* 番号の丸 */
@@ -184,3 +184,6 @@ table.tight th { padding: 10px 14px; }
 .hrow .hr b { color: var(--warn); }
 .hrow .mu { color: var(--muted); }
 .grid3.illus .gx { line-height: 1.35; }
+.vals .u { font-size: 24px; font-weight: 700; }
+.vals { white-space: nowrap; }
+.vals .u { color: var(--body); }

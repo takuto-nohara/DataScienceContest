@@ -1,19 +1,19 @@
 <section id="roles">
 <h2><span class="no">3　</span>特徴量を選んだ理由</h2>
-<p class="lead">見分けたい行動の組ごとに、<span class="hl">違いが出る体の動き</span>を列にした</p>
+<p class="lead">統計量を <span class="hl">体の動き</span> として読み、見分けられる行動につなげた</p>
 <p class="brand">生体情報処理研究室</p>
 <div class="col grow" style="justify-content: center;">
 <table class="wide">
-<colgroup><col style="width: 360px;"><col style="width: 400px;"><col style="width: 800px;"><col style="width: 120px;"></colgroup>
-<tr><th>見分ける行動</th><th>列にした体の動き</th><th>体で起きていること</th><th>列の数</th></tr>
-<tr><td class="k">座位・立位・臥位</td><td class="a">重力の向き</td><td>座ると骨盤が後ろへ傾き、寝ると体幹が水平になる</td><td>4</td></tr>
-<tr><td class="k">静止と動作</td><td class="a">動きの強さ</td><td>歩くと上下に揺れ、骨盤が回る</td><td>11</td></tr>
-<tr><td class="k">上りと下り</td><td class="a">着地の衝撃</td><td>下りは踵が着く瞬間が鋭い</td><td>5</td></tr>
-<tr><td class="k">歩行と階段</td><td class="a">歩行のリズム</td><td>上りは一段ずつ体を持ち上げる</td><td>4</td></tr>
-<tr><td class="k">歩行と上り</td><td class="a">体の協調</td><td>階段は上下と前進が連動する</td><td>4</td></tr>
-<tr class="hl"><td class="k">座位と立位</td><td class="a">骨盤のねじれと支点</td><td>いちばん難しい組</td><td>4</td></tr>
+<colgroup><col style="width: 580px;"><col style="width: 520px;"><col style="width: 440px;"><col style="width: 140px;"></colgroup>
+<tr><th>計算した特徴量</th><th>体の動きとしての意味</th><th>見分けられる行動</th><th>列の数</th></tr>
+<tr><td class="k">加速度の平均</td><td class="a">体幹の傾き</td><td>座位・立位・臥位</td><td>4</td></tr>
+<tr><td class="k">加速度と角速度の標準偏差</td><td class="a">体の揺れと骨盤の回転の大きさ</td><td>静止と動作</td><td>11</td></tr>
+<tr><td class="k">加速度の変化率</td><td class="a">着地の衝撃</td><td>上りと下り</td><td>5</td></tr>
+<tr><td class="k">0.5〜3Hzの周波数成分の割合</td><td class="a">歩行のリズム</td><td>歩行と階段</td><td>4</td></tr>
+<tr><td class="k">軸どうしの相関と歪度</td><td class="a">上下と前進の連動</td><td>歩行と上り</td><td>4</td></tr>
+<tr class="hl"><td class="k">角速度の差分、回転の支点までの距離</td><td class="a">骨盤のねじれと回る支点</td><td>座位と立位</td><td>4</td></tr>
 </table>
 </div>
 <p class="pageno">4</p>
-<aside>32列を、どの行動の組を見分けるためかで6つに分けました。姿勢の4列は重力の向きで、座ると骨盤が後ろへ傾くこと、寝ると体幹が水平になることを捉えます。動きの強さの11列は、静止と動作を分けます。着地の衝撃は躍度で測り、下り階段で踵が着く瞬間の鋭い変化を捉えます。歩行のリズムと体の協調は、歩行と階段の違いです。最後のねじれと支点の4列は、最も難しい座位と立位を分けるための列です。</aside>
+<aside>特徴量を選んだ理由です。使ったのは、加速度と角速度の平均、標準偏差、変化率、周波数成分、相関といった統計量です。ただし統計量を並べるのではなく、それぞれが体のどの動きを表すかを先に決めました。加速度の平均は重力の向きで、体幹の傾きを表します。座ると骨盤が後ろへ傾き、寝ると体幹が水平になるので、座位・立位・臥位を見分けられます。加速度と角速度の標準偏差は、体の揺れと骨盤の回転の大きさです。歩くと上下に揺れて骨盤が回り、静止中はほぼ0なので、静止と動作を分けます。加速度の変化率は躍度で、着地の衝撃を表します。下りは踵が着く瞬間が鋭く、上りと下りを分けます。0.5から3ヘルツの周波数成分の割合は歩行のリズムで、歩行と階段を分けます。軸どうしの相関と歪度は、上下と前進の連動です。階段では体を持ち上げる動きが前進と連動するので、歩行と上りを分けます。最後の4列は、角速度の差分と、骨盤が回る支点までの距離です。いちばん難しい座位と立位のための列で、次のページで説明します。合わせて32列です。</aside>
 </section>

@@ -126,3 +126,12 @@ section.cover {
 .big ul.list { gap: 24px; }
 .big ul.list li { font-size: 30px; }
 .big ul.list li b { font-size: 32px; }
+
+/* 表の中の強調 */
+td.k { color: var(--ink); font-weight: 700; }
+td.a { color: var(--accent); font-weight: 700; }
+table.wide td { font-size: 30px; padding: 26px 18px; }
+table.wide th { padding: 14px 18px; }
+.gk.big { font-size: 30px; }
+.gk.big .n { color: var(--ink); }
+.gt.xl { font-size: 48px; line-height: 1.35; }

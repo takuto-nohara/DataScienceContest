@@ -13,12 +13,12 @@ names = ["歩行", "上り", "下り", "座位", "立位", "臥位"];
 panels = {'stage15_confusion_organizer12_gauss_svm.csv', '主催者の12列 ＋ ガウスSVM';
     'stage15_confusion_ergonomic32_knn.csv', '32列 ＋ k近傍法';
     'stage15_confusion_ergonomic32_bagged_tree.csv', '32列 ＋ バギング木';
-    'stage15_confusion_ergonomic32_gauss_svm.csv', '32列 ＋ ガウスSVM（本番）'};
+    'stage15_confusion_ergonomic32_gauss_svm.csv', '32列 ＋ ガウスSVM'};
 f = figure('Visible', 'off', 'Color', [0.984 0.984 0.976], 'Units', 'pixels', 'Position', [0 0 1500 1500]);
 t = tiledlayout(f, 2, 2, 'TileSpacing', 'loose', 'Padding', 'compact');
 for k = 1:4
     C = table2array(readtable(fullfile(ev, panels{k, 1}), 'ReadRowNames', true));
-    drawMatrix(nexttile(t), C, names, sprintf('%s　%d/407（%.1f%%）', panels{k, 2}, trace(C), 100 * trace(C) / sum(C(:))));
+    drawMatrix(nexttile(t), C, names, sprintf('%s　%d/407', panels{k, 2}, trace(C)));
 end
 exportgraphics(f, fullfile(out, 'final_confusion_compare.png'), 'Resolution', 150);
 close(f);
@@ -28,8 +28,8 @@ if size(cv, 2) > 6, cv = cv(:, end - 5:end); end
 vf = table2array(readtable(fullfile(ev, 'stage15_confusion_ergonomic32_gauss_svm.csv'), 'ReadRowNames', true));
 f = figure('Visible', 'off', 'Color', [0.984 0.984 0.976], 'Units', 'pixels', 'Position', [0 0 1800 800]);
 t = tiledlayout(f, 1, 2, 'TileSpacing', 'loose', 'Padding', 'compact');
-drawMatrix(nexttile(t), cv, names, sprintf('学習用2941試行：記録単位の交差検証（5回の平均）%.1f%%', 100 * trace(cv) / sum(cv(:))));
-drawMatrix(nexttile(t), vf, names, sprintf('本番配布の検証用407試行：%d/407（%.1f%%）', trace(vf), 100 * trace(vf) / sum(vf(:))));
+drawMatrix(nexttile(t), cv, names, '学習用の交差検証');
+drawMatrix(nexttile(t), vf, names, sprintf('本番の検証用　%d/407', trace(vf)));
 exportgraphics(f, fullfile(out, 'final_confusion_model.png'), 'Resolution', 150);
 close(f);
 fprintf('FIGURES_DONE\n');

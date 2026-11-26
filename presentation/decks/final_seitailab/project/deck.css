@@ -135,3 +135,8 @@ table.wide th { padding: 14px 18px; }
 .gk.big { font-size: 30px; }
 .gk.big .n { color: var(--ink); }
 .gt.xl { font-size: 48px; line-height: 1.35; }
+
+/* 行を広げて縦の余白を使う */
+table.tall td { padding-top: 30px; padding-bottom: 30px; }
+table.tall2 td { padding-top: 27px; padding-bottom: 27px; }
+table.tall3 td { padding-top: 56px; padding-bottom: 56px; }

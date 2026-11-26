@@ -1,29 +1,19 @@
-<section id="confusion" style="padding-top: 96px; padding-bottom: 80px; gap: 24px;">
-<p class="eyebrow">5. 混同行列の比較と問題点</p>
-<h2>どのモデルにも座位と立位の取り違えが残る</h2>
-<div class="row" style="align-items: flex-start;">
-<div class="col" style="width: 680px; flex-shrink: 0; gap: 8px;">
-<img src="/_blob/ff9fbcca9ca9fc1c9e6081dbec685e34" alt="検証用407窓での4つのモデルの混同行列" style="width: 680px; height: 689px;">
-<p class="figcap">検証用407窓。行が正解、列が予測。橙が誤り</p>
+<section id="confusion">
+<h2><span class="no">5　</span>混同行列の比較と問題点</h2>
+<p class="lead">どのモデルにも <span class="hl">座位と立位の取り違え</span> が残る</p>
+<p class="brand">生体情報処理研究室</p>
+<div class="row grow" style="gap: 32px;">
+<div class="card" style="width: 700px; flex-shrink: 0; padding: 18px; gap: 6px;">
+<img src="/_blob/ff9fbcca9ca9fc1c9e6081dbec685e34" alt="検証用407窓での4つのモデルの混同行列" style="width: 640px; height: 648px;">
+<p class="cap" style="padding: 0 8px;">検証用407窓。行が正解・列が予測、橙が誤り</p>
 </div>
-<div class="col" style="flex: 1; gap: 16px;">
-<div class="card">
-<p class="label">主催者の12列＋ガウスSVM　371/407</p>
-<p class="text">歩行・上り・下りを13窓取り違える。平均と標準偏差には着地の衝撃と歩行のリズムが映らない</p>
-</div>
-<div class="card">
-<p class="label">32列＋k近傍法　384/407</p>
-<p class="text">動作は全問正解でも、座位↔立位が23窓。似た窓を探すだけなので、学習にない人の姿勢に弱いと考えられる</p>
-</div>
-<div class="card">
-<p class="label">32列＋バギング木　393/407</p>
-<p class="text">座位→立位が10窓。軸ごとの区切りの組み合わせで、傾きとねじれの斜めの境界を引きにくい</p>
-</div>
-<div class="card" style="border-color: #2B5EA7;">
-<p class="label">32列＋ガウスSVM（本番）　400/407</p>
-<p class="text">残る誤りは座位→立位6窓。背筋を伸ばして座ると傾きが立位と重なる。脚の曲がりが腰の端末に映らないための限界</p>
+<div class="col grow" style="gap: 16px;">
+<div class="card tight"><div class="band soft"><p class="bk">主催者の12列＋ガウスSVM</p><p class="bn">371<span class="u">/407</span></p></div><p class="cx"><b>歩行・上り・下りを13窓</b>取り違える。着地とリズムが平均に映らない</p></div>
+<div class="card tight"><div class="band soft"><p class="bk">32列＋k近傍法</p><p class="bn">384<span class="u">/407</span></p></div><p class="cx"><b>座位↔立位が23窓</b>。似た窓を探すだけで、新しい人の姿勢に弱い</p></div>
+<div class="card tight"><div class="band soft"><p class="bk">32列＋バギング木</p><p class="bn">393<span class="u">/407</span></p></div><p class="cx"><b>座位→立位が10窓</b>。軸ごとの区切りでは斜めの境界を引きにくい</p></div>
+<div class="card tight focus"><div class="band"><p class="bk">32列＋ガウスSVM（本番）</p><p class="bn">400<span class="u">/407</span></p></div><p class="cx"><b>座位→立位が6窓</b>。脚の曲がりは腰の端末に映らない（限界）</p></div>
 </div>
 </div>
-</div>
-<aside>本番配布の検証用407窓での混同行列を、4つのモデルで並べました。主催者の12列では、歩行と階段の取り違えが13窓あります。平均と標準偏差だけでは、着地の衝撃や歩行のリズムが映らないためです。32列にすると動作の取り違えはほぼなくなりますが、k近傍法とバギング木では座位と立位の取り違えが残ります。本番のガウスSVMでも座位を立位とした6窓が残りました。背筋を伸ばして座ると傾きが立位と同じになり、脚の曲がりは腰の端末に映りません。これが腰の端末1つでの限界です。</aside>
+<p class="pageno">8</p>
+<aside>本番配布の検証用407窓での混同行列を、4つのモデルで並べました。主催者の12列では、歩行と階段の取り違えが13窓あります。平均と標準偏差だけでは、着地の衝撃や歩行のリズムが映らないためです。32列にすると動作の取り違えはほぼなくなりますが、k近傍法とバギング木では座位と立位の取り違えが残ります。本番のガウスSVMでも座位を立位とした6窓が残りました。背筋を伸ばして座ると傾きが立位と重なり、脚の曲がりは腰の端末に映りません。これが腰の端末1つでの限界です。</aside>
 </section>

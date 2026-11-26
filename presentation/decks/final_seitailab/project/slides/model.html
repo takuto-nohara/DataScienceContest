@@ -1,10 +1,9 @@
 <section id="model">
 <h2><span class="no">4　</span>このモデルを選んだ理由</h2>
-<p class="lead"><span class="hl">ガウスSVM</span>：精度と、別の人・付け方への強さを両立</p>
+<p class="lead">交差検証と付け方のずれで最も高い <span class="hl">ガウスSVM</span> を採用</p>
 <p class="brand">生体情報処理研究室</p>
-<div class="row grow" style="gap: 32px;">
-<div class="col" style="width: 1060px; flex-shrink: 0; gap: 14px;">
-<div class="card grow" style="padding: 12px 20px; justify-content: center;">
+<div class="row grow" style="gap: 72px;">
+<div class="col" style="width: 1040px; flex-shrink: 0; gap: 16px; justify-content: center;">
 <table class="mid">
 <colgroup><col style="width: 410px;"><col style="width: 150px;"><col style="width: 130px;"><col style="width: 170px;"><col style="width: 160px;"></colgroup>
 <tr><th>学習器（32列）</th><th>交差検証</th><th>検証用</th><th>座位↔立位</th><th>20°ずれ</th></tr>
@@ -16,15 +15,14 @@
 <tr><td>決定木</td><td>93.4%</td><td>373</td><td>25</td><td>80.3%</td></tr>
 <tr><td>主催者12列＋ガウスSVM</td><td>91.9%</td><td>371</td><td>23</td><td>75.7%</td></tr>
 </table>
+<p class="cap">検証用：407試行の正解数　座位↔立位：検証用での誤りの数<br>20°ずれ：検証用の端末の向きを20°回したときの正解率</p>
 </div>
-<p class="cap">検証用：407窓の正解数　座位↔立位：検証用での誤りの数<br>20°ずれ：検証用の端末の向きを20°回したときの正解率</p>
-</div>
-<div class="col grow" style="gap: 20px; justify-content: space-between;">
-<div class="card point"><div class="badge solid"><p>1</p></div><div class="col" style="gap: 6px;"><p class="ct">曲がった境界</p><p class="cx">傾きとねじれを組み合わせて<br>座位と立位を分けられる</p></div></div>
-<div class="card point"><div class="badge solid"><p>2</p></div><div class="col" style="gap: 6px;"><p class="ct">境界からの余白が最大</p><p class="cx">人や付け方が少し変わっても<br>判定が動きにくい</p></div></div>
-<div class="card point"><div class="badge solid"><p>3</p></div><div class="col" style="gap: 6px;"><p class="ct">学習データを8通りに</p><p class="cx">強さ・向き・テンポ・雑音の<br>個人差を足した</p></div></div>
+<div class="col grow" style="gap: 48px; justify-content: center;">
+<div class="pt"><div class="badge solid"><p>1</p></div><div class="col" style="gap: 6px;"><p class="gt">曲がった境界</p><p class="gx">傾きとねじれを組み合わせて<br>座位と立位を分けられる</p></div></div>
+<div class="pt"><div class="badge solid"><p>2</p></div><div class="col" style="gap: 6px;"><p class="gt">境界からの余白が最大</p><p class="gx">人や付け方が少し変わっても<br>判定が動きにくい</p></div></div>
+<div class="pt"><div class="badge solid"><p>3</p></div><div class="col" style="gap: 6px;"><p class="gt">学習データを8通りに</p><p class="gx">強さ・向き・テンポ・雑音の<br>個人差を足した</p></div></div>
 </div>
 </div>
 <p class="pageno">7</p>
-<aside>学習器の比較です。同じ32列で6つの学習器を比べました。ニューラルネットは検証用で1窓多く正解しましたが、交差検証と、端末の向きを20度回したときの正解率はガウスSVMが上でした。ガウスSVMは曲がった境界を引けて、境界からの余白を最大にするので、新しい人や付け方の違いに強くなります。学習データは、動きの強さを0.8倍と1.2倍、向きを10度回したもの2通り、テンポを0.9倍と1.1倍、雑音2通りの8通りに増やしました。標準化の定数は学習時に決めて前処理関数に固定しているので、1試行ずつ届いても同じ値になります。</aside>
+<aside>学習器の比較です。同じ32列で6つの学習器を比べました。ニューラルネットは検証用で1試行多く正解しましたが、交差検証と、端末の向きを20度回したときの正解率はガウスSVMが上でした。ガウスSVMは曲がった境界を引けて、境界からの余白を最大にするので、新しい人や付け方の違いに強くなります。学習データは、動きの強さを0.8倍と1.2倍、向きを10度回したもの2通り、テンポを0.9倍と1.1倍、雑音2通りの8通りに増やしました。標準化の定数は学習時に決めて前処理関数に固定しているので、1試行ずつ届いても同じ値になります。</aside>
 </section>

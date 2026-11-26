@@ -1,31 +1,31 @@
 <section id="reasons">
 <h2>特徴量とモデルを選んだ理由</h2>
-<p class="lead">審査は別の人のデータ。<span class="hl">人や付け方が変わっても崩れない</span>ことを基準に選んだ</p>
 <p class="brand">生体情報処理研究室</p>
-<div class="row grow" style="gap: 96px;">
-<div class="col" style="width: 920px; flex-shrink: 0; gap: 28px; justify-content: center;">
-<div class="grp"><p class="gk big">特徴量</p><p class="gt xl">統計量を体の動きとして読み<br>誰でも同じになる列にした</p></div>
+<div class="row grow" style="gap: 48px;">
+<div class="col" style="width: 1070px; flex-shrink: 0; gap: 28px; justify-content: center;">
+<div class="grp"><p class="gk big">特徴量</p><p class="gt xl">体の構造から差が出る量</p></div>
 <table class="mid">
-<colgroup><col style="width: 440px;"><col style="width: 290px;"><col style="width: 190px;"></colgroup>
-<tr><th>計算した特徴量</th><th>体の動きとしての意味</th><th>見分ける行動</th></tr>
-<tr><td class="k">加速度の平均</td><td class="a">体幹の傾き</td><td>座位と臥位</td></tr>
-<tr><td class="k">加速度の変化率・周波数成分</td><td class="a">着地の衝撃とリズム</td><td>歩行と階段</td></tr>
-<tr><td class="k">角速度の標準偏差・支点の距離</td><td class="a">骨盤のねじれと支点</td><td>座位と立位</td></tr>
+<colgroup><col style="width: 300px;"><col style="width: 370px;"><col style="width: 400px;"></colgroup>
+<tr><th>特徴量</th><th>体で起きていること</th><th>測った差</th></tr>
+<tr><td class="k">加速度の平均</td><td>座ると骨盤が後ろへ傾く</td><td class="a">立位 −9°　座位 +6°</td></tr>
+<tr><td class="k">角速度の標準偏差</td><td>立つと体重を左右に移す</td><td class="a">立位 0.022　座位 0.007</td></tr>
+<tr><td class="k">支点までの距離</td><td>支点が股関節と坐骨で違う</td><td class="a">立位 1.7cm　座位 9.3cm</td></tr>
+<tr><td class="k">加速度の変化率</td><td>下りは踵の着地が鋭い</td><td class="a">下り 24　歩行 13</td></tr>
 </table>
-<p class="msg">主催者の12列 <b>91.9%</b> → 作り直した32列 <b>98.6%</b></p>
 </div>
 <div class="col grow" style="gap: 28px; justify-content: center;">
-<div class="grp"><p class="gk big">モデル</p><p class="gt xl">付け方のずれに<br>最も強いガウスSVM</p></div>
+<div class="grp"><p class="gk big">モデル</p><p class="gt xl">ガウスSVM</p></div>
 <table class="mid">
-<colgroup><col style="width: 280px;"><col style="width: 190px;"><col style="width: 210px;"></colgroup>
-<tr><th>学習器</th><th>交差検証</th><th>20°ずらす</th></tr>
-<tr class="hl"><td>ガウスSVM</td><td>98.6%</td><td>95.8%</td></tr>
-<tr><td>バギング木</td><td>97.8%</td><td>90.4%</td></tr>
-<tr><td>k近傍法</td><td>95.3%</td><td>90.2%</td></tr>
+<colgroup><col style="width: 195px;"><col style="width: 240px;"><col style="width: 143px;"></colgroup>
+<tr><th>学習器</th><th>座位↔立位の誤り</th><th>20°ずらす</th></tr>
+<tr class="hl"><td>ガウスSVM</td><td>6</td><td>95.8%</td></tr>
+<tr><td>線形SVM</td><td>11</td><td>94.4%</td></tr>
+<tr><td>バギング木</td><td>12</td><td>90.4%</td></tr>
+<tr><td>k近傍法</td><td>23</td><td>90.2%</td></tr>
 </table>
-<p class="msg">曲がった境界で <b>座位と立位</b> を分けられる</p>
+<div class="grp"><p class="gx"><b>曲がった境界</b>　傾きとねじれを組み合わせる</p><p class="gx"><b>余白が最大</b>　ずれても判定が動きにくい</p></div>
 </div>
 </div>
 <p class="pageno">2</p>
-<aside>特徴量とモデルを選んだ理由です。審査用のデータは、学習データとは別の人の記録です。そこで、人や端末の付け方が変わっても崩れないことを、選ぶ基準にしました。まず特徴量です。使ったのは加速度と角速度の平均、標準偏差、変化率、周波数成分といった統計量です。ただし統計量をそのまま並べるのではなく、それぞれが体のどの動きを表すかを決めてから列にしました。加速度の平均は体幹の傾きで、座位と臥位を分けます。加速度の変化率と周波数成分は着地の衝撃と歩行のリズムで、歩行と階段を分けます。角速度の標準偏差と、骨盤が回る支点までの距離は、座位と立位を分けます。体の動きは人が変わっても同じなので、別の人のデータでも崩れにくくなります。主催者の12列では交差検証が91.9%でしたが、作り直した32列で98.6%になりました。この過程で、ほかの列と同じ情報を持つ列は外しています。たとえばジャイロの平均は、体が回り続けないのでどの行動でもほぼ0でした。次にモデルです。同じ32列で学習器を比べると、交差検証の正解率も、検証用データの端末の向きを20度回したときの正解率も、ガウスSVMが最も高い結果でした。ガウスSVMは曲がった境界を引けるので、傾きとねじれの組み合わせで座位と立位を分けられます。残る限界は、背筋を伸ばして座ると傾きが立位と重なることです。</aside>
+<aside>特徴量とモデルを選んだ理由です。特徴量は、行動の間で体の構造から差が出る量を選びました。なぜ差が出るかを体の動きで説明できて、実際に測って差を確かめた量です。1つ目は加速度の平均で、重力の向き、つまり体幹の傾きを表します。座ると骨盤が後ろへ傾くので、端末の傾きの中央値は立位がマイナス9度、座位がプラス6度と、約15度違いました。2つ目は角速度の標準偏差です。立っていると左右の脚に体重を移すので骨盤がねじれます。鉛直軸まわりの揺れは、立位が0.022、座位が0.007ラジアン毎秒で、約3倍の差でした。3つ目は、骨盤が回る支点から端末までの距離です。立位では骨盤は股関節を軸に回り、座位では座面の坐骨を支点に転がります。距離は立位が1.7センチ、座位が9.3センチでした。4つ目は加速度の変化率、躍度です。下りは踵から着地するので衝撃が鋭く、下りが24、歩行が13でした。単位はg毎秒です。これらは骨格や動作の仕組みから生じる差なので、別の人のデータでも同じ向きに出ると考えました。次にモデルです。同じ32列で学習器を比べました。検証用データでの座位と立位の取り違えは、ガウスSVMが6、線形SVMが11、バギング木が12、k近傍法が23です。また、検証用データの端末の向きを計算上20度回して、付け方がずれた場合を試しました。正解率はガウスSVMが95.8%で最も高く、バギング木とk近傍法は約90%まで下がりました。ガウスSVMが強い理由は2つ考えています。座位と立位は傾きだけでは分かれず、傾きとねじれの組み合わせで分かれるので、曲がった境界が必要です。線形SVMで誤りが増えるのはこのためです。もう1つは、境界からの余白を最大にする学習なので、値が少しずれても判定が変わりにくいことです。</aside>
 </section>

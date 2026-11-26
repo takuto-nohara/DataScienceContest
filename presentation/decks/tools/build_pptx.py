@@ -107,6 +107,8 @@ def add_text(slide, it):
         if r['t'] == '\n':
             p = tf.add_paragraph()
             p.line_spacing = Pt(it['lh'] * PT) if it['lh'] else None
+            if it['align'] == 'center':
+                p.alignment = PP_ALIGN.CENTER
             continue
         run = p.add_run()
         run.text = r['t']

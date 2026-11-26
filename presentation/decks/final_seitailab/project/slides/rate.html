@@ -2,10 +2,19 @@
 <h2><span class="no">1　</span>分類割合</h2>
 <p class="lead">本番の検証用データの <span class="hl">98.3%</span> を正しく分類</p>
 <p class="brand">生体情報処理研究室</p>
-<div class="row grow" style="gap: 28px;">
-<div class="kpi" style="width: 620px; flex-shrink: 0; gap: 12px;"><p class="gt">学習データの交差検証</p><p class="gk">2941試行・同じ記録を分けた5分割</p><p class="kn">98.6<span class="u">%</span></p><img src="/_blob/fce0a6e1c167665e83040926aa1b1368" alt="学習データの交差検証の混同行列" style="width: 420px; height: 408px; margin-top: 8px;"><p class="cap">交差検証の混同行列</p><p class="capx">行が正解、列が予測</p></div>
-<div class="kpi" style="width: 400px; flex-shrink: 0; gap: 12px;"><p class="gt">テストデータ</p><p class="gk">201試行・学習に使わない</p><p class="kn">200<span class="u">/201</span></p></div>
-<div class="kpi" style="width: 620px; flex-shrink: 0; gap: 12px;"><p class="gt">本番の検証用データ</p><p class="gk">407試行・チェックアプリと同じ手順</p><p class="kn">400<span class="u">/407</span></p><img src="/_blob/fc996cbf2795f5e50eed93f8c7dfca3e" alt="本番の検証用データの混同行列" style="width: 420px; height: 408px; margin-top: 8px;"><p class="cap">検証用データの混同行列</p><p class="capx">行が正解、列が予測</p></div>
+<div class="row grow" style="gap: 72px;">
+<div class="col" style="width: 500px; flex-shrink: 0; gap: 48px; justify-content: flex-start;">
+<div class="kpi"><p class="kl">交差検証</p><p class="kn">98.6<span class="u">%</span></p></div>
+<div class="kpi"><p class="kl">テスト</p><p class="kn">200<span class="u">/201</span></p></div>
+<div class="kpi"><p class="kl">本番の検証用</p><p class="kn">400<span class="u">/407</span></p></div>
+</div>
+<div class="col grow" style="justify-content: flex-start; gap: 20px;">
+<div class="row" style="gap: 64px;">
+<div class="mx"><img src="/_blob/fce0a6e1c167665e83040926aa1b1368" alt="学習データの交差検証の混同行列" style="width: 500px; height: 486px;"><p class="mt">学習データの交差検証</p><p class="ms">2941試行・行が正解、列が予測</p></div>
+<div class="mx"><img src="/_blob/fc996cbf2795f5e50eed93f8c7dfca3e" alt="本番の検証用データの混同行列" style="width: 500px; height: 486px;"><p class="mt">本番の検証用データ</p><p class="ms">407試行・行が正解、列が予測</p></div>
+</div>
+<p class="msg warn">誤り7試行のうち <b>6試行が座位→立位</b></p>
+</div>
 </div>
 <p class="pageno">2</p>
 <aside>分類割合です。検証は3通りです。学習データの2941試行は、同じ記録の試行が学習と評価に分かれないように5分割して交差検証し、98.6%でした。テストデータの201試行は、200試行が正解です。本番の検証用データの407試行は、チェックアプリと同じ手順で通して400試行が正解、98.3%でした。混同行列は行が正解、列が予測です。誤り7試行のうち6試行は、座位を立位とした取り違えでした。</aside>

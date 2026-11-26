@@ -1,32 +1,16 @@
 <section id="result">
-<h2>本番データの結果と試行錯誤</h2>
-<p class="lead">本番の検証用407試行のうち <span class="hl">400試行（98.3%）</span> を正しく分類した</p>
+<h2>本番データの結果</h2>
+<p class="lead">本番の検証用データの <span class="hl">98.3%</span> を正しく分類した</p>
 <p class="brand">生体情報処理研究室</p>
-<div class="row" style="gap: 48px;">
-<div class="kpi grow"><p class="kl">本番の検証用 407試行</p><p class="kn">400<span class="u">/407</span></p></div>
-<div class="kpi grow"><p class="kl">学習用と別の記録 62試行</p><p class="kn">59<span class="u">/62</span></p></div>
-<div class="kpi grow"><p class="kl">端末の向きを20°回しても</p><p class="kn">95.8<span class="u">%</span></p></div>
-<div class="kpi grow warn"><p class="kl">誤り7試行のうち座位→立位</p><p class="kn">6<span class="u">試行</span></p></div>
+<div class="row grow" style="gap: 72px;">
+<div class="col" style="width: 500px; flex-shrink: 0; gap: 56px; justify-content: center;">
+<div class="kpi"><p class="kl">正解した試行</p><p class="kn">400<span class="u">/407</span></p></div>
+<div class="kpi warn"><p class="kl">誤り7試行のうち座位→立位</p><p class="kn">6<span class="u">試行</span></p></div>
 </div>
-<div class="row grow" style="gap: 64px;">
-<div class="col" style="width: 752px; flex-shrink: 0; gap: 16px;">
-<div class="rule"></div>
-<p class="gk">試行錯誤（学習用の交差検証）</p>
-<div class="steps grow mini">
-<div class="step"><p class="sp">91.9%</p><div class="bar base" style="height: 46px;"></div><div class="badge"><p>1</p></div><p class="sl">主催者<br>12列</p></div>
-<div class="step"><p class="sp">97.2%</p><div class="bar" style="height: 180px;"></div><div class="badge"><p>2</p></div><p class="sl">意味で<br>30列</p></div>
-<div class="step"><p class="sp">98.2%</p><div class="bar" style="height: 205px;"></div><div class="badge"><p>3</p></div><p class="sl">ジャイロ<br>対数化</p></div>
-<div class="step"><p class="sp">98.6%</p><div class="bar" style="height: 215px;"></div><div class="badge"><p>4</p></div><p class="sl">座位立位<br>4列追加</p></div>
-<div class="step"><p class="sp" style="color: #2B5EA7;">98.6%</p><div class="bar top" style="height: 215px;"></div><div class="badge solid"><p>5</p></div><p class="sl">32列に<br>整理</p></div>
-</div>
-</div>
-<div class="col grow" style="gap: 16px;">
-<div class="rule"></div>
-<p class="gk">混同行列（行が正解・列が予測、橙が誤り）</p>
-<img src="/_blob/9d988327f3327755fefcafd7fe1a5820" alt="本番モデルの混同行列。左は学習用の交差検証の平均、右は検証用407試行" style="width: 880px; height: 406px;">
-<p class="cap">左：交差検証の平均　右：検証用407試行</p>
+<div class="col grow" style="justify-content: center;">
+<img src="/_blob/60322cf308ee24798914927f030ff5c0" alt="本番モデルの混同行列。左は学習用の交差検証の平均、右は検証用407試行" style="width: 1124px; height: 518px;">
 </div>
 </div>
 <p class="pageno">1</p>
-<aside>本番で配布された検証用データ407試行に、提出する前処理関数とモデルをチェックアプリと同じ手順で通しました。400試行が正解で、98.3%です。学習用のデータと記録がつながらない62試行でも59試行が正解でした。端末の向きを20度回したデータでも95.8%を保ちました。誤り7試行のうち6試行は、座位を立位とした取り違えです。左のグラフは、そこまでの試行錯誤です。主催者の12列の91.9%から、体の動きの意味で列を作り直し、ジャイロの扱いと座位・立位のための列を足して98.6%まで上げました。</aside>
+<aside>本番で配布された検証用データ407試行に、提出する前処理関数とモデルをチェックアプリと同じ手順で通しました。400試行が正解で、98.3%です。右の図が混同行列で、行が正解、列が予測、橙が誤りです。左は学習用データの交差検証を5回平均したもの、右が本番の検証用データです。誤りの7試行のうち6試行は、座位を立位とした取り違えでした。残りの1試行は、上りを歩行とした誤りです。歩行・階段・臥位はほぼ取り違えていません。課題は座位と立位に絞られます。</aside>
 </section>

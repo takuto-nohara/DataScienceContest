@@ -1,30 +1,31 @@
 <section id="reasons">
 <h2>特徴量とモデルを選んだ理由</h2>
-<p class="lead">腰の端末に映る <span class="hl">体の動き</span> を基準に選んだ</p>
+<p class="lead">審査は別の人のデータ。<span class="hl">人や付け方が変わっても崩れない</span>ことを基準に選んだ</p>
 <p class="brand">生体情報処理研究室</p>
-<div class="row grow big" style="gap: 64px;">
-<div class="grp grow"><div class="rule"></div><p class="gk">残した列</p><p class="gt">骨盤と着地</p>
-<ul class="list">
-<li><b>傾き</b><br>座ると骨盤が後ろへ約15°</li>
-<li><b>ねじれ</b><br>立つと体重の移しかえで約3倍</li>
-<li><b>支点</b><br>立位は股関節、座位は坐骨</li>
-<li><b>躍度</b><br>下りは踵の着地が鋭い</li>
-</ul></div>
-<div class="grp grow"><div class="rule"></div><p class="gk">外した列</p><p class="gt">同じ情報を持つ列</p>
-<ul class="list">
-<li><b>ジャイロの平均</b><br>どの行動もほぼ0</li>
-<li><b>加速度の大きさ・上下の揺れ</b><br>x軸の揺れと同じ</li>
-<li><b>20列で外れる12列</b><br>10列は残る列から再現できる<br>（R² 0.94〜0.99）</li>
-</ul></div>
-<div class="grp grow"><div class="rule"></div><p class="gk">モデル</p><p class="gt">ガウスSVM</p>
-<ul class="list">
-<li><b>曲がった境界</b><br>傾き×ねじれで分ける</li>
-<li><b>余白が最大</b><br>人や付け方の違いに強い</li>
-<li><b>20°のずれでも 95.8%</b><br>k近傍法 90.2%・バギング木 90.4%</li>
-</ul></div>
+<div class="row grow" style="gap: 96px;">
+<div class="col grow" style="gap: 28px; justify-content: center;">
+<div class="grp"><p class="gk big">特徴量</p><p class="gt xl">誰でも同じになる<br>体の動きを列にした</p></div>
+<table class="wide">
+<colgroup><col style="width: 360px;"><col style="width: 440px;"></colgroup>
+<tr><th>見分ける行動</th><th>列にした体の動き</th></tr>
+<tr><td class="k">座位と臥位</td><td class="a">重力の向き</td></tr>
+<tr><td class="k">歩行と階段</td><td class="a">着地の衝撃とリズム</td></tr>
+<tr><td class="k">座位と立位</td><td class="a">骨盤のねじれと支点</td></tr>
+</table>
+<p class="msg">主催者の12列 <b>91.9%</b> → 作り直した32列 <b>98.6%</b></p>
 </div>
-<p class="msg">20列でも精度はほぼ同じ（98.44%・98.51%）→ <b>座位↔立位とずれへの強さ</b>で上限の32列を使う</p>
-<p class="msg warn"><b>残る限界</b>　背筋を伸ばして座ると、傾きが立位と重なる</p>
+<div class="col grow" style="gap: 28px; justify-content: center;">
+<div class="grp"><p class="gk big">モデル</p><p class="gt xl">付け方のずれに<br>最も強いガウスSVM</p></div>
+<table class="wide">
+<colgroup><col style="width: 300px;"><col style="width: 220px;"><col style="width: 280px;"></colgroup>
+<tr><th>学習器</th><th>交差検証</th><th>付け方を20°ずらす</th></tr>
+<tr class="hl"><td>ガウスSVM</td><td>98.6%</td><td>95.8%</td></tr>
+<tr><td>バギング木</td><td>97.8%</td><td>90.4%</td></tr>
+<tr><td>k近傍法</td><td>95.3%</td><td>90.2%</td></tr>
+</table>
+<p class="msg">曲がった境界で <b>座位と立位</b> を分けられる</p>
+</div>
+</div>
 <p class="pageno">2</p>
-<aside>列とモデルを選んだ理由です。残した列は、骨盤と着地の動きです。座ると骨盤が後ろへ傾き、立っていると左右の脚に体重を移すので骨盤がねじれます。骨盤が回る支点も、立位は股関節、座位は坐骨です。外した列は、ほかの列と同じ情報を持つ列です。ジャイロの平均は体が回り続けないのでどの行動でもほぼ0で、加速度の大きさや上下方向の揺れは、鉛直に向いたx軸の揺れと同じでした。モデルはガウスSVMです。曲がった境界と大きな余白で、付け方のずれに最も強い結果でした。20列でも精度はほぼ同じですが、座位と立位、付け方のずれで劣るため、32列を使います。</aside>
+<aside>特徴量とモデルを選んだ理由です。審査用のデータは、学習データとは別の人の記録です。そこで、人や端末の付け方が変わっても崩れないことを、選ぶ基準にしました。まず特徴量です。学習データの人の癖ではなく、誰でも同じになる体の動きを列にしました。座位と臥位は重力の向き、歩行と階段は着地の衝撃と歩行のリズム、座位と立位は骨盤のねじれと回転の支点で見分けます。主催者の12列では交差検証が91.9%でしたが、作り直した32列で98.6%になりました。この過程で、ほかの列と同じ情報を持つ列は外しています。たとえばジャイロの平均は、体が回り続けないのでどの行動でもほぼ0でした。次にモデルです。同じ32列で学習器を比べると、交差検証の正解率も、検証用データの端末の向きを20度回したときの正解率も、ガウスSVMが最も高い結果でした。ガウスSVMは曲がった境界を引けるので、傾きとねじれの組み合わせで座位と立位を分けられます。残る限界は、背筋を伸ばして座ると傾きが立位と重なることです。</aside>
 </section>

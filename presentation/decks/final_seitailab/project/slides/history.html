@@ -1,18 +1,17 @@
 <section id="history">
-<p class="eyebrow">2. 特徴量の設計戦略と試行錯誤</p>
-<h2>体の動きの意味から列を作り、残る誤りを1つずつ減らした</h2>
-<table>
-<colgroup><col style="width: 70px;"><col style="width: 560px;"><col style="width: 660px;"><col style="width: 374px;"></colgroup>
-<tr class="head"><th>段</th><th>したこと</th><th>理由（体の動き）</th><th>学習用の交差検証</th></tr>
-<tr><td>1</td><td>主催者の12列（各軸の平均・標準偏差）</td><td>出発点。着地やリズムは平均に映らない</td><td>91.9%</td></tr>
-<tr><td>2</td><td>意味で分けた30列を設計</td><td>姿勢・揺れ・着地・リズム・協調を別々に測る</td><td>97.2%</td></tr>
-<tr><td>3</td><td>ジャイロを対数にし、標準化を固定値に</td><td>静止中のねじれは「何倍か」で差が出る</td><td>98.2%</td></tr>
-<tr><td>4</td><td>ねじれの細かい切り替わり2列を追加</td><td>立位では左右の脚へ体重を移しかえる</td><td>98.3%（誤り51窓）</td></tr>
-<tr><td>5</td><td>支点までの距離と前後の揺れの周波数</td><td>座位は坐骨、立位は股関節が支点になる</td><td>98.6%（誤り42窓）</td></tr>
-<tr class="hl"><td>6</td><td>重なる2列を外して上限の32列へ</td><td>端末のx軸はほぼ鉛直で、上下の揺れと同じ情報</td><td>98.6%（本番）</td></tr>
-</table>
-<div class="box warnbox">
-<p><b>試したが採らなかった案</b>　静止中の微小な動き42列、文献から作った29列、座位と立位だけの専門家スコア。どれも座位と立位を2つだけで分けると95%前後で止まった</p>
+<h2><span class="no">2　</span>特徴量の試行錯誤</h2>
+<p class="lead">体の動きの意味で列を作り直し、<span class="hl">91.9% → 98.6%</span></p>
+<p class="brand">生体情報処理研究室</p>
+<div class="steps grow" style="padding: 8px 24px 0;">
+<div class="step"><p class="sp">91.9%</p><div class="bar base" style="height: 76px;"></div><div class="badge"><p>1</p></div><p class="sl">主催者の12列</p><p class="ss">平均と標準偏差だけ</p></div>
+<div class="step"><p class="sp">97.2%</p><div class="bar" style="height: 288px;"></div><div class="badge"><p>2</p></div><p class="sl">意味で30列</p><p class="ss">姿勢・揺れ・着地<br>リズム・協調</p></div>
+<div class="step"><p class="sp">98.2%</p><div class="bar" style="height: 328px;"></div><div class="badge"><p>3</p></div><p class="sl">ジャイロを対数に</p><p class="ss">静止中のねじれは<br>「何倍か」で違う</p></div>
+<div class="step"><p class="sp">98.3%</p><div class="bar" style="height: 332px;"></div><div class="badge"><p>4</p></div><p class="sl">体重の移しかえ</p><p class="ss">立位で骨盤が<br>細かく回る</p></div>
+<div class="step"><p class="sp">98.6%</p><div class="bar" style="height: 344px;"></div><div class="badge"><p>5</p></div><p class="sl">回転の支点</p><p class="ss">座位は坐骨<br>立位は股関節</p></div>
+<div class="step"><p class="sp" style="color: #2B5EA7;">98.6%</p><div class="bar top" style="height: 344px;"></div><div class="badge solid"><p>6</p></div><p class="sl">32列に整理</p><p class="ss">重なる2列を外した<br>（本番）</p></div>
 </div>
-<aside>特徴量の試行錯誤です。主催者の12列は各軸の平均と標準偏差だけなので、着地の衝撃や歩行のリズムが映らず91.9%でした。そこで体の動きの意味ごとに30列を作り、97.2%になりました。静止中のねじれは何倍違うかで差が出るので、ジャイロを対数にし、標準化の定数も固定して98.2%。立っているときの体重の移しかえを捉える列、骨盤の回転の支点までの距離などを足し、上限の32列に合わせて98.6%です。座位と立位だけを取り出して分けると、どの案でも95%前後で止まりました。腰の端末には脚の曲がりが映らないためです。</aside>
+<div class="note warnnote"><p><b>採らなかった案</b>　静止中の微小な動き42列・文献の29列・専門家スコア → どれも座位と立位で95%前後</p></div>
+<p class="foot">学習用2941窓・記録単位の交差検証</p>
+<p class="pageno">3</p>
+<aside>特徴量の試行錯誤です。主催者の12列は各軸の平均と標準偏差だけなので、着地の衝撃や歩行のリズムが映らず91.9%でした。そこで体の動きの意味ごとに30列を作り、97.2%になりました。静止中のねじれは何倍違うかで差が出るので、ジャイロを対数にし、標準化の定数も固定して98.2%。立っているときの体重の移しかえを捉える列、骨盤の回転の支点までの距離などを足し、重なる2列を外して上限の32列に合わせて98.6%です。座位と立位だけを取り出して分けると、どの案でも95%前後で止まりました。腰の端末には脚の曲がりが映らないためです。</aside>
 </section>

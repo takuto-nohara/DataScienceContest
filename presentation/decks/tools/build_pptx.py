@@ -92,7 +92,7 @@ def add_box(slide, it):
 def add_text(slide, it):
     tb = slide.shapes.add_textbox(e(it['x']), e(it['y']), e(it['w'] + 10), e(it['h']))
     tf = tb.text_frame
-    tf.word_wrap = True
+    tf.word_wrap = not it.get('nowrap')
     tf.auto_size = None
     tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
     tf.vertical_anchor = MSO_ANCHOR.TOP
@@ -110,7 +110,7 @@ def add_text(slide, it):
             continue
         run = p.add_run()
         run.text = r['t']
-        set_font(run, it['size'], r['color'], r['bold'])
+        set_font(run, r.get('size') or it['size'], r['color'], r['bold'])
 
 
 def add_table(slide, it):
@@ -122,7 +122,7 @@ def add_table(slide, it):
         tblpr.set(k, '0')
     style = tblpr.find(qn('a:tableStyleId'))
     if style is not None:
-        style.text = '{5940675A-B579-460E-94D1-54222C63F5DA}'  # No Style, Table Grid
+        style.text = '{2D5ABB26-0587-4C30-8999-92F81FD0307C}'  # No Style, No Grid
     for j, w in enumerate(cols):
         tbl.columns[j].width = e(w)
     for i, row in enumerate(rows):
@@ -142,11 +142,12 @@ def add_table(slide, it):
             tf.word_wrap = True
             run = tf.paragraphs[0].add_run()
             run.text = cell['text']
-            set_font(run, it['size'], it['color'], cell['bold'])
+            set_font(run, cell.get('size') or it['size'], cell.get('color') or it['color'], cell['bold'])
             # 罫線は下だけ細く引く
             tcpr = c._tc.get_or_add_tcPr()
-            for side in ('a:lnL', 'a:lnR', 'a:lnT', 'a:lnB'):
-                ln = etree.SubElement(tcpr, qn(side), w=str(EMU) if side == 'a:lnB' else '0')
+            for k, side in enumerate(('a:lnL', 'a:lnR', 'a:lnT', 'a:lnB')):
+                ln = etree.Element(qn(side), w=str(2 * EMU) if side == 'a:lnB' else '0')
+                tcpr.insert(k, ln)  # 罫線は塗りより前に置く（順番が違うと無視される）
                 if side == 'a:lnB':
                     sf = etree.SubElement(ln, qn('a:solidFill'))
                     etree.SubElement(sf, qn('a:srgbClr'), val='D3DCE8')

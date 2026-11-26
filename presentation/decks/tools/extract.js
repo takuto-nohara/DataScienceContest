@@ -17,7 +17,7 @@
         const rows = [...el.querySelectorAll('tr')].map(tr => ({
           bg: getComputedStyle(tr).backgroundColor,
           h: tr.getBoundingClientRect().height,
-          cells: [...tr.children].map(td => ({ text: td.innerText.trim(), bold: td.tagName === 'TH' || !!td.querySelector('b') }))
+          cells: [...tr.children].map(td => { const c = getComputedStyle(td); return { text: td.innerText.trim(), bold: parseInt(c.fontWeight) >= 600 || !!td.querySelector('b'), size: px(c.fontSize), color: c.color }; })
         }));
         const cols = [...el.querySelector('tr').children].map(c => c.getBoundingClientRect().width);
         items.push({ kind: 'table', ...rel(b), rows, cols, size: px(cs.fontSize), color: cs.color });
@@ -36,14 +36,14 @@
         const rec = n => {
           if (n.nodeType === 3) {
             const t = n.textContent.replace(/\s*\n\s*/g, '');
-            if (t) { const s = getComputedStyle(n.parentElement); runs.push({ t, color: s.color, bold: parseInt(s.fontWeight) >= 600 }); }
+            if (t) { const s = getComputedStyle(n.parentElement); runs.push({ t, color: s.color, bold: parseInt(s.fontWeight) >= 600, size: px(s.fontSize) }); }
           } else if (n.tagName === 'BR') runs.push({ t: '\n' });
           else n.childNodes.forEach(rec);
         };
         el.childNodes.forEach(rec);
         const cb = { x: b.left - R.left + px(cs.paddingLeft), y: b.top - R.top + px(cs.paddingTop),
           w: b.width - px(cs.paddingLeft) - px(cs.paddingRight), h: b.height - px(cs.paddingTop) - px(cs.paddingBottom) };
-        items.push({ kind: 'text', ...cb, runs, size: px(cs.fontSize), lh: px(cs.lineHeight), bullet: el.tagName === 'LI', align: cs.textAlign });
+        items.push({ kind: 'text', ...cb, runs, size: px(cs.fontSize), lh: px(cs.lineHeight), bullet: el.tagName === 'LI' && cs.listStyleType !== 'none', align: cs.textAlign, nowrap: cs.whiteSpace === 'nowrap' });
         return;
       }
       [...el.children].forEach(walk);

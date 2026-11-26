@@ -1,40 +1,20 @@
-<section id="roles">
-<p class="eyebrow">3. 特徴量を選んだ理由①</p>
-<h2>32列を、見分けたい行動の組と体の動きで6つに分けた</h2>
-<div class="cards" style="flex: 1;">
-<div class="card">
-<h3>姿勢（重力の向き）4列</h3>
-<p class="text" style="font-size: 28px; flex: 1;">座ると骨盤が後ろへ傾き、寝ると体幹が水平になる</p>
-<p class="label">見分ける：座位・立位・臥位</p>
+<section id="roles" class="roles">
+<h2><span class="no">3　</span>特徴量を選んだ理由①　6つの役割</h2>
+<p class="lead">見分けたい行動の組ごとに、効く体の動きを列にした</p>
+<p class="brand">生体情報処理研究室</p>
+<div class="col grow" style="gap: 24px;">
+<div class="row grow" style="gap: 24px;">
+<div class="card grow"><div class="band"><p class="bk">座位・立位・臥位</p><p class="bn">4<span class="u">列</span></p></div><p class="ct">姿勢（重力の向き）</p><p class="cx">座ると骨盤が後ろへ傾く<br>寝ると体幹が水平になる</p></div>
+<div class="card grow"><div class="band"><p class="bk">静止 と 動作</p><p class="bn">11<span class="u">列</span></p></div><p class="ct">動きの強さ</p><p class="cx">歩くと上下に揺れ、骨盤が回る<br>静止中はほぼ0</p></div>
+<div class="card grow"><div class="band"><p class="bk">上り と 下り</p><p class="bn">5<span class="u">列</span></p></div><p class="ct">着地の衝撃（躍度）</p><p class="cx">下りは踵が着く瞬間が鋭い<br>下り 24・歩行 13 g/s</p></div>
 </div>
-<div class="card">
-<h3>動きの強さ 11列</h3>
-<p class="text" style="font-size: 28px; flex: 1;">歩くと上下に揺れ、骨盤が回る。静止中はほぼ0</p>
-<p class="label">見分ける：静止と動作</p>
-</div>
-<div class="card">
-<h3>着地の衝撃（躍度）5列</h3>
-<p class="text" style="font-size: 28px; flex: 1;">下りでは踵が着く瞬間の変化が鋭い（下り24、歩行13 g/s）</p>
-<p class="label">見分ける：上りと下り</p>
+<div class="row grow" style="gap: 24px;">
+<div class="card grow"><div class="band"><p class="bk">歩行 と 階段</p><p class="bn">4<span class="u">列</span></p></div><p class="ct">歩行のリズム</p><p class="cx">上下動が歩行の周期に乗る割合<br>上りは一段ずつ持ち上げる</p></div>
+<div class="card grow"><div class="band"><p class="bk">歩行 と 上り</p><p class="bn">4<span class="u">列</span></p></div><p class="ct">体の協調</p><p class="cx">階段は上下と前進が連動する<br>相関 下り −0.45・歩行 −0.12</p></div>
+<div class="card grow focus"><div class="band warn"><p class="bk">座位 と 立位</p><p class="bn">4<span class="u">列</span></p></div><p class="ct">ねじれと支点</p><p class="cx">いちばん難しい組<br>次のページで説明</p></div>
 </div>
 </div>
-<div class="cards" style="flex: 1;">
-<div class="card">
-<h3>歩行のリズム 4列</h3>
-<p class="text" style="font-size: 28px; flex: 1;">上下動のうち歩行の周期（0.5〜3 Hz）に乗る割合。上りは一段ずつ持ち上げる</p>
-<p class="label">見分ける：歩行と階段</p>
-</div>
-<div class="card">
-<h3>体の協調 4列</h3>
-<p class="text" style="font-size: 28px; flex: 1;">階段では体の上下と前への移動が連動する（相関：下り−0.45、歩行−0.12）</p>
-<p class="label">見分ける：歩行と上り</p>
-</div>
-<div class="card">
-<h3>ねじれと支点 4列</h3>
-<p class="text" style="font-size: 28px; flex: 1;">立位は股関節、座位は座面の坐骨を支点に骨盤が揺れる</p>
-<p class="label">見分ける：座位と立位</p>
-</div>
-</div>
-<p class="small">端末のx軸はほぼ鉛直を向く（臥位以外で重力の向きxが0.94〜0.98）。そのためx軸の動きを上下動として読む</p>
+<p class="foot">端末のx軸はほぼ鉛直（臥位以外で重力の向き 0.94〜0.98）なので、x軸の動きを上下動として読む</p>
+<p class="pageno">4</p>
 <aside>32列を、どの行動の組を見分けるためかで6つに分けました。姿勢の4列は重力の向きで、座ると骨盤が後ろへ傾くこと、寝ると体幹が水平になることを捉えます。動きの強さの11列は、静止と動作を分けます。着地の衝撃は躍度で測り、下り階段で踵が着く瞬間の鋭い変化を捉えます。歩行のリズムと体の協調は、歩行と階段の違いです。最後のねじれと支点の4列は、最も難しい座位と立位を分けるための列です。</aside>
 </section>

@@ -5,11 +5,13 @@
 | ファイル | 中身 |
 |---|---|
 | `Pretreatment_MATLABcontest_Advanced_seitailab.m` | 前処理関数。公式の雛形の「ここから下を編集してよい」〜「ここまでを編集してよい」の間だけに、32列の特徴量の計算を入れたもの |
-| `trainedModel_seitailab.mat` | 変数 `trainedModel`（ガウスSVM、`model/final_ergonomic32_svm/trained.mat` と同じ） |
+| `trainedModel_seitailab.mat` | 変数 `trainedModel`（ガウスSVM、`model/final_ergonomic32_svm/trained.mat` から学習データを外した compact 版。判定は同じ） |
 
 `Pretreatment_MATLABcontest_Advanced.m` は、コピー元の前処理関数です（公式ライブスクリプトの提出作業３と同じく、これを `copyfile` で名前を変えています）。
 
 ## 確かめた結果（2026-11-26、MATLAB R2026a）
+
+2026-11-27 追記：提出フォームのモデルファイルは10MBまでですが、元のモデルは13.5MBありました。学習データを持つモデルが、本体と `predictFcn` の中に2つ入っていたためです。`compact` で学習データを外し、0.85MBにしました。学習用2941窓と検証用407窓のすべてで、元のモデルと判定が一致することを `build_submission.m` で確かめています。下の確認は、作り直したファイルでもう一度通しました。
 
 - 学習用2941窓を前処理関数に通した出力で、学習時と同じ判定になる（正解率0.9976）
 - チェックアプリと同じ手順（ファイル名の形、変数名 `trainedModel`、検証用407窓）で 400/407（0.9828）。合格の基準は0.5以上

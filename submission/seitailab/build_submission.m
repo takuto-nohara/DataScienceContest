@@ -23,8 +23,16 @@ disp('ActivityDataTrain は正しい次元数のデータです。');
 m = load(fullfile(root, 'model', 'final_ergonomic32_svm', 'trained.mat'));
 trainedModel = m.trainedModel;
 % 学習時の前処理と、この前処理関数の出力が一致することを確かめる（学習用2941窓）
-accTrain = mean(trainedModel.predictFcn(ActivityDataTrain) == trainActivity);
+yFull = trainedModel.predictFcn(ActivityDataTrain);
+accTrain = mean(yFull == trainActivity);
 fprintf('training-set accuracy through this Pretreatment: %.4f\n', accTrain);
+% 提出フォームのモデルファイルは10MBまで。保存したままでは、学習データを持つモデルが
+% 本体と predictFcn の中に2つ入り13MBを超えるので、学習データを外した compact 版にする。
+% 予測に使うサポートベクトルは残るので、判定は変わらない（下で全窓を比べて確かめる）。
+finalModel = compact(trainedModel.ClassificationSVM);
+trainedModel.ClassificationSVM = finalModel;
+trainedModel.predictFcn = @(X) predict(finalModel, X);
+assert(isequal(trainedModel.predictFcn(ActivityDataTrain), yFull), 'compact model changes predictions');
 
 %% 3-4. 提出作業２・３（公式と同じ）
 save("trainedModel_"+teamname+".mat","trainedModel")
@@ -47,6 +55,10 @@ accuracy = sum(V.testActivity == yfit) / numel(V.testActivity);
 fprintf('check app: %d/%d (%.4f) -> %s\n', sum(V.testActivity == yfit), numel(yfit), accuracy, ...
     string(accuracy >= 0.5));
 assert(accuracy >= 0.5, 'The check app would not pass this model.');
+assert(isequal(yfit, m.trainedModel.predictFcn(X)), 'compact model changes verification predictions');
+d = dir(fullfile(here, modelFile));
+fprintf('model file size: %.2f MB\n', d.bytes / 1e6);
+assert(d.bytes < 10e6, 'model file exceeds the 10 MB form limit');
 
 % 1試行だけ渡しても同じ値になること（審査では1試行ずつ届く場合もある）
 one = zeros(5, 32);
